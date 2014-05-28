@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="jquery-2.1.1.min.js"></script>
+        <script src="jquery.panorama_viewer.js"></script>
+        <script src="control.js"></script>
+        <script src="mapcontrol.js"></script>
+        <script src="page.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=N2llqDqXVuccAOeDBCxZ2ijh"></script>
+        <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+        <link rel="stylesheet" href="panorama_viewer.css">
+        <link rel="stylesheet" href="control.css">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".panorama").panorama_viewer({
+                    repeat : true,
+                    direction: "horizontal",
+                    animationTime: 700,
+                    easing: "ease-out",
+                    overlay : false
+                });
+                $("#forward").click(function () {
+                    Forward();
+                });
+                $("#backward").click(function () {
+                    Backward();
+                });
+                $("#play").click(function () {
+                    Play();
+                });
+                $("#stop").click(function () {
+                    Stop();
+                }).hide();
+                $("#maps").click(function () {
+                    $(".maps").toggle();
+                });
+                MapInit();
+                PhotoInit();
+                binding();
+            });
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="button" id="forward">下一张</div>
+        </div>
+        <div class="footer">
+            <div class="button" id="backward">上一张</div>        
+        </div>
+        <div class="information">
+            <span id="sectionname"></span>
+            <span id="photoname"></span>
+        </div>
+        <div class="player">
+            <div class="button" id="maps">地图</div>
+            <div class="button" id="play">播放</div>
+            <div class="button" id="stop">停止</div>
+        </div>
+        <div class="maps" id="baidumaps">
+            
+        </div>
+	    <div class="panorama pv-container">
+            <div class="pv-inner pv-animating">
+                <img class="pv-pano" alt="cannot load image"/>
+            </div>
+	    </div>
+    </body>
+</html>
