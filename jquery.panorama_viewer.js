@@ -128,8 +128,8 @@
           h: parseInt($bg.parent().height())
         },
         bounds = {w: width - elbounds.w, h: height - elbounds.h},
-        origin = {x: 7200, y: 0}, // Edited by ZXC
-        start = {x: 7200, y: 0},  // Edited by ZXC
+        origin = {x: 0, y: 0}, // Edited by ZXC
+        start = {x: width / 2 + 1000, y: 0},  // Edited by ZXC
         movecontinue = false;
         
         var scale = 0;
@@ -193,7 +193,7 @@
 
         function reset (){ // Edited by ZXC
             start = {x: 7200, y: 0};
-            $(this).css('backgroundPosition', '7200px 0');
+            $(this).css('backgroundPosition', width / 2 + 1000 + 'px 0');
         }
 
         function zoom (e){ // Added by ZXC

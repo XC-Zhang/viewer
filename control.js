@@ -43,7 +43,6 @@ function Station(index, first) {
     else
         j = stationlist[i - 1][0];
     LoadImg();
-    //LoadJS();
     return true;
 }
 
@@ -77,7 +76,7 @@ function MoveToCenter() {
 // Load photo specified by j
 function LoadImg() {
     $(".panorama img").attr(
-        "src" , "img/" + ToString(i) + "/" + ToString(j) + ".jpg"
+        "src" , "img/" + ToString(i) + "/" + ToString(j) + "_.jpg"
     );
     $("#photoname").text(ToString(j) + ".jpg");
     
