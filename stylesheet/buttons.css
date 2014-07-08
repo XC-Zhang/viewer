@@ -1,0 +1,23 @@
+#buttons {
+	bottom: 8px;
+	left: 266px;
+	position: absolute;
+}
+span {
+	border-color: black;
+	border-style: solid;
+	border-width: 1px;
+	display: inline-block;
+	font-size: 150%;
+	height: 30px;
+	text-align: center;
+	width: 30px;
+}
+#buttons :hover {
+	border-style: solid;
+	border-color: white;
+	cursor: pointer;
+}
+.highlight {
+	background: skyblue;
+}

@@ -1,0 +1,23 @@
+body {
+	background: black;
+	color: white;
+	font-family: "Microsoft Yahei UI";
+}
+#left {
+	top: 8px;
+	position: fixed;
+}
+.left {
+	width: 250px;
+}
+li {
+	cursor: default;	
+}
+li ul :hover {
+	background: blue;
+	cursor: pointer;
+}
+#label {
+	margin-left: 40px;
+	margin-top: 8px;
+}
