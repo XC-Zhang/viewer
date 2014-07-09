@@ -12,12 +12,6 @@ function initViewer() {
 	mCanvas.canvas.width = mCanvas.canvas.clientWidth;
 	mCanvas.canvas.height = mCanvas.canvas.clientHeight;
 	mHeight = mCanvas.canvas.height;
-	for (var i = 0; i < 7; i++) {
-		mPhotos[0][i] = new Array();
-	};
-	for (var i = 0; i < 4; i++) {
-		mPhotos[1][i] = new Array();
-	};
 }
 if (window.attachEvent) {
 	// Internet Explorer
