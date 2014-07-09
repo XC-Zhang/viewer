@@ -37,7 +37,12 @@ function loadImg(line, section, index) {
 			canvasDrawImage(this, mOffset.X, mOffset.Y, mWidth, mHeight);
 		};
 	}
+	// Show date
+	$("#label").text("拍摄日期 " + mData[mCurrent.Index].date);
 	// Show position on the map
+	if (!mMap) {
+		return;
+	}
 	if (!mMarker) {
 		mMarker = new TMarker(new TLngLat(mData[mCurrent.Index].lng, mData[mCurrent.Index].lat));
 		mMap.addOverLay(mMarker);
@@ -45,8 +50,6 @@ function loadImg(line, section, index) {
 	else {
 		mMarker.setLngLat(new TLngLat(mData[mCurrent.Index].lng, mData[mCurrent.Index].lat));
 	}
-	// Show date
-	$("#label").text("拍摄日期 " + mData[mCurrent.Index].date);
 	//mMap.centerAndZoom(new TLngLat(mData[mCurrent.Index].lng, mData[mCurrent.Index].lat), 18);
 }
 

@@ -9,16 +9,6 @@ $(document).ready(function () {
 	$("#viewer").height($(document).height() - 16);
 	$("#canvas").width($(document).width() - 274);
 	$("#canvas").height($(document).height() - 16);
-	$("li li").click(function () {
-		mCurrent.Line = $(this).parent().parent().index();
-		mCurrent.Station = $(this).index();
-		var view = [
-			new TLngLat(mStationCoordinates[mCurrent.Line][mCurrent.Station][0], mStationCoordinates[mCurrent.Line][mCurrent.Station][1]),
-			new TLngLat(mStationCoordinates[mCurrent.Line][mCurrent.Station + 1][0], mStationCoordinates[mCurrent.Line][mCurrent.Station + 1][1])
-		];
-		mMap.setViewport(view);
-		getStationInfo(mCurrent.Line, mCurrent.Station);
-	});
 	$("#next").click(function () {
 		mCurrent.Index = mCurrent.Index + 1;
 		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
@@ -26,6 +16,19 @@ $(document).ready(function () {
 	$("#prev").click(function () {
 		mCurrent.Index = mCurrent.Index - 1;
 		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
+	});
+	$("li li").click(function () {
+		mCurrent.Line = $(this).parent().parent().index();
+		mCurrent.Station = $(this).index();
+		getStationInfo(mCurrent.Line, mCurrent.Station);
+		if (!mMap) {
+			return;
+		}
+		var view = [
+			new TLngLat(mStationCoordinates[mCurrent.Line][mCurrent.Station][0], mStationCoordinates[mCurrent.Line][mCurrent.Station][1]),
+			new TLngLat(mStationCoordinates[mCurrent.Line][mCurrent.Station + 1][0], mStationCoordinates[mCurrent.Line][mCurrent.Station + 1][1])
+		];
+		mMap.setViewport(view);
 	});
 });	
 
@@ -44,7 +47,7 @@ var mStationCoordinates =
 	[ // Line 13
 		[121.37701, 31.23427], // Zhenbei Rd
 		[121.36301, 31.23945], // South Qilianshan Rd
-		[121.35081, 31.24445], // Fengzhuang Village
+		[121.35081, 31.24445], // Fengzhuang
 		[121.33067, 31.24312], // West Jinshajiang Rd
 		[121.31425, 31.24299]  // Jinyun Rd
 	]
