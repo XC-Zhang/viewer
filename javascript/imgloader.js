@@ -7,6 +7,7 @@ var mPhotos =
 	[]
 ];
 var mMarker;
+var mCurrentImage;
 
 function initViewer() {
 	mCanvas = document.getElementById("canvas").getContext("2d");
@@ -35,6 +36,7 @@ function loadImg(line, section, index) {
 		img.onload = function () {
 			mWidth = this.width * mHeight / this.height;
 			canvasDrawImage(this, mOffset.X, mOffset.Y, mWidth, mHeight);
+			mCurrentImage = this;
 		};
 	}
 	// Show date
