@@ -1,13 +1,11 @@
 var mHeight;
 var mWidth;
 var mCanvas;
-var mPhotos = 
-[
-	[],
-	[]
-];
 var mMarker;
-var mCurrentImage;
+var mCurrentImage = {
+	'Index' : 0,
+	'Image' : null
+};
 
 function initViewer() {
 	mCanvas = document.getElementById("canvas").getContext("2d");
@@ -34,9 +32,11 @@ function loadImg(line, section, index) {
 		var img = new Image();
 		img.src = "image/" + line + "/" + section + "/" + toString(index + 1) + "_" + i + ".jpg";
 		img.onload = function () {
-			mWidth = this.width * mHeight / this.height;
-			canvasDrawImage(this, mOffset.X, mOffset.Y, mWidth, mHeight);
-			mCurrentImage = this;
+			if (checkImg(this.src)) {
+				mWidth = this.width * mHeight / this.height;
+				canvasDrawImage(this, mOffset.X, mOffset.Y, mWidth, mHeight);
+				mCurrentImage = this;				
+			}
 		};
 	}
 	// Show date
@@ -60,5 +60,16 @@ function toString(value) {
 		return "0" + value;
 	} else {
 		return "" + value;
+	}
+}
+
+function checkImg(src) {
+	var index = parseInt(src.substr(10, 2));
+	if (index == mCurrent.Index) {
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

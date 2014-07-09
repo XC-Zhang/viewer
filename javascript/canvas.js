@@ -29,7 +29,6 @@ $(document).ready(function () {
 function canvasMouseMove(e) {
 	mOffset.X = e.clientX - mPosition.X + mPreservedOffset.X;
 	mOffset.Y = 0 + mPreservedOffset.Y;
-	$("#label").html(mOffset.X);
 	canvasDrawImage(mCurrentImage, mOffset.X, mOffset.Y);
 	if (mOffset.X > mWidth) {
 		mOffset.X = mOffset.X - mWidth;
