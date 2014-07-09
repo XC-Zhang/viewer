@@ -58,7 +58,7 @@ function toString(value) {
 }
 
 function checkImg(src) {
-	var index = parseInt(src.substr(src.length - 8, 2));
+	var index = parseInt(src.substr(src.length - 8, 2)) - 1;
 	if (index == mCurrent.Index) {
 		return true;
 	}
