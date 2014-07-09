@@ -22,7 +22,7 @@ if (window.attachEvent) {
 }
 
 function loadImg(line, section, index) {
-	for (var i = 0; i < 3; i++) {
+	for (var i = 0; i < 2; i++) {
 		var img = new Image();
 		img.src = "image/" + line + "/" + section + "/" + toString(index + 1) + "_" + i + ".jpg";
 		img.onload = function () {
