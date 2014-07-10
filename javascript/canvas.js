@@ -21,9 +21,9 @@ $(document).ready(function () {
 		$("#canvas").css("cursor", "pointer");
 	});
 	$(document).bind({
+		"keyup" : canvasKeyUp,
 		"mouseup" : canvasMouseUp,
-		"mouseleave" : canvasMouseLeave,
-		"selectstart" : function () {return false;}
+		"selectstart" : canvasSelectStart
 	});
 });
 
@@ -46,8 +46,19 @@ function canvasMouseUp() {
 	$("#canvas").css("cursor", "default");
 }
 
-function canvasMouseLeave() {
+function canvasSelectStart() {
+	return false;
+}
 
+function canvasKeyUp(e) {
+	if (e.which == 37 || e.which == 40) {
+		("#prev").click();
+		return;
+	}
+	if (e.which == 39 || e.which == 38) {
+		("#next").click();
+		return;
+	}
 }
 
 function canvasDrawImage(image, x, y) {
