@@ -21,6 +21,7 @@ $(document).ready(function () {
 		mCurrent.Line = $(this).parent().parent().index();
 		mCurrent.Station = $(this).index();
 		$(this).siblings().attr("class", "");
+		$(this).parent().parent().siblings().children().children().attr("class", "");
 		$(this).attr("class", "selected");
 		getStationInfo(mCurrent.Line, mCurrent.Station);
 		if (!mMap) {
