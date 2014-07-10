@@ -59,7 +59,9 @@ function toString(value) {
 
 function checkImg(src) {
 	var index = parseInt(src.substr(src.length - 8, 2)) - 1;
-	if (index == mCurrent.Index) {
+	var station = parseInt(src.substr(src.length - 10, 1));
+	var line = parseInt(src.substr(src.length - 12, 1));
+	if (index == mCurrent.Index && station == mCurrent.Station && line == mCurrent.Line) {
 		return true;
 	}
 	else
