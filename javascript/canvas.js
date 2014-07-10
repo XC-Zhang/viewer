@@ -23,7 +23,8 @@ $(document).ready(function () {
 	$(document).bind({
 		"keyup" : canvasKeyUp,
 		"mouseup" : canvasMouseUp,
-		"selectstart" : canvasSelectStart
+		"selectstart" : canvasSelectStart,
+		"resize": canvasResize
 	});
 });
 
@@ -82,5 +83,16 @@ function canvasDrawImage(image, x, y) {
 	if (mWidth + x < mCanvas.canvas.width) {
 		mCanvas.drawImage(image, mWidth + x, y, mWidth, mHeight);
 		return;
+	}
+}
+
+function canvasResize() {
+	$("#viewer").width($(window).width() - 274);
+	$("#viewer").height($(window).height() - 16);
+	$("#canvas").width($(window).width() - 274);
+	$("#canvas").height($(window).height() - 16);
+	if (mCanvas) {
+		mCanvas.canvas.width = mCanvas.canvas.clientWidth;
+		mCanvas.canvas.height = mCanvas.canvas.clientHeight;		
 	}
 }

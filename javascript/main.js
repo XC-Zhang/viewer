@@ -5,10 +5,10 @@ var mCurrent = {
 };
 
 $(document).ready(function () {
-	$("#viewer").width($(document).width() - 274);
-	$("#viewer").height($(document).height() - 16);
-	$("#canvas").width($(document).width() - 274);
-	$("#canvas").height($(document).height() - 16);
+	$("#viewer").width($(window).width() - 274);
+	$("#viewer").height($(window).height() - 16);
+	$("#canvas").width($(window).width() - 274);
+	$("#canvas").height($(window).height() - 16);
 	$("#next").click(function () {
 		mCurrent.Index = mCurrent.Index + 1;
 		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
