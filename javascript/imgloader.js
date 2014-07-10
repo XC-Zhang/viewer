@@ -66,3 +66,10 @@ function checkImg(src) {
 		return false;
 	}
 }
+
+function loadSpecific(index) {
+	mCurrent.Index = index;
+	loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
+	$("#buttons").children.attr("class", "");
+	$("#buttons").children().eq(index).attr("class", "highlight");
+}

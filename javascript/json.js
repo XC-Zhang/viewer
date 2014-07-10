@@ -12,10 +12,7 @@ function onSuccess(data) {
 		var button = $("<span></span>");
 		button.text(i + 1);
 		button.click(function () {
-			mCurrent.Index = parseInt($(this).text()) - 1;
-			loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
-			$(this).siblings().attr("class", "");
-			$(this).attr("class", "highlight");
+			loadSpecific(parseInt($(this).text()) - 1);
 		});
 		buttonsContainer.append(button);
 		if (i == 0) {
