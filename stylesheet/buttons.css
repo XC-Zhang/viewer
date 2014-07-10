@@ -1,7 +1,7 @@
 #buttons {
 	bottom: 8px;
 	left: 266px;
-	position: absolute;
+	position: fixed;
 }
 span {
 	border-color: black;
