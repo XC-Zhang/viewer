@@ -22,7 +22,7 @@ $(document).ready(function () {
 	});
 	$("#canvas").bind({
 		"mouseup" : canvasMouseUp,
-		"mouseleave" : canvasMouseUp
+		"mouseleave" : canvasMouseLeave
 	});
 });
 
@@ -43,6 +43,10 @@ function canvasMouseMove(e) {
 function canvasMouseUp() {
 	$("#canvas").unbind("mousemove", canvasMouseMove);
 	$("#canvas").css("cursor", "default");
+}
+
+function canvasMouseLeave() {
+
 }
 
 function canvasDrawImage(image, x, y) {
