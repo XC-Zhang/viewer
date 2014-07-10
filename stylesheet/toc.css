@@ -17,6 +17,10 @@ li ul :hover {
 	background: blue;
 	cursor: pointer;
 }
+li .selected {
+	border-style: solid;
+	border-width: 1px;
+}
 #label {
 	margin-left: 40px;
 	margin-top: 8px;

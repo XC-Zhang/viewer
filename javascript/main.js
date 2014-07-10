@@ -20,6 +20,8 @@ $(document).ready(function () {
 	$("li li").click(function () {
 		mCurrent.Line = $(this).parent().parent().index();
 		mCurrent.Station = $(this).index();
+		$(this).siblings().attr("class", "");
+		$(this).attr("class", "selected");
 		getStationInfo(mCurrent.Line, mCurrent.Station);
 		if (!mMap) {
 			return;
