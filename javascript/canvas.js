@@ -95,6 +95,7 @@ function canvasResize() {
 	$("#canvas").height($(window).height() - 16);
 	if (mCanvas) {
 		mCanvas.canvas.width = mCanvas.canvas.clientWidth;
-		mCanvas.canvas.height = mCanvas.canvas.clientHeight;		
+		mCanvas.canvas.height = mCanvas.canvas.clientHeight;
+		canvasDrawImage(mCurrentImage, mOffset.X, mOffset.Y);		
 	}
 }
