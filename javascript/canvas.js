@@ -51,12 +51,15 @@ function canvasSelectStart() {
 }
 
 function canvasKeyUp(e) {
+	if (!mCurrentImage) {
+		return;
+	}
 	if (e.which == 37 || e.which == 40) {
-		("#prev").click();
+		$("#prev").click();
 		return;
 	}
 	if (e.which == 39 || e.which == 38) {
-		("#next").click();
+		$("#next").click();
 		return;
 	}
 }
