@@ -58,13 +58,11 @@ function canvasKeyUp(e) {
 		return;
 	}
 	if (e.which == 37 || e.which == 40) {
-		mCurrent.Index = mCurrent.Index - 1;
-		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
+		loadPrev();
 		return;
 	}
 	if (e.which == 39 || e.which == 38) {
-		mCurrent.Index = mCurrent.Index + 1;
-		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
+		loadNext();
 		return;
 	}
 }

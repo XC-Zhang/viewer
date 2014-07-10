@@ -73,3 +73,11 @@ function loadSpecific(index) {
 	$("#buttons").children().attr("class", "");
 	$("#buttons").children().eq(index).attr("class", "highlight");
 }
+
+function loadNext() {
+	loadSpecific(mCurrent.Index + 1);
+}
+
+function loadPrev() {
+	loadSpecific(mCurrent.Index - 1);
+}
