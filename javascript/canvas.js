@@ -23,9 +23,11 @@ $(document).ready(function () {
 	$(document).bind({
 		"keyup" : canvasKeyUp,
 		"mouseup" : canvasMouseUp,
-		"selectstart" : canvasSelectStart,
-		"resize": canvasResize
+		"selectstart" : canvasSelectStart
 	});
+	$(window).bind({
+		"resize": canvasResize		
+	})
 });
 
 function canvasMouseMove(e) {
