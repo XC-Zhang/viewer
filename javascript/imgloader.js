@@ -2,10 +2,7 @@ var mHeight;
 var mWidth;
 var mCanvas;
 var mMarker;
-var mCurrentImage = {
-	'Index' : 0,
-	'Image' : null
-};
+var mCurrentImage;
 
 function initViewer() {
 	mCanvas = document.getElementById("canvas").getContext("2d");

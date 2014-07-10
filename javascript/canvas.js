@@ -28,7 +28,7 @@ $(document).ready(function () {
 });
 
 function canvasMouseMove(e) {
-	if (!mCurrentImage.Image) {
+	if (!mCurrentImage) {
 		return;
 	}
 	mOffset.X = e.clientX - mPosition.X + mPreservedOffset.X;
@@ -54,7 +54,7 @@ function canvasSelectStart() {
 }
 
 function canvasKeyUp(e) {
-	if (!mCurrentImage.Image) {
+	if (!mCurrentImage) {
 		return;
 	}
 	if (e.which == 37 || e.which == 40) {
