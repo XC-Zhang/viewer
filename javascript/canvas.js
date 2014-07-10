@@ -22,7 +22,8 @@ $(document).ready(function () {
 	});
 	$(document).bind({
 		"mouseup" : canvasMouseUp,
-		"mouseleave" : canvasMouseLeave
+		"mouseleave" : canvasMouseLeave,
+		"selectstart" : function () {return false;}
 	});
 });
 
