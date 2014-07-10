@@ -20,7 +20,7 @@ $(document).ready(function () {
 		$("#canvas").bind("mousemove", canvasMouseMove);
 		$("#canvas").css("cursor", "pointer");
 	});
-	$("#canvas").bind({
+	$(document).bind({
 		"mouseup" : canvasMouseUp,
 		"mouseleave" : canvasMouseLeave
 	});
