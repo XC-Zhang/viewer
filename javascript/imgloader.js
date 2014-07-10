@@ -70,6 +70,6 @@ function checkImg(src) {
 function loadSpecific(index) {
 	mCurrent.Index = index;
 	loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
-	$("#buttons").children.attr("class", "");
+	$("#buttons").children().attr("class", "");
 	$("#buttons").children().eq(index).attr("class", "highlight");
 }
