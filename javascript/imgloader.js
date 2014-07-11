@@ -68,6 +68,9 @@ function checkImg(src) {
 }
 
 function loadSpecific(index) {
+	if (index < 0 || index == mData.length) {
+		return;
+	}
 	mCurrent.Index = index;
 	loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
 	$("#buttons").children().attr("class", "");
