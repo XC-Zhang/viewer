@@ -3,8 +3,13 @@ var mCurrent = {
 	Station : 0,
 	Index : 0
 };
+var mHint;
 
 $(document).ready(function () {
+	mHint = $("<div></div>");
+	mHint.css("position", "fixed");
+	mHint.hide();
+	$('body').append(mHint);
 	$("#viewer").width($(window).width() - 274);
 	$("#viewer").height($(window).height() - 16);
 	$("#canvas").width($(window).width() - 274);
