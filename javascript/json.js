@@ -29,7 +29,7 @@ function onSuccess(data) {
 			}
 			else
 			{
-				var ring = mRingNumbers[mCurrent.Section][parseInt($(this).text()) - 1];
+				var ring = mRingNumbers[mCurrent.Station][parseInt($(this).text()) - 1];
 				mHint.text("最近环号：" 
 					+ ring.Number
 					+ ring.Warning ? " 距离超过50米" : "");
