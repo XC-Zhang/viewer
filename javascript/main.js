@@ -7,7 +7,12 @@ var mHint;
 
 $(document).ready(function () {
 	mHint = $("<div></div>");
-	mHint.css("position", "fixed");
+	mHint.css({
+		"position": "fixed",
+		"background": "black",
+		"border": "1px ridge white",
+		"text-align": "center"
+	});
 	mHint.hide();
 	$('body').append(mHint);
 	$("#viewer").width($(window).width() - 274);

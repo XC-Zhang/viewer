@@ -23,19 +23,19 @@ function onSuccess(data) {
 			loadSpecific(parseInt($(this).text()) - 1);
 		});
 		button.mouseover(function () {
-			if (!mRingNumbers)
+			if (!mRingNumbers || mCurrent.Line == 1)
 			{
 				mHint.text("无环号信息");
 			}
 			else
 			{
 				var ring = mRingNumbers[mCurrent.Station][parseInt($(this).text()) - 1];
-				mHint.text("最近环号：" 
-					+ ring.Number
-					+ (ring.Warning ? " 距离超过50米" : ""));
+				mHint.html("<p>最近环号：" 
+					+ ring.Number + "</p>"
+					+ (ring.Warning ? "<p style='color:red'>距离超过50米</p>" : ""));
 			}
 			mHint.offset({
-				left: $(this).offset().left, 
+				left: $(this).offset().left - 50, 
 				top : $(this).offset().top - mHint.height()
 			});
 		});
