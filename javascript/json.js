@@ -2,6 +2,7 @@ var mData;
 
 function getStationInfo(line, station) {
 	$.getJSON("image/" + line + "/" + station + "/data.json", onSuccess);
+	getRingNumbers();
 }
 
 function onSuccess(data) {
@@ -22,7 +23,17 @@ function onSuccess(data) {
 			loadSpecific(parseInt($(this).text()) - 1);
 		});
 		button.mouseover(function () {
-			mHint.text("环号" + $(this).text());
+			if (!mRingNumbers)
+			{
+				mHint.text("无环号信息");
+			}
+			else
+			{
+				var ring = mRingNumbers[mCurrent.Section][parseInt($(this).text()) - 1];
+				mHint.text("最近环号：" 
+					+ ring.Number
+					+ ring.Warning ? " 距离超过50米" : "");
+			}
 			mHint.offset({
 				left: $(this).offset().left, 
 				top : $(this).offset().top - mHint.height()
