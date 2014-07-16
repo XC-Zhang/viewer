@@ -32,7 +32,7 @@ function onSuccess(data) {
 				var ring = mRingNumbers[mCurrent.Station][parseInt($(this).text()) - 1];
 				mHint.text("最近环号：" 
 					+ ring.Number
-					+ ring.Warning ? " 距离超过50米" : "");
+					+ (ring.Warning ? " 距离超过50米" : ""));
 			}
 			mHint.offset({
 				left: $(this).offset().left, 
