@@ -11,7 +11,8 @@ $(document).ready(function () {
 		"position": "fixed",
 		"background": "black",
 		"border": "1px ridge white",
-		"text-align": "center"
+		"text-align": "center",
+		"z-index": 100
 	});
 	mHint.hide();
 	$('body').append(mHint);
