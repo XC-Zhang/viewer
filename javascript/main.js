@@ -19,6 +19,7 @@ $(document).ready(function () {
 	$("#viewer").height($(window).height() - 16);
 	$("#canvas").width($(window).width() - 274);
 	$("#canvas").height($(window).height() - 16);
+	$("#buttons").width($(window).width() - 324);
 	$("#next").click(function () {
 		mCurrent.Index = mCurrent.Index + 1;
 		loadImg(mCurrent.Line, mCurrent.Station, mCurrent.Index);
