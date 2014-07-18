@@ -72,16 +72,15 @@
 				}
 				// show position on map
 				if (this.map) {
+					var pos = new TLngLat(this.current.info[this.current.index].lng, this.current.info[this.current.index].lat);
 					if (typeof this.marker == "undefined") {
-						this.marker = new TMarker(
-							new TLngLat(this.current.info.lng, this.current.info.lat)
-						);
+						this.marker = new TMarker(pos);
 						this.map.addOverLay(this.marker);
+						this.map.panTo(pos);
 					}
 					else {
-						this.marker.setLngLat(
-							new TLngLat(this.current.info.lng, this.current.info.lat)
-						);
+						this.marker.setLngLat(pos);
+						this.map.panTo(pos);
 					}
 				}
 			}
@@ -288,6 +287,7 @@
 
 			// prepare leftsider
 			this.leftsider.width(232);
+			this.leftsider.height(this.framework.height() - 60);
 			this.leftsider.ready(
 				function () {
 					// initialize Tianditu Map
@@ -309,6 +309,7 @@
 				function () {
 					// invoke resize event
 					window.viewer.rightsider.resize();
+					window.viewer.canvas.resize();
 				}
 			);
 			this.rightsider.resize(
@@ -351,20 +352,15 @@
 				}
 				window.viewer.draw.offset.x = e.clientX - window.viewer.draw.position.x + window.viewer.draw.prevoffset.x;
 				window.viewer.drawimg();
-				if (window.viewer.draw.offset.x > this.width) {
-					window.viewer.draw.offset.x -= this.width;
-					return;
-				}
-				if (this.width + window.viewer.draw.offset.x < 0) {
-					window.viewer.draw.offset.x += this.width;
-					return;
-				}
 			};
 
 			// prepare indexer
 			this.indexer.css("padding", "10px");
 			this.indexer.mouseout(
 				function () {
+					if ($(this).children().length == 0) {
+						return;
+					};
 					$(this).children().eq(window.viewer.current.index)[0].showhint();
 				}
 			);
