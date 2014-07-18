@@ -350,7 +350,7 @@
 					return;
 				}
 				window.viewer.draw.offset.x = e.clientX - window.viewer.draw.position.x + window.viewer.draw.prevoffset.x;
-				canvasDrawImage(mCurrentImage, mOffset.X, mOffset.Y);
+				window.viewer.drawimg();
 				if (window.viewer.draw.offset.x > this.width()) {
 					window.viewer.draw.offset.x -= this.width();
 					return;
