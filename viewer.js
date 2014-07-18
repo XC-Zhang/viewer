@@ -351,12 +351,12 @@
 				}
 				window.viewer.draw.offset.x = e.clientX - window.viewer.draw.position.x + window.viewer.draw.prevoffset.x;
 				window.viewer.drawimg();
-				if (window.viewer.draw.offset.x > this.width()) {
-					window.viewer.draw.offset.x -= this.width();
+				if (window.viewer.draw.offset.x > this.width {
+					window.viewer.draw.offset.x -= this.width;
 					return;
 				}
-				if (this.width() + window.viewer.draw.offset.x < 0) {
-					window.viewer.draw.offset.x += this.width();
+				if (this.width + window.viewer.draw.offset.x < 0) {
+					window.viewer.draw.offset.x += this.width;
 					return;
 				}
 			};
