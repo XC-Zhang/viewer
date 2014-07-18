@@ -1,66 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" type="text/css" href="stylesheet/toc.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet/map.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet/viewer.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet/buttons.css">
-		<link rel="stylesheet" type="text/css" href="stylesheet/controls.css">
-		<title>viewer</title>
-		<script type="text/javascript" src="http://api.tianditu.com/js/maps.js"></script>
-		<script type="text/javascript" src="javascript/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="javascript/map.js"></script>
-		<script type="text/javascript" src="javascript/main.js"></script>
-		<script type="text/javascript" src="javascript/imgloader.js"></script>
-		<script type="text/javascript" src="javascript/canvas.js"></script>
-		<script type="text/javascript" src="javascript/json.js"></script>
-		<script type="text/javascript" src="javascript/ringnumber.js"></script>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="viewer.js"></script>
+		<script type='text/javascript' src='http://api.tianditu.com/js/maps.js'></script>
 	</head>
 	<body>
-		<!--Left Sider-->
-		<div id="left">
-			<!--Table of Contents-->
-			<div id="toc" class="left">
-				<ul>
-					<li>12号线
-						<ul>
-							<li>爱国路 - 复兴岛</li>
-							<li>复兴岛 - 东陆路</li>
-							<li>东陆路 - 巨峰路</li>
-							<li>巨峰路 - 杨高北路</li>
-							<li>杨高北路 - 金京路</li>
-							<li>金京路 - 申江路</li>
-							<li>申江路 - 金海路</li>
-						</ul>
-					</li>
-					<li>13号线
-						<ul>
-							<li>真北路 - 祁连山南路</li>
-							<li>祁连山南路 - 丰庄</li>
-							<li>丰庄 - 金沙江西路</li>
-							<li>金沙江西路 - 金运路</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<!--Label-->
-			<div id="label" class="left"></div>
-		</div>
-		<!--Tianditu Map-->
-		<div id="mapContainer">
-			<div id="map">无法连接到天地图</div>
-		</div>
-		<!--Panorama Viewer-->
-		<div id="viewer">
-			<canvas id="canvas">浏览器不受支持</canvas>
-		</div>
-		<!--Controls--><!--
-		<div id="controls">
-			<div class="button" id="next">↑</div>
-			<div class="button" id="prev">↓</div>
-		</div>-->
-		<!--Buttons-->
-		<div id="buttons"></div>
+		<div id="container"></div>
+		<script type="text/javascript">
+			$("#container").zxcviewer();
+		</script>
 	</body>
 </html>

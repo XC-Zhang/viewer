@@ -16,7 +16,7 @@ $(document).ready(function () {
 		mPosition.X = e.clientX;
 		mPosition.Y = e.clientY;
 		mPreservedOffset.X = mOffset.X;
-		mPreservedOffset.Y = mOffset.Y
+		mPreservedOffset.Y = mOffset.Y;
 		$("#canvas").bind("mousemove", canvasMouseMove);
 		$("#canvas").css("cursor", "pointer");
 	});
