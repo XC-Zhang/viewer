@@ -336,12 +336,12 @@
 					window.viewer.canvas.unbind("mousemove", window.viewer.canvas.mousemovehandler);
 					var mHeight = window.viewer.canvas.height();
 					var mWidth = window.viewer.current.image.width * mHeight / window.viewer.current.image.height;
-					if (window.viewer.draw.offset + mWidth < 0) {
-						window.viewer.draw.offset += mWidth;
+					if (window.viewer.draw.offset.x + mWidth < 0) {
+						window.viewer.draw.offset.x += mWidth;
 						return;
 					}
-					if (window.viewer.draw.offset > mWidth) {
-						window.viewer.draw.offset -= mWidth;
+					if (window.viewer.draw.offset.x > mWidth) {
+						window.viewer.draw.offset.x-= mWidth;
 						return;
 					}
 				}
