@@ -4,7 +4,7 @@
 		this.viewer = {
 			"current": {
 				"line": 0,
-				"section": 0,
+				"section": -1,
 				"index": 0,
 				"image": null,
 				"info": null
@@ -85,14 +85,91 @@
 				}
 			},
 			"mapdoubleclick": function (pixel) {
+				if (window.viewer.current.section == -1) {
+					return;
+				}
+
+				if (window.viewer.maps.css("position") == "relative") {
+					window.viewer.mapenlarge.call(this);
+				}
+				else {
+					window.viewer.mapreduce.call(this);
+				}
+				this.checkResize();
+				//window.viewer.setmapviewport();
+			},
+			"setmapviewport": function () {
+				if (typeof window.viewer.map == "undefined") {
+					return;
+				}
+				var view = [
+					new TLngLat(
+						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lng, 
+						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lat
+					),
+					new TLngLat(
+						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lng, 
+						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lat
+					)
+				];
+				window.viewer.map.setViewport(view);
+			},
+			"mapenlarge": function () {
 				window.viewer.maps.detach();
 				window.viewer.maps.css({
 					"height": window.viewer.canvas.height(),
+					"left": window.viewer.canvas.offset().left,
 					"position": "absolute",
 					"top": window.viewer.canvas.offset().top,
 					"width": window.viewer.canvas.width()
 				});
 				el.append(window.viewer.maps);
+				this.removeOverLay(window.viewer.marker);
+				for (var i = 0; i < window.viewer.current.info.length; i++) {
+					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
+					var marker = new TMarker(pos);
+					marker.setTitle(i + 1);
+					TEvent.addListener(
+						marker, 
+						"mouseover",
+						function () {
+							var i = this.getTitle() - 1;
+							window.viewer.indexer.children().eq(i).mouseenter();
+						}
+					);
+					TEvent.addListener(
+						marker,
+						"mouseout",
+						function () {
+							var i = this.getTitle() - 1;
+							window.viewer.indexer.children().eq(i).mouseleave();
+						}
+					)
+					TEvent.addListener(
+						marker,
+						"click",
+						function () {
+							var i = this.getTitle() - 1;
+							window.viewer.indexer.children().eq(i).click();
+							window.viewer.mapreduce();
+						}
+					)
+					this.addOverLay(marker);
+				}
+				this.zoomIn();
+			},
+			"mapreduce": function () {
+				window.viewer.maps.detach();
+				window.viewer.maps.css({
+					"height": window.viewer.leftsider.width(),
+					"left": 0,
+					"position": "relative",
+					"width": window.viewer.leftsider.width()
+				});
+				window.viewer.maps.appendTo(window.viewer.leftsider);
+				this.clearOverLays();
+				this.addOverLay(window.viewer.marker);
+				this.zoomOut();
 			}
 		};
 
@@ -223,21 +300,7 @@
 													window.viewer.indexer.children().first().click();
 												}
 											)
-											// show section location on map
-											if (typeof window.viewer.map == "undefined") {
-												return;
-											}
-											var view = [
-												new TLngLat(
-													window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lng, 
-													window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lat
-												),
-												new TLngLat(
-													window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lng, 
-													window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lat
-												)
-											];
-											window.viewer.map.setViewport(view);
+											window.viewer.setmapviewport();
 										}
 									);
 									li.hover(
@@ -338,6 +401,7 @@
 			// prepare maps
 			this.maps.height(this.leftsider.width());
 			this.maps.css({
+				"position": "relative",
 				"text-align": "center"
 			});
 
@@ -386,7 +450,8 @@
 				"opacity": 0,
 				"position": "absolute",
 				"text-align": "center",
-				"transition": "all 0.5s"
+				"transition": "all 0.5s",
+				"z-index": 200
 			});
 
 		}).call(this.viewer);
