@@ -329,6 +329,9 @@
 			);
 			this.framework.mouseup(
 				function () {
+					if (!window.viewer.current.image) {
+						return;
+					}
 					window.viewer.canvas.css("cursor", "default");						
 					window.viewer.canvas.unbind("mousemove", window.viewer.canvas.mousemovehandler);
 					var mHeight = window.viewer.canvas.height();
