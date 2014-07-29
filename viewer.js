@@ -331,7 +331,7 @@
 				function () {
 					window.viewer.canvas.css("cursor", "default");						
 					window.viewer.canvas.unbind("mousemove", window.viewer.canvas.mousemovehandler);
-					var mHeight = this.canvas.height();
+					var mHeight = window.viewer.canvas.height();
 					var mWidth = mImage.width * mHeight / mImage.height;
 					if (window.viewer.draw.offset + mWidth < 0) {
 						window.viewer.draw.offset += mWidth;
