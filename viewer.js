@@ -32,13 +32,13 @@
 				var mHeight = this.canvas.height();
 				var mWidth = mImage.width * mHeight / mImage.height;
 				var x = this.draw.offset.x;
-				if (x > mWidth) {
+/*				if (x > mWidth) {
 					x = x - mWidth;
 				}
 				if (mWidth + x < 0) {
 					x = x + mWidth;
 				}
-				mCanvas.drawImage(mImage, x, 0, mWidth, mHeight);
+*/				mCanvas.drawImage(mImage, x, 0, mWidth, mHeight);
 				if (x > 0) {
 					mCanvas.drawImage(mImage, x - mWidth, 0, mWidth, mHeight);
 					return;
@@ -331,6 +331,16 @@
 				function () {
 					window.viewer.canvas.css("cursor", "default");						
 					window.viewer.canvas.unbind("mousemove", window.viewer.canvas.mousemovehandler);
+					var mHeight = this.canvas.height();
+					var mWidth = mImage.width * mHeight / mImage.height;
+					if (window.viewer.draw.offset + mWidth < 0) {
+						window.viewer.draw.offset += mWidth;
+						return;
+					}
+					if (window.viewer.draw.offset > mWidth) {
+						window.viewer.draw.offset -= mWidth;
+						return;
+					}
 				}
 			);
 			$(document).keyup(
