@@ -83,6 +83,16 @@
 						this.map.panTo(pos);
 					}
 				}
+			},
+			"mapdoubleclick": function (pixel) {
+				window.viewer.maps.detach();
+				window.viewer.maps.css({
+					"height": window.viewer.canvas.height(),
+					"position": "absolute",
+					"top": window.viewer.canvas.offset().top,
+					"width": window.viewer.canvas.width()
+				});
+				el.append(window.viewer.maps);
 			}
 		};
 
@@ -299,7 +309,8 @@
 					}
 					var mShanghai = new TLngLat(121.48, 31.22);
 					window.viewer.map.centerAndZoom(mShanghai, 11);
-					window.viewer.map.enableHandleMouseScroll();						
+					window.viewer.map.enableHandleMouseScroll();
+					TEvent.addListener(window.viewer.map, "dblclick", window.viewer.mapdoubleclick);
 				}
 			);
 
@@ -326,7 +337,9 @@
 
 			// prepare maps
 			this.maps.height(this.leftsider.width());
-			this.maps.css("text-align", "center");
+			this.maps.css({
+				"text-align": "center"
+			});
 
 			// prepare canvas
 			this.canvas.resize(
