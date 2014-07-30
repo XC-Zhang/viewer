@@ -128,7 +128,7 @@
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
 					var marker = new TMarker(pos);
 					marker.setTitle(i + 1);
-					marker.openInfoWinHtml(i + 1);
+					marker.openInfoWinHtml(marker.getTitle());
 					TEvent.addListener(
 						marker, 
 						"mouseover",
@@ -278,6 +278,9 @@
 														);
 														b.click(
 															function () {
+																if (window.viewer.mapenlarged) {
+																	window.viewer.mapreduce();
+																}
 																$(this).siblings().css("background", "black");
 																$(this).css("background", "blue");
 																window.viewer.current.index = parseInt($(this).text()) - 1;
