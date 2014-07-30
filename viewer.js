@@ -126,11 +126,12 @@
 				this.removeOverLay(window.viewer.marker);
 				for (var i = 0; i < window.viewer.current.info.length; i++) {
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
-					var marker = new TMarker(pos);
+					var marker = new TLable({
+						text: "<span>" + (i + 1) + "</span>",
+						offset: new TPixel(0, 0),
+						position: pos
+					});
 					marker.setTitle(i + 1);
-					marker.setInfoWinWidth(50);
-					marker.setInfoWinHeight(50);
-					marker.openInfoWinHtml("<span>" + "5" + "</span>");
 					TEvent.addListener(
 						marker, 
 						"mouseover",
