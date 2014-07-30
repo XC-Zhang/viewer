@@ -126,7 +126,7 @@
 				this.removeOverLay(window.viewer.marker);
 				for (var i = 0; i < window.viewer.current.info.length; i++) {
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
-					var marker = new Label({
+					var marker = new TLabel({
 						text: "<span>" + (i + 1) + "</span>",
 						offset: new TPixel(0, 0),
 						position: pos
