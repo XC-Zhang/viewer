@@ -90,7 +90,6 @@
 				else {
 					window.viewer.mapreduce.call(this);
 				}
-				this.checkResize();
 				//window.viewer.setmapviewport();
 			},
 			"setmapviewport": function () {
@@ -157,6 +156,8 @@
 					this.addOverLay(marker);
 				}
 				this.zoomIn();
+				this.checkResize();
+				setTimeout(window.viewer.setmapviewport, 1000);
 			},
 			"mapreduce": function () {
 				window.viewer.maps.detach();
@@ -175,6 +176,8 @@
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
 				this.zoomOut();
+				this.checkResize();
+				setTimeout(window.viewer.setmapviewport, 1000);
 			}
 		};
 
@@ -433,6 +436,9 @@
 			);
 			this.canvas.mousedown(
 				function (e) {
+					if (window.viewer.mapenlarged) {
+						return;
+					}
 					window.viewer.draw.position.x = e.clientX;
 					window.viewer.draw.position.y = e.clientY;
 					window.viewer.draw.prevoffset.x = window.viewer.draw.offset.x;
