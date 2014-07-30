@@ -128,7 +128,7 @@
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
 					var marker = new TMarker(pos);
 					marker.setTitle(i + 1);
-					marker.openInfoWinHtml(marker.getTitle());
+					marker.openInfoWinHtml("<span>" + (i + 1) + "</span>");
 					TEvent.addListener(
 						marker, 
 						"mouseover",
