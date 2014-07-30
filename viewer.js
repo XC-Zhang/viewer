@@ -128,6 +128,8 @@
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
 					var marker = new TMarker(pos);
 					marker.setTitle(i + 1);
+					marker.setInfoWinWidth(50);
+					marker.setInfoWinHeight(50);
 					marker.openInfoWinHtml("<span>" + (i + 1) + "</span>");
 					TEvent.addListener(
 						marker, 
