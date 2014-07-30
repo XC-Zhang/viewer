@@ -130,7 +130,7 @@
 					marker.setTitle(i + 1);
 					marker.setInfoWinWidth(50);
 					marker.setInfoWinHeight(50);
-					marker.openInfoWinHtml("<span>" + (i + 1) + "</span>");
+					marker.openInfoWinHtml("<span>" + "5" + "</span>");
 					TEvent.addListener(
 						marker, 
 						"mouseover",
