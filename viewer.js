@@ -185,8 +185,8 @@
 		};
 
 		var options = {
-			"height" : $(window).height() - 32,
-			"width": $("body").width() - 32,
+			"height" : el.height(),
+			"width": el.width(),
 		};
 		$.extend(options, params);
 
@@ -206,7 +206,7 @@
 			this.framework.width(options.width);
 			this.framework.height(options.height);
 			this.framework.css({
-				"background": "black",
+				"background": "#111111",
 				"color": "white",
 				"font-family": "Microsoft Yahei UI",
 				"position": "relative"
