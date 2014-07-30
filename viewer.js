@@ -154,7 +154,6 @@
 						function () {
 							var i = this.getTitle() - 1;
 							window.viewer.indexer.children().eq(i).click();
-							window.viewer.mapreduce();
 						}
 					)
 					this.addOverLay(marker);
@@ -345,6 +344,9 @@
 			this.framework.mouseup(
 				function () {
 					if (!window.viewer.current.image) {
+						return;
+					}
+					if (window.viewer.mapenlarged) {
 						return;
 					}
 					window.viewer.canvas.css("cursor", "default");						
