@@ -128,6 +128,7 @@
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
 					var marker = new TMarker(pos);
 					marker.setTitle(i + 1);
+					marker.openInfoWinHtml(i + 1);
 					TEvent.addListener(
 						marker, 
 						"mouseover",
@@ -157,7 +158,7 @@
 				}
 				this.zoomIn();
 				this.checkResize();
-				setTimeout(window.viewer.setmapviewport, 1000);
+				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"mapreduce": function () {
 				window.viewer.maps.detach();
@@ -177,7 +178,7 @@
 				this.addOverLay(window.viewer.marker);
 				this.zoomOut();
 				this.checkResize();
-				setTimeout(window.viewer.setmapviewport, 1000);
+				setTimeout(window.viewer.setmapviewport, 500);
 			}
 		};
 
