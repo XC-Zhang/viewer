@@ -2,6 +2,7 @@
 	function viewer(el, params) {
 		// create global object
 		this.viewer = {
+			"mapenlarged": false,
 			"current": {
 				"line": 0,
 				"section": -1,
@@ -32,13 +33,7 @@
 				var mHeight = this.canvas.height();
 				var mWidth = mImage.width * mHeight / mImage.height;
 				var x = this.draw.offset.x;
-/*				if (x > mWidth) {
-					x = x - mWidth;
-				}
-				if (mWidth + x < 0) {
-					x = x + mWidth;
-				}
-*/				mCanvas.drawImage(mImage, x, 0, mWidth, mHeight);
+				mCanvas.drawImage(mImage, x, 0, mWidth, mHeight);
 				if (x > 0) {
 					mCanvas.drawImage(mImage, x - mWidth, 0, mWidth, mHeight);
 					return;
@@ -89,7 +84,7 @@
 					return;
 				}
 
-				if (window.viewer.maps.css("position") == "relative") {
+				if (!window.viewer.mapenlarged) {
 					window.viewer.mapenlarge.call(this);
 				}
 				else {
@@ -117,13 +112,18 @@
 			"mapenlarge": function () {
 				window.viewer.maps.detach();
 				window.viewer.maps.css({
-					"height": window.viewer.canvas.height(),
-					"left": window.viewer.canvas.offset().left,
-					"position": "absolute",
-					"top": window.viewer.canvas.offset().top,
-					"width": window.viewer.canvas.width()
+					"height": window.viewer.rightsider.height(),
+					"width": window.viewer.rightsider.width()
 				});
-				el.append(window.viewer.maps);
+				window.viewer.canvas.detach();
+				window.viewer.canvas.css({
+					"height": window.viewer.leftsider.width(),
+					"width": window.viewer.leftsider.width()
+				});
+				window.viewer.maps.appendTo(window.viewer.rightsider);
+				window.viewer.canvas.appendTo(window.viewer.leftsider);
+				window.viewer.mapenlarged = true;
+
 				this.removeOverLay(window.viewer.marker);
 				for (var i = 0; i < window.viewer.current.info.length; i++) {
 					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
@@ -162,11 +162,16 @@
 				window.viewer.maps.detach();
 				window.viewer.maps.css({
 					"height": window.viewer.leftsider.width(),
-					"left": 0,
-					"position": "relative",
 					"width": window.viewer.leftsider.width()
 				});
+				window.viewer.canvas.detach();
+				window.viewer.canvas.css({
+					"height": window.viewer.rightsider.height(),
+					"width": window.viewer.rightsider.width()
+				});
 				window.viewer.maps.appendTo(window.viewer.leftsider);
+				window.viewer.canvas.appendTo(window.viewer.rightsider);
+				window.viewer.mapenlarged = false;
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
 				this.zoomOut();
@@ -443,6 +448,19 @@
 				window.viewer.draw.offset.x = e.clientX - window.viewer.draw.position.x + window.viewer.draw.prevoffset.x;
 				window.viewer.drawimg();
 			};
+			this.canvas.dblclick(
+				function () {
+					if (window.viewer.current.section == -1) {
+						return;
+					}
+					if (window.viewer.mapenlarged) {
+						window.viewer.mapreduce.call(window.viewer.map);
+					}
+					else {
+						window.viewer.mapenlarge.call(window.viewer.map);
+					}
+				}
+			);
 
 			// prepare indexer
 			this.indexer.css("padding", "10px");
