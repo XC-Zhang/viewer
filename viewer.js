@@ -282,7 +282,7 @@
 														b.click(
 															function () {
 																if (window.viewer.mapenlarged) {
-																	window.viewer.mapreduce();
+																	window.viewer.mapreduce.call(window.viewer.map);
 																}
 																$(this).siblings().css("background", "black");
 																$(this).css("background", "blue");
