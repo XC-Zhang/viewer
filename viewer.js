@@ -112,7 +112,7 @@
 				window.viewer.listcontainer.fadeTo("fast", 0.5);
 				window.viewer.maps.css({
 					"height": window.viewer.framework.height() - 60,
-					"width": window.viewer.framework.width() - window.viewer.list.width()
+					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
 				});
 				window.viewer.canvas.css({
 					"height": window.viewer.list.width(),
@@ -162,12 +162,12 @@
 			"mapreduce": function () {
 				window.viewer.listcontainer.fadeTo("fast", 1.0);
 				window.viewer.maps.css({
-					"height": window.viewer.list.width(),
-					"width": window.viewer.list.width()
+					"height": window.viewer.listcontainer.width(),
+					"width": window.viewer.listcontainer.width()
 				});
 				window.viewer.canvas.css({
 					"height": window.viewer.framework.height() - 60,
-					"width": window.viewer.framework.width() - window.viewer.list.width()
+					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
 				});
 				window.viewer.mapenlarged = false;
 				this.clearOverLays();
