@@ -238,14 +238,14 @@
 										+ "</li>"
 									);
 									li.css({
-										"border": "thin solid black",
+										"border": "thin solid transparent",
 										"transition": "all 0.5s"
 									});
 									li.click(
 										function () {
 											// change others background
-											$(this).siblings().css("background", "black");
-											$(this).parents("li").siblings().find("li").css("background", "black");
+											$(this).siblings().css("background", "#111111");
+											$(this).parents("li").siblings().find("li").css("background", "#111111");
 											// change background
 											$(this).css("background", "blue");
 											// update current status
@@ -262,7 +262,7 @@
 														var b = $("<span></span>");
 														b.width(30);
 														b.css({
-															"border": "thin solid black",
+															"border": "thin solid #111111",
 															"display": "inline-block",
 															"font-size": "150%",
 															"text-align": "center",
@@ -275,7 +275,7 @@
 																$(this)[0].showhint();
 															},
 															function () {
-																$(this).css("border", "thin solid black");
+																$(this).css("border", "thin solid #111111");
 															}
 														);
 														b.click(
@@ -283,7 +283,7 @@
 																if (window.viewer.mapenlarged) {
 																	window.viewer.mapreduce.call(window.viewer.map);
 																}
-																$(this).siblings().css("background", "black");
+																$(this).siblings().css("background", "#111111");
 																$(this).css("background", "blue");
 																window.viewer.current.index = parseInt($(this).text()) - 1;
 																window.viewer.loadimg();
@@ -322,7 +322,7 @@
 											$(this).css("border", "thin solid yellow");
 										}, 
 										function () {
-											$(this).css("border", "thin solid black");
+											$(this).css("border", "thin solid #111111");
 										}
 									);
 									ul.append(li);
