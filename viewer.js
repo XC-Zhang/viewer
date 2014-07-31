@@ -156,7 +156,7 @@
 					this.addOverLay(marker);
 				}
 				this.zoomIn();
-				setTimeout(window.viewer.map.checkResize, 500);
+				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"mapreduce": function () {
@@ -173,7 +173,7 @@
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
 				this.zoomOut();
-				setTimeout(window.viewer.map.checkResize, 500);
+				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"canvasresize": function () {
