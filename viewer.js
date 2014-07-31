@@ -183,8 +183,12 @@
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"canvasresize": function () {
-				window.viewer.canvas.width(window.viewer.framework.width() - 232);
-				window.viewer.canvas.height(window.viewer.framework.height() - window.viewer.indexer.height());
+				var w = window.viewer.framework.width() - 232;
+				var h = window.viewer.framework.height() - window.viewer.indexer.height()
+				window.viewer.canvas.width(w);
+				window.viewer.canvas.height(h);
+				window.viewer.canvas[0].width = w;
+				window.viewer.canvas[0].height = h;
 			}
 		};
 
@@ -470,9 +474,8 @@
 			// prepare indexer
 			this.indexer.css({
 				"bottom": "0",
-				"height": "50px",
+				"height": "30px",
 				"left": "232px",
-				"padding": "10px",
 				"position": "absolute",
 				"right": "0",
 				"text-align": "center"
