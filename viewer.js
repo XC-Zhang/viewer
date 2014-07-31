@@ -109,18 +109,14 @@
 				window.viewer.map.setViewport(view);
 			},
 			"mapenlarge": function () {
-				window.viewer.maps.detach();
 				window.viewer.maps.css({
-					"height": window.viewer.rightsider.height(),
-					"width": window.viewer.rightsider.width()
+					"height": window.viewer.framework.height() - 60,
+					"width": window.viewer.framework.width() - window.viewer.list.width()
 				});
-				window.viewer.canvas.detach();
 				window.viewer.canvas.css({
-					"height": window.viewer.leftsider.width(),
-					"width": window.viewer.leftsider.width()
+					"height": window.viewer.list.width(),
+					"width": window.viewer.list.width()
 				});
-				window.viewer.maps.appendTo(window.viewer.rightsider);
-				window.viewer.canvas.appendTo(window.viewer.leftsider);
 				window.viewer.mapenlarged = true;
 
 				this.removeOverLay(window.viewer.marker);
@@ -163,18 +159,14 @@
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"mapreduce": function () {
-				window.viewer.maps.detach();
 				window.viewer.maps.css({
-					"height": window.viewer.leftsider.width(),
-					"width": window.viewer.leftsider.width()
+					"height": window.viewer.list.width(),
+					"width": window.viewer.list.width()
 				});
-				window.viewer.canvas.detach();
 				window.viewer.canvas.css({
-					"height": window.viewer.rightsider.height(),
-					"width": window.viewer.rightsider.width()
+					"height": window.viewer.framework.height() - 60,
+					"width": window.viewer.framework.width() - window.viewer.list.width()
 				});
-				window.viewer.maps.appendTo(window.viewer.leftsider);
-				window.viewer.canvas.appendTo(window.viewer.rightsider);
 				window.viewer.mapenlarged = false;
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
@@ -202,8 +194,6 @@
 			this.framework = $("<div></div>");
 			this.table = $("<table></table>");
 	        this.tablerow = $("<tr></tr>");
-			this.leftsider = $("<td></td>");
-			this.rightsider = $("<td></td>");
 			this.list = $("<ul></ul>");
 			this.maps = $("<div>未能加载天地图</div>");
 			this.canvas = $("<canvas>浏览器不受支持</canvas>");
@@ -395,10 +385,25 @@
 				}
 			);
 
-			// prepare leftsider
-			this.leftsider.width(232);
-			this.leftsider.height(this.framework.height() - 60);
-			this.leftsider.ready(
+			// prepare list
+			this.list.css({
+				"cursor": "default",
+				"position": "absolute",
+				"width": "232px",
+				"z-index": "200"
+			});
+
+			// prepare maps
+			this.maps.height(this.list.width());
+			this.maps.css({
+				"bottom": "60px",
+				"height": "232px",
+				"position": "absolute",
+				"text-align": "center",
+				"transition": "all 0.5s",
+				"width": "232px"
+			});
+			this.maps.ready(
 				function () {
 					// initialize Tianditu Map
 					if (typeof TMap == "undefined") {
@@ -414,27 +419,11 @@
 				}
 			);
 
-			// prepare list
-			this.list.css({
-				"cursor": "default",
-				"position": "absolute",
-				"width": "232px"
-			});
-
-			// prepare maps
-			this.maps.height(this.leftsider.width());
-			this.maps.css({
-				"bottom": this.indexer.height(),
-				"height": "232px",
-				"position": "absolute",
-				"text-align": "center",
-				"width": "232px"
-			});
-
 			// prepare canvas
 			this.canvas.css({
-				"left": "232px",
 				"position": "absolute",
+				"right": "0",
+				"transition": "all 0.5s",
 				"top": "0"
 			});
 			this.canvas.mousedown(
