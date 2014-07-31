@@ -499,6 +499,7 @@
 				"border": "thin solid white",
 				"cursor": "pointer",
 				"height": "30px",
+				"opacity": "0.7",
 				"position": "absolute",
 				"right": "10px",
 				"top": "10px",
@@ -508,9 +509,17 @@
 			this.exchange.append(
 				"<img src='image/exchange.png' style='width: 30px; height: 30px'>"
 			);
+			this.exchange.hover(
+				function () {
+					$(this).fadeTo("fast", 1.0);
+				},
+				function () {
+					$(this).fadeTo("fast", 0.7);
+				}
+			);
 			this.exchange.click(
 				function () {
-					window.viewer.mapdoubleclick();
+					window.viewer.mapdoubleclick.call(window.viewer.map);
 				}
 			);
 
