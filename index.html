@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<title>12（13）号线地面街景游览平台</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="viewer.js"></script>
 		<script type='text/javascript' src='http://api.tianditu.com/js/maps.js'></script>
@@ -20,11 +21,10 @@
 		</style>
 	</head>
 	<body>
-		<header>12号线13号线地面街景游览平台</header>
+		<header>12（13）号线地面街景游览平台</header>
 		<div id="container"></div>
 		<script type="text/javascript">
-			//$("#container").width($(window).width() - $("#container").offset().left);
-			$("#container").height($(window).height() - $("#container").offset().top);
+			$("#container").height($(window).height() - $("#container").offset().top - 8);
 			$("#container").zxcviewer();
 		</script>
 	</body>

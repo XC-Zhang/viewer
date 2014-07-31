@@ -181,6 +181,10 @@
 				this.zoomOut();
 				this.checkResize();
 				setTimeout(window.viewer.setmapviewport, 500);
+			},
+			"canvasresize": function () {
+				window.viewer.canvas.width(window.viewer.framework.width() - 232);
+				window.viewer.canvas.height(window.viewer.framework.height() - window.viewer.indexer.height());
 			}
 		};
 
@@ -212,12 +216,9 @@
 				"position": "relative"
 			});
 			this.framework.append(
-				this.table.append(
-					this.tablerow.append(
-						this.leftsider.append(this.list, this.maps), 
-						this.rightsider.append(this.canvas)
-					)
-				),
+				this.list,
+				this.maps,
+				this.canvas,
 				this.indexer,
 				this.hint
 			);
@@ -300,6 +301,7 @@
 																	"<p>最近环号：" + ring.Number + "</p>"
 																	+ "<p>里程：" + ring.Mileage + "</p>"
 																	+ (ring.Warning ? "<p style='color:red'>距离超过50米</p>" : "")
+																	+ "<p>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</p>"
 																);
 															}
 															window.viewer.hint.css({
@@ -310,7 +312,6 @@
 														};
 														window.viewer.indexer.append(b);
 													}
-													window.viewer.indexer.css("margin-left", (window.viewer.framework.width() - (30) * data.length) / 2);
 													window.viewer.indexer.children().first().click();
 												}
 											)
@@ -339,6 +340,8 @@
 							window.viewer.ringnumbers = data;
 						}
 					);
+					// resize canvas
+					window.viewer.canvasresize();
 				}
 			);
 			this.framework.mouseup(
@@ -407,42 +410,29 @@
 				}
 			);
 
-			// prepare rightsider
-			this.rightsider.width(this.framework.width() - 248);
-			this.rightsider.ready(
-				function () {
-					// invoke resize event
-					window.viewer.rightsider.resize();
-					window.viewer.canvas.resize();
-				}
-			);
-			this.rightsider.resize(
-				function () {
-					window.viewer.canvas.width($(this).width() - 16);
-					window.viewer.canvas.height($(this).height() - 16);
-				}
-			);
-
 			// prepare list
 			this.list.css({
-				"cursor": "default"
+				"cursor": "default",
+				"position": "absolute",
+				"width": "232px"
 			});
 
 			// prepare maps
 			this.maps.height(this.leftsider.width());
 			this.maps.css({
-				"position": "relative",
-				"text-align": "center"
+				"bottom": "0",
+				"height": "232px",
+				"position": "absolute",
+				"text-align": "center",
+				"width": "232px"
 			});
 
 			// prepare canvas
-			this.canvas.resize(
-				function () {
-					this.width = $(this).width();
-					this.height = $(this).height();
-					window.viewer.drawimg();
-				}
-			);
+			this.canvas.css({
+				"left": "232px",
+				"position": "absolute",
+				"top": "0"
+			});
 			this.canvas.mousedown(
 				function (e) {
 					if (window.viewer.mapenlarged) {
@@ -478,7 +468,15 @@
 			);
 
 			// prepare indexer
-			this.indexer.css("padding", "10px");
+			this.indexer.css({
+				"bottom": "0",
+				"height": "50px",
+				"left": "232px",
+				"padding": "10px",
+				"position": "absolute",
+				"right": "0",
+				"text-align": "center"
+			});
 			this.indexer.mouseout(
 				function () {
 					if ($(this).children().length == 0) {
@@ -498,6 +496,10 @@
 				"text-align": "center",
 				"transition": "all 0.5s",
 				"z-index": 200
+			});
+
+			$(window).resize(function () {
+				window.viewer.canvasresize();
 			});
 
 		}).call(this.viewer);
