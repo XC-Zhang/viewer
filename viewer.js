@@ -109,6 +109,7 @@
 				window.viewer.map.setViewport(view);
 			},
 			"mapenlarge": function () {
+				window.viewer.listcontainer.fadeTo("fast", 0.5);
 				window.viewer.maps.css({
 					"height": window.viewer.framework.height() - 60,
 					"width": window.viewer.framework.width() - window.viewer.list.width()
@@ -155,10 +156,11 @@
 					this.addOverLay(marker);
 				}
 				this.zoomIn();
-				this.checkResize();
+				setTimeout(this.checkResize, 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"mapreduce": function () {
+				window.viewer.listcontainer.fadeTo("fast", 1.0);
 				window.viewer.maps.css({
 					"height": window.viewer.list.width(),
 					"width": window.viewer.list.width()
@@ -171,7 +173,7 @@
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
 				this.zoomOut();
-				this.checkResize();
+				setTimeout(this.checkResize, 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"canvasresize": function () {
@@ -387,6 +389,7 @@
 
 			// prepare list
 			this.listcontainer.css({
+				"background": "#111111",
 				"cursor": "default",
 				"position": "absolute",
 				"width": "250px",
