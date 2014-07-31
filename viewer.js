@@ -309,8 +309,8 @@
 																);
 															}
 															window.viewer.hint.css({
-																"top": $(this).position().top - window.viewer.hint.height(),
-																"left": $(this).position().left - window.viewer.hint.width() / 2,
+																"top": $(this).offset().top - window.viewer.hint.height(),
+																"left": $(this).offset().left - window.viewer.hint.width() / 2,
 																"opacity": "1.0"
 															});	
 														};
@@ -424,7 +424,7 @@
 			// prepare maps
 			this.maps.height(this.leftsider.width());
 			this.maps.css({
-				"bottom": "0",
+				"bottom": this.indexer.height(),
 				"height": "232px",
 				"position": "absolute",
 				"text-align": "center",
@@ -474,7 +474,7 @@
 			// prepare indexer
 			this.indexer.css({
 				"bottom": "0",
-				"height": "30px",
+				"height": "60px",
 				"left": "232px",
 				"position": "absolute",
 				"right": "0",
