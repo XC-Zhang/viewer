@@ -392,19 +392,20 @@
 				"background": "#111111",
 				"cursor": "default",
 				"position": "absolute",
-				"width": "250px",
+				"width": "230px",
 				"z-index": "200"
 			});
+			this.list.css("padding", "20px");
 
 			// prepare maps
 			this.maps.height(this.list.width());
 			this.maps.css({
 				"bottom": "60px",
-				"height": "250px",
+				"height": "230px",
 				"position": "absolute",
 				"text-align": "center",
 				"transition": "all 0.5s",
-				"width": "250px"
+				"width": "230px"
 			});
 			this.maps.ready(
 				function () {
@@ -467,7 +468,7 @@
 			this.indexer.css({
 				"bottom": "0",
 				"height": "60px",
-				"left": "250px",
+				"left": "230px",
 				"position": "absolute",
 				"right": "0",
 				"text-align": "center"
@@ -485,7 +486,7 @@
 			this.hint.css({
 				"background": "black",
 				"border": "thin solid white",
-				"height": 164,
+				//"height": 164,
 				"opacity": 0,
 				"position": "absolute",
 				"text-align": "center",
