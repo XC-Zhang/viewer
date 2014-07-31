@@ -175,7 +175,7 @@
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"canvasresize": function () {
-				var w = window.viewer.framework.width() - 272;
+				var w = window.viewer.framework.width() - window.viewer.list.width();
 				var h = window.viewer.framework.height() - window.viewer.indexer.height()
 				window.viewer.canvas.width(w);
 				window.viewer.canvas.height(h);
@@ -232,7 +232,8 @@
 									);
 									li.css({
 										"border": "thin solid transparent",
-										"transition": "all 0.5s"
+										"transition": "all 0.5s",
+										"width": ""
 									});
 									li.click(
 										function () {
@@ -332,7 +333,9 @@
 							window.viewer.ringnumbers = data;
 						}
 					);
-					// resize canvas
+					// resize
+					window.viewer.maps.width(window.viewer.list.width());
+					window.viewer.indexer.css("left", window.viewer.list.width());
 					window.viewer.canvasresize();
 				}
 			);
@@ -387,7 +390,7 @@
 			this.list.css({
 				"cursor": "default",
 				"position": "absolute",
-				"width": "272px",
+				"width": "250px",
 				"z-index": "200"
 			});
 
@@ -395,11 +398,11 @@
 			this.maps.height(this.list.width());
 			this.maps.css({
 				"bottom": "60px",
-				"height": "272px",
+				"height": "250px",
 				"position": "absolute",
 				"text-align": "center",
 				"transition": "all 0.5s",
-				"width": "272px"
+				"width": "250px"
 			});
 			this.maps.ready(
 				function () {
@@ -462,7 +465,7 @@
 			this.indexer.css({
 				"bottom": "0",
 				"height": "60px",
-				"left": "272px",
+				"left": "250px",
 				"position": "absolute",
 				"right": "0",
 				"text-align": "center"
