@@ -175,7 +175,7 @@
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
 			"canvasresize": function () {
-				var w = window.viewer.framework.width() - 232;
+				var w = window.viewer.framework.width() - 272;
 				var h = window.viewer.framework.height() - window.viewer.indexer.height()
 				window.viewer.canvas.width(w);
 				window.viewer.canvas.height(h);
@@ -192,8 +192,6 @@
 
 		(function () {
 			this.framework = $("<div></div>");
-			this.table = $("<table></table>");
-	        this.tablerow = $("<tr></tr>");
 			this.list = $("<ul></ul>");
 			this.maps = $("<div>未能加载天地图</div>");
 			this.canvas = $("<canvas>浏览器不受支持</canvas>");
@@ -389,7 +387,7 @@
 			this.list.css({
 				"cursor": "default",
 				"position": "absolute",
-				"width": "232px",
+				"width": "272px",
 				"z-index": "200"
 			});
 
@@ -397,11 +395,11 @@
 			this.maps.height(this.list.width());
 			this.maps.css({
 				"bottom": "60px",
-				"height": "232px",
+				"height": "272px",
 				"position": "absolute",
 				"text-align": "center",
 				"transition": "all 0.5s",
-				"width": "232px"
+				"width": "272px"
 			});
 			this.maps.ready(
 				function () {
@@ -464,7 +462,7 @@
 			this.indexer.css({
 				"bottom": "0",
 				"height": "60px",
-				"left": "232px",
+				"left": "272px",
 				"position": "absolute",
 				"right": "0",
 				"text-align": "center"
