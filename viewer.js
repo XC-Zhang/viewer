@@ -283,7 +283,7 @@
 																$(this).siblings().css("background", "#111111");
 																$(this).css("background", "blue");
 																window.viewer.current.index = parseInt($(this).text()) - 1;
-																window.viewer.loadimg();
+																setTimeout(window.viewer.loadimg, 500);
 																$(this)[0].showhint();
 															}
 														);
