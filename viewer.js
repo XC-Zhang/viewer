@@ -308,11 +308,11 @@
 																	+ "<p>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</p>"
 																);
 															}
-															window.viewer.hint.css({
+															window.viewer.hint.offset({
 																"top": $(this).offset().top - window.viewer.hint.height(),
-																"left": $(this).offset().left - window.viewer.hint.width() / 2,
-																"opacity": "1.0"
+																"left": $(this).offset().left - window.viewer.hint.width() / 2
 															});	
+															window.viewer.hint.css("opacity", "1.0");
 														};
 														window.viewer.indexer.append(b);
 													}
