@@ -90,7 +90,6 @@
 				else {
 					window.viewer.mapreduce.call(this);
 				}
-				//window.viewer.setmapviewport();
 			},
 			"setmapviewport": function () {
 				if (typeof window.viewer.map == "undefined") {
@@ -115,8 +114,8 @@
 					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
 				});
 				window.viewer.canvas.css({
-					"height": window.viewer.list.width(),
-					"width": window.viewer.list.width()
+					"height": window.viewer.listcontainer.width(),
+					"width": window.viewer.listcontainer.width()
 				});
 				window.viewer.mapenlarged = true;
 
@@ -200,6 +199,7 @@
 			this.canvas = $("<canvas>浏览器不受支持</canvas>");
 			this.indexer = $("<div></div>")
 			this.hint = $("<div></div>");
+			this.exchange = $("<div></div>");
 
 			// prepare framework
 			this.framework.width(options.width);
@@ -215,7 +215,8 @@
 				this.maps,
 				this.canvas,
 				this.indexer,
-				this.hint
+				this.hint,
+				this.exchange
 			);
 			this.framework.ready(
 				function () {
@@ -283,7 +284,7 @@
 																$(this).siblings().css("background", "#111111");
 																$(this).css("background", "blue");
 																window.viewer.current.index = parseInt($(this).text()) - 1;
-																setTimeout(window.viewer.loadimg, 500);
+																setTimeout("window.viewer.loadimg()", 500);
 																$(this)[0].showhint();
 															}
 														);
@@ -486,7 +487,6 @@
 			this.hint.css({
 				"background": "black",
 				"border": "thin solid white",
-				//"height": 164,
 				"opacity": 0,
 				"position": "absolute",
 				"text-align": "center",
@@ -494,9 +494,31 @@
 				"z-index": 200
 			});
 
-			$(window).resize(function () {
-				window.viewer.canvasresize();
+			// prepare exchange button
+			this.exchange.css({
+				"border": "thin solid white",
+				"cursor": "pointer",
+				"height": "30px",
+				"position": "absolute",
+				"right": "10px",
+				"top": "10px",
+				"width": "30px",
+				"z-index": "200"
 			});
+			this.exchange.append(
+				"<img src='image/exchange.png' style='width: 30px; height: 30px'>"
+			);
+			this.exchange.click(
+				function () {
+					window.viewer.mapdoubleclick();
+				}
+			);
+
+			$(window).resize(
+				function () {
+					window.viewer.canvasresize();
+				}
+			);
 
 		}).call(this.viewer);
 
