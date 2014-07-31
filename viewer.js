@@ -493,7 +493,7 @@
 			this.hint.css({
 				"background": "black",
 				"border": "thin solid white",
-				"height": 124,
+				"height": 164,
 				"opacity": 0,
 				"position": "absolute",
 				"text-align": "center",
