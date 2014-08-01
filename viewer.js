@@ -365,19 +365,31 @@
 			);
 			$(document).keyup(
 				function (e) {
-					if (e.which == 37 || e.which == 40) {
-						if (window.viewer.current.index == 0) {
-							return;
+					switch (e.which) {
+					case 32:
+						// SPACE pressed
+						window.viewer.mapdoubleclick();
+						break;
+					case 38:
+						// arrow key UP pressed
+						if (window.viewer.current.index != window.viewer.current.info.length - 1) {
+							window.viewer.indexer.children().eq(++window.viewer.current.index).click();							
 						}
-						window.viewer.indexer.children().eq(--window.viewer.current.index).click();
-						return;
-					}
-					if (e.which == 39 || e.which == 38) {
-						if (window.viewer.current.index == window.viewer.current.info.length - 1) {
-							return;
+						break;
+					case 40:
+						// arrow key DOWN pressed
+						if (window.viewer.current.index != 0) {
+							window.viewer.indexer.children().eq(--window.viewer.current.index).click();
 						}
-						window.viewer.indexer.children().eq(++window.viewer.current.index).click();
-						return;
+						break;
+					case 37:
+						// arrow key LEFT pressed
+						break;
+					case 39:
+						// arrow key RIGHT pressed
+						break;
+					default:
+						break;
 					}
 				}
 			);
