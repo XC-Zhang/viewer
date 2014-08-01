@@ -368,7 +368,7 @@
 					switch (e.which) {
 					case 32:
 						// SPACE pressed
-						window.viewer.mapdoubleclick().call(window.viewer.map);
+						window.viewer.mapdoubleclick.call(window.viewer.map);
 						break;
 					case 38:
 						// arrow key UP pressed
