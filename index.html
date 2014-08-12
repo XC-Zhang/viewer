@@ -4,28 +4,63 @@
 		<meta charset="utf-8">
 		<title>12（13）号线地面街景游览平台</title>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script type="text/javascript" src="viewer.js"></script>
-		<script type='text/javascript' src='http://api.tianditu.com/js/maps.js'></script>
 		<style type="text/css">
 			body {
-				background: #111111;
+				background: #DDDDDD;
+				font-family: "Microsoft Yahei";
 			}
 			header {
-				background: #3333CC;
+				background: #0F0F77;
 				color: white;
-				font-family: "Microsoft Yahei";
 				font-size: 200%;
 				padding: 10px;
 				text-align: center;
+			}
+			ul {
+				font-size: 700%;
+				font-family: serif;
+				list-style-type: none;
+				padding: 0;
+				text-align: center;
+			}
+			li {
+				display: table-cell;
+				text-align: center;
+			}
+			a {
+				text-decoration: none;
+			}
+			div {
+				background: #0F0F77;
+				border-color: #0F0F77;
+				border-radius: 50%;
+				border-style: solid;
+				color: #DDDDDD;
+				display: table-cell;
+				height: 200px;
+				transition-duration: 0.5s;
+				transition-property: background, color;
+				width: 200px;	
+				vertical-align: middle;
+			}
+			div:hover {
+				background: #DDDDDD;
+				color: #0F0F77;
 			}
 		</style>
 	</head>
 	<body>
 		<header>12（13）号线地面街景游览平台</header>
-		<div id="container"></div>
+		<ul>
+			<li><a href="line12.html"><div>12</div></a></li>
+			<li><a href="line13.html"><div>13</div></a></li>
+		</ul>
 		<script type="text/javascript">
-			$("#container").height($(window).height() - $("#container").offset().top - 8);
-			$("#container").zxcviewer();
+			var li = document.getElementsByTagName("li");
+			var header = document.getElementsByTagName("header");
+			for (var i = 0; i < li.length; i++) {
+				li[i].style.padding = "0 0 0 " + ((header[0].clientWidth - li.length * li[i].clientWidth) / 3) + "px";
+			}
 		</script>
 	</body>
 </html>
