@@ -98,8 +98,8 @@
 						window.viewer.lineinfo[window.viewer.current.section].lat
 					),
 					new TLngLat(
-						window.viewer.linesinfo[window.viewer.current.section + 1].lng, 
-						window.viewer.linesinfo[window.viewer.current.section + 1].lat
+						window.viewer.lineinfo[window.viewer.current.section + 1].lng, 
+						window.viewer.lineinfo[window.viewer.current.section + 1].lat
 					)
 				];
 				window.viewer.map.setViewport(view);
@@ -107,7 +107,7 @@
 			"mapenlarge": function () {
 				window.viewer.listcontainer.fadeTo("fast", 0.5);
 				window.viewer.maps.css({
-					"height": window.viewer.framework.height() - 60,
+					"height": window.viewer.framework.height() - window.viewer.indexer.height(),
 					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
 				});
 				window.viewer.canvas.css({
@@ -151,7 +151,7 @@
 					)
 					this.addOverLay(marker);
 				}
-				this.zoomIn();
+				this.addControl(window.viewer.mapTypeControl);
 				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
@@ -162,13 +162,13 @@
 					"width": window.viewer.listcontainer.width()
 				});
 				window.viewer.canvas.css({
-					"height": window.viewer.framework.height() - 60,
+					"height": window.viewer.framework.height() - window.viewer.indexer.height(),
 					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
 				});
 				window.viewer.mapenlarged = false;
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
-				this.zoomOut();
+				this.removeControl(window.viewer.mapTypeControl);
 				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
@@ -254,8 +254,9 @@
 													b.width(30);
 													b.css({
 														"border": "thin solid #111111",
+														"cursor": "pointer",
 														"display": "inline-block",
-														"font-size": "150%",
+														"font-size": "100%",
 														"text-align": "center",
 														"transition": "all 0.5s"
 													});
@@ -395,7 +396,7 @@
 				"background": "#111111",
 				"cursor": "default",
 				"position": "absolute",
-				"width": "230px",
+				"width": "200px",
 				"z-index": "200"
 			});
 			this.list.css("padding", "20px");
@@ -403,7 +404,7 @@
 			// prepare maps
 			this.maps.height(this.list.width());
 			this.maps.css({
-				"bottom": "60px",
+				"bottom": "45px",
 				"height": "230px",
 				"position": "absolute",
 				"text-align": "center",
@@ -422,10 +423,14 @@
 					var mShanghai = new TLngLat(121.48, 31.22);
 					window.viewer.map.centerAndZoom(mShanghai, 11);
 					window.viewer.map.enableHandleMouseScroll();
+					window.viewer.map.disableDoubleClickZoom();
 					TEvent.addListener(window.viewer.map, "dblclick", window.viewer.mapdoubleclick);
+					// remove map type
+					window.viewer.map.removeMapType(TMAP_SATELLITE_MAP);
+					window.viewer.map.removeMapType(TMAP_TERRAIN_MAP);
+					window.viewer.map.removeMapType(TMAP_TERRAIN_HYBRID_MAP);
 					// add map type
-					var mMapTypeControl = new TMapTypeControl([TMAP_NORMAL_MAP, TMAP_HYBRID_MAP]);
-					window.viewer.map.addControl(mMapTypeControl);
+					window.viewer.mapTypeControl = new TMapTypeControl();
 				}
 			);
 
@@ -473,7 +478,7 @@
 			// prepare indexer
 			this.indexer.css({
 				"bottom": "0",
-				"height": "60px",
+				"height": "45px",
 				"left": "230px",
 				"position": "absolute",
 				"right": "0",
