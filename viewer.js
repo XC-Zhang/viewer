@@ -423,6 +423,9 @@
 					window.viewer.map.centerAndZoom(mShanghai, 11);
 					window.viewer.map.enableHandleMouseScroll();
 					TEvent.addListener(window.viewer.map, "dblclick", window.viewer.mapdoubleclick);
+					// add map type
+					var mMapTypeControl = new TMapTypeControl([TMAP_NORMAL_MAP, TMAP_HYBRID_MAP]);
+					window.viewer.map.addControl(mMapTypeControl);
 				}
 			);
 
