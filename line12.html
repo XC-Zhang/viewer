@@ -25,7 +25,9 @@
 		<div id="container"></div>
 		<script type="text/javascript">
 			$("#container").height($(window).height() - $("#container").offset().top - 8);
-			$("#container").zxcviewer();
+			$("#container").zxcviewer({
+				line: 12
+			});
 		</script>
 	</body>
 </html>

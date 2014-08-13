@@ -4,7 +4,6 @@
 		this.viewer = {
 			"mapenlarged": false,
 			"current": {
-				"line": 0,
 				"section": -1,
 				"index": 0,
 				"image": null,
@@ -47,18 +46,16 @@
 				for (var i = 0; i < 2; i++) {
 					var img = new Image();
 					img.src = "image/" 
-						+ this.current.line + "/" 
+						+ (options.line - 12) + "/" 
 						+ this.current.section + "/" 
 						+ ((this.current.index + 1) > 9 ? (this.current.index + 1) : "0" + (this.current.index + 1)) + "_" 
 						+ i + ".jpg";
 					img.onload = function () {
 						var index = parseInt(this.src.substr(this.src.length - 8, 2)) - 1;
 						var section = parseInt(this.src.substr(this.src.length - 10, 1));
-						var line = parseInt(this.src.substr(this.src.length - 12, 1));
 						if (
 							index == window.viewer.current.index 
 							&& section == window.viewer.current.section 
-							&& line == window.viewer.current.line
 						) {
 							window.viewer.current.image = this;
 							window.viewer.drawimg();
@@ -97,12 +94,12 @@
 				}
 				var view = [
 					new TLngLat(
-						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lng, 
-						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section].lat
+						window.viewer.lineinfo[window.viewer.current.section].lng, 
+						window.viewer.lineinfo[window.viewer.current.section].lat
 					),
 					new TLngLat(
-						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lng, 
-						window.viewer.lines[window.viewer.current.line].stations[window.viewer.current.section + 1].lat
+						window.viewer.linesinfo[window.viewer.current.section + 1].lng, 
+						window.viewer.linesinfo[window.viewer.current.section + 1].lat
 					)
 				];
 				window.viewer.map.setViewport(view);
@@ -222,110 +219,103 @@
 				function () {
 					// get lines and sections
 					$.getJSON(
-						"lines.json",
+						"image/" + (options.line - 12) + "/lineinfo.json",
 						function (data) {
-							window.viewer.lines = data;
-							for (var line in data) {
-								var ul = $("<ul></ul>");
-								for (var i = 0; i < data[line].stations.length - 1; i++) {
-									var li = $("<li>" 
-										+ data[line].stations[i].name
-										+ " - " 
-										+ data[line].stations[i + 1].name
-										+ "</li>"
-									);
-									li.css({
-										"border": "thin solid transparent",
-										"transition": "all 0.5s",
-										"width": ""
-									});
-									li.click(
-										function () {
-											// change others background
-											$(this).siblings().css("background", "#111111");
-											$(this).parents("li").siblings().find("li").css("background", "#111111");
-											// change background
-											$(this).css("background", "blue");
-											// update current status
-											window.viewer.current.line = $(this).parents("li").index();
-											window.viewer.current.section = $(this).index();
-											window.viewer.current.index = 0;
-											// get section information
-											$.getJSON(
-												"image/" + window.viewer.current.line + "/" + window.viewer.current.section + "/data.json",
-												function (data) {
-													window.viewer.current.info = data;
-													window.viewer.indexer.empty();
-													for (var i = 0; i < data.length; i++) {
-														var b = $("<span></span>");
-														b.width(30);
-														b.css({
-															"border": "thin solid #111111",
-															"display": "inline-block",
-															"font-size": "150%",
-															"text-align": "center",
-															"transition": "all 0.5s"
-														});
-														b.text(i + 1);
-														b.hover(
-															function () {
-																$(this).css("border", "thin solid yellow");
-																$(this)[0].showhint();
-															},
-															function () {
-																$(this).css("border", "thin solid #111111");
+							window.viewer.lineinfo = data;
+							for (var i = 0; i < data.length - 1; i++) {
+								var li = $("<li>" 
+									+ data[i].name
+									+ " - " 
+									+ data[i + 1].name
+									+ "</li>"
+								);
+								li.css({
+									"border": "thin solid transparent",
+									"transition": "all 0.5s",
+									"width": ""
+								});
+								li.click(
+									function () {
+										// change others background
+										$(this).siblings().css("background", "#111111");
+										// change background
+										$(this).css("background", "blue");
+										// update current status
+										window.viewer.current.section = $(this).index();
+										window.viewer.current.index = 0;
+										// get section information
+										$.getJSON(
+											"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
+											function (data) {
+												window.viewer.current.info = data;
+												window.viewer.indexer.empty();
+												for (var i = 0; i < data.length; i++) {
+													var b = $("<span></span>");
+													b.width(30);
+													b.css({
+														"border": "thin solid #111111",
+														"display": "inline-block",
+														"font-size": "150%",
+														"text-align": "center",
+														"transition": "all 0.5s"
+													});
+													b.text(i + 1);
+													b.hover(
+														function () {
+															$(this).css("border", "thin solid yellow");
+															$(this)[0].showhint();
+														},
+														function () {
+															$(this).css("border", "thin solid #111111");
+														}
+													);
+													b.click(
+														function () {
+															if (window.viewer.mapenlarged) {
+																window.viewer.mapreduce.call(window.viewer.map);
 															}
-														);
-														b.click(
-															function () {
-																if (window.viewer.mapenlarged) {
-																	window.viewer.mapreduce.call(window.viewer.map);
-																}
-																$(this).siblings().css("background", "#111111");
-																$(this).css("background", "blue");
-																window.viewer.current.index = parseInt($(this).text()) - 1;
-																setTimeout("window.viewer.loadimg()", 500);
-																$(this)[0].showhint();
-															}
-														);
-														b[0].showhint = function () {
-															if (window.viewer.current.line == 1 || !window.viewer.ringnumbers) {
-																window.viewer.hint.html("<p>无环号信息</p>");
-															}
-															else {
-																var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
-																window.viewer.hint.html(
-																	"<p>最近环号：" + ring.Number + "</p>"
-																	+ "<p>里程：" + ring.Mileage + "</p>"
-																	+ (ring.Warning ? "<p style='color:red'>距离超过50米</p>" : "")
-																	+ "<p>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</p>"
-																);
-															}
-															window.viewer.hint.offset({
-																"top": $(this).offset().top - window.viewer.hint.height(),
-																"left": $(this).offset().left - window.viewer.hint.width() / 2
-															});	
-															window.viewer.hint.css("opacity", "1.0");
-														};
-														window.viewer.indexer.append(b);
-													}
-													window.viewer.indexer.children().first().click();
+															$(this).siblings().css("background", "#111111");
+															$(this).css("background", "blue");
+															window.viewer.current.index = parseInt($(this).text()) - 1;
+															setTimeout("window.viewer.loadimg()", 500);
+															$(this)[0].showhint();
+														}
+													);
+													b[0].showhint = function () {
+														if (!window.viewer.ringnumbers) {
+															window.viewer.hint.html("<p>无环号信息</p>");
+														}
+														else {
+															var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
+															window.viewer.hint.html(
+																"<p>最近环号：" + ring.Number + "</p>"
+																+ "<p>里程：" + ring.Mileage + "</p>"
+																+ (ring.Warning ? "<p style='color:red'>距离超过50米</p>" : "")
+																+ "<p>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</p>"
+															);
+														}
+														window.viewer.hint.offset({
+															"top": $(this).offset().top - window.viewer.hint.height(),
+															"left": $(this).offset().left - window.viewer.hint.width() / 2
+														});	
+														window.viewer.hint.css("opacity", "1.0");
+													};
+													window.viewer.indexer.append(b);
 												}
-											)
-											window.viewer.setmapviewport();
-										}
-									);
-									li.hover(
-										function () {
-											$(this).css("border", "thin solid yellow");
-										}, 
-										function () {
-											$(this).css("border", "thin solid #111111");
-										}
-									);
-									ul.append(li);
-								}
-								var li = $("<li>" + data[line].name + "</li>").append(ul);
+												window.viewer.indexer.children().first().click();
+											}
+										)
+										window.viewer.setmapviewport();
+									}
+								);
+								li.hover(
+									function () {
+										$(this).css("border", "thin solid yellow");
+									}, 
+									function () {
+										$(this).css("border", "thin solid #111111");
+									}
+								);
 								window.viewer.list.append(li);
 							}
 						}
