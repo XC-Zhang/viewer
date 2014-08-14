@@ -151,7 +151,6 @@
 					)
 					this.addOverLay(marker);
 				}
-				this.addControl(window.viewer.mapTypeControl);
 				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
@@ -168,7 +167,6 @@
 				window.viewer.mapenlarged = false;
 				this.clearOverLays();
 				this.addOverLay(window.viewer.marker);
-				this.removeControl(window.viewer.mapTypeControl);
 				setTimeout("window.viewer.map.checkResize()", 500);
 				setTimeout(window.viewer.setmapviewport, 500);
 			},
@@ -202,8 +200,8 @@
 			this.framework.width(options.width);
 			this.framework.height(options.height);
 			this.framework.css({
-				"background": "#111111",
-				"color": "white",
+				"background": options.background,
+				"color": options.foreground,
 				"font-family": "Microsoft Yahei UI",
 				"position": "relative"
 			});
@@ -237,9 +235,15 @@
 								li.click(
 									function () {
 										// change others background
-										$(this).siblings().css("background", "#111111");
+										$(this).siblings("li").css({
+											"background": options.background,
+											"color": options.foreground
+										});
 										// change background
-										$(this).css("background", "blue");
+										$(this).css({
+											"background": options.foreground,
+											"color": options.background
+										});
 										// update current status
 										window.viewer.current.section = $(this).index();
 										window.viewer.current.index = 0;
@@ -253,7 +257,7 @@
 													var b = $("<span></span>");
 													b.width(30);
 													b.css({
-														"border": "thin solid #111111",
+														"border": "thin solid transparent",
 														"cursor": "pointer",
 														"display": "inline-block",
 														"font-size": "100%",
@@ -263,11 +267,11 @@
 													b.text(i + 1);
 													b.hover(
 														function () {
-															$(this).css("border", "thin solid yellow");
+															$(this).css("border", "thin solid red");
 															$(this)[0].showhint();
 														},
 														function () {
-															$(this).css("border", "thin solid #111111");
+															$(this).css("border", "thin solid transparent");
 														}
 													);
 													b.click(
@@ -275,8 +279,14 @@
 															if (window.viewer.mapenlarged) {
 																window.viewer.mapreduce.call(window.viewer.map);
 															}
-															$(this).siblings().css("background", "#111111");
-															$(this).css("background", "blue");
+															$(this).siblings().css({
+																"background": "transparent",
+																"color": options.foreground
+															});
+															$(this).css({
+																"background": options.foreground,
+																"color": options.background
+															});
 															window.viewer.current.index = parseInt($(this).text()) - 1;
 															setTimeout("window.viewer.loadimg()", 500);
 															$(this)[0].showhint();
@@ -311,10 +321,10 @@
 								);
 								li.hover(
 									function () {
-										$(this).css("border", "thin solid yellow");
+										$(this).css("border", "thin solid red");
 									}, 
 									function () {
-										$(this).css("border", "thin solid #111111");
+										$(this).css("border", "thin solid transparent");
 									}
 								);
 								window.viewer.list.append(li);
@@ -393,13 +403,18 @@
 
 			// prepare list
 			this.listcontainer.css({
-				"background": "#111111",
+				"background": options.background,
 				"cursor": "default",
 				"position": "absolute",
 				"width": "200px",
 				"z-index": "200"
 			});
-			this.list.css("padding", "20px");
+			this.list.css({
+				"margin": "0",
+				"padding-left": "20px",
+				"padding-top": "10px"
+			});
+			this.list.prepend("<span style='font-size: 200%; background: " + options.linecolor + "; color: " + options.background + "'>" + options.line + "</span>");
 
 			// prepare maps
 			this.maps.height(this.list.width());
@@ -425,12 +440,9 @@
 					window.viewer.map.enableHandleMouseScroll();
 					window.viewer.map.disableDoubleClickZoom();
 					TEvent.addListener(window.viewer.map, "dblclick", window.viewer.mapdoubleclick);
-					// remove map type
-					window.viewer.map.removeMapType(TMAP_SATELLITE_MAP);
-					window.viewer.map.removeMapType(TMAP_TERRAIN_MAP);
-					window.viewer.map.removeMapType(TMAP_TERRAIN_HYBRID_MAP);
 					// add map type
-					window.viewer.mapTypeControl = new TMapTypeControl();
+					window.viewer.mapTypeControl = new TMapTypeControl({mapTypes: [TMAP_NORMAL_MAP, TMAP_HYBRID_MAP]});
+					window.viewer.map.addControl(window.viewer.mapTypeControl);
 				}
 			);
 
@@ -495,8 +507,8 @@
 
 			// prepare hint
 			this.hint.css({
-				"background": "black",
-				"border": "thin solid white",
+				"background": options.background,
+				"border": "thin solid " + options.foreground,
 				"opacity": 0,
 				"position": "absolute",
 				"text-align": "center",
@@ -506,7 +518,7 @@
 
 			// prepare exchange button
 			this.exchange.css({
-				"border": "thin solid white",
+				"border": "thin solid " + options.foreground,
 				"cursor": "pointer",
 				"height": "30px",
 				"opacity": "0.7",

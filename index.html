@@ -31,9 +31,7 @@
 				text-decoration: none;
 			}
 			div {
-				background: #0F0F77;
-				border-color: #0F0F77;
-				border-radius: 50%;
+				border-radius: 1%;
 				border-style: solid;
 				color: #DDDDDD;
 				display: table-cell;
@@ -44,16 +42,23 @@
 				vertical-align: middle;
 			}
 			div:hover {
-				background: #DDDDDD;
 				color: #0F0F77;
+			}
+			div#line12 {
+				background: #007A61;
+				border-color: #007A61;
+			}
+			div#line13 {
+				background: #EC91CC;
+				border-color: #EC91CC;
 			}
 		</style>
 	</head>
 	<body>
 		<header>12（13）号线地面街景游览平台</header>
 		<ul>
-			<li><a href="line12.html"><div>12</div></a></li>
-			<li><a href="line13.html"><div>13</div></a></li>
+			<li><a href="line12.html"><div id="line12">12</div></a></li>
+			<li><a href="line13.html"><div id="line13">13</div></a></li>
 		</ul>
 		<script type="text/javascript">
 			var li = document.getElementsByTagName("li");
