@@ -420,11 +420,11 @@
 			this.maps.height(this.list.width());
 			this.maps.css({
 				"bottom": "45px",
-				"height": "230px",
+				"height": "200px",
 				"position": "absolute",
 				"text-align": "center",
 				"transition": "all 0.5s",
-				"width": "230px"
+				"width": "200px"
 			});
 			this.maps.ready(
 				function () {
