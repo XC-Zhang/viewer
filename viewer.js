@@ -187,12 +187,12 @@
 		$.extend(options, params);
 
 		(function () {
-			this.framework = $("<div></div>");
+			this.framework = $("<div class='viewer'></div>");
 			this.listcontainer = $("<div></div>")
 			this.list = $("<ul></ul>");
 			this.maps = $("<div>未能加载天地图</div>");
 			this.canvas = $("<canvas>浏览器不受支持</canvas>");
-			this.indexer = $("<div></div>")
+			this.indexer = $("<div id='indexer'></div>")
 			this.hint = $("<div></div>");
 			this.exchange = $("<div></div>");
 
@@ -227,23 +227,18 @@
 									+ data[i + 1].name
 									+ "</li>"
 								);
-								li.css({
-									"border": "thin solid transparent",
-									"transition": "all 0.5s",
-									"width": ""
-								});
 								li.click(
 									function () {
 										// change others background
 										$(this).siblings("li").css({
-											"background": options.background,
-											"color": options.foreground
+											"background": options.background
 										});
+										$(this).siblings("li").removeClass("selected");
 										// change background
 										$(this).css({
-											"background": options.foreground,
-											"color": options.background
+											"background": options.foreground
 										});
+										$(this).addClass("selected");
 										// update current status
 										window.viewer.current.section = $(this).index();
 										window.viewer.current.index = 0;
@@ -256,22 +251,10 @@
 												for (var i = 0; i < data.length; i++) {
 													var b = $("<span></span>");
 													b.width(30);
-													b.css({
-														"border": "thin solid transparent",
-														"cursor": "pointer",
-														"display": "inline-block",
-														"font-size": "100%",
-														"text-align": "center",
-														"transition": "all 0.5s"
-													});
 													b.text(i + 1);
-													b.hover(
+													b.mouseover(
 														function () {
-															$(this).css("border", "thin solid red");
 															$(this)[0].showhint();
-														},
-														function () {
-															$(this).css("border", "thin solid transparent");
 														}
 													);
 													b.click(
@@ -317,14 +300,6 @@
 											}
 										)
 										window.viewer.setmapviewport();
-									}
-								);
-								li.hover(
-									function () {
-										$(this).css("border", "thin solid red");
-									}, 
-									function () {
-										$(this).css("border", "thin solid transparent");
 									}
 								);
 								window.viewer.list.append(li);

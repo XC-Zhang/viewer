@@ -1,0 +1,39 @@
+.viewer li {
+	border-color: transparent;
+	border-style: solid;
+	border-width: 1px;
+	color: black;
+	font-weight: lighter;
+	padding: 5px 5px 5px 0px;
+	transition-property: border-color, color, background;
+	transition-duration: 0.5s;
+}
+.viewer li:hover {
+	border-color: black;
+}
+.viewer li.selected {
+	color: white;
+}
+
+.viewer div#indexer {
+	color: white;
+}
+
+.viewer div#indexer span {
+	border-color: transparent;
+	border-style: solid;
+	border-width: 1px;
+	color: black;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 100%;
+	text-align: center;
+	transition-property: border-color, color, background;
+	transition-duration: 0.5s;
+}
+.viewer div#indexer span:hover {
+	border-color: black;
+}
+.viewer div#indexer span.selected {
+	
+}
