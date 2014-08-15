@@ -1,25 +1,36 @@
+.viewer ul {
+	background: #2F2F2F;
+	border-bottom-right-radius: 5px;
+	color: #CBCBCB;
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+	padding-bottom: 10px;
+}
 .viewer li {
-	border-color: transparent;
-	border-style: solid;
-	border-width: 1px;
-	color: black;
 	font-weight: lighter;
-	padding: 5px 5px 5px 0px;
-	transition-property: border-color, color, background;
+	padding: 10px 20px 10px 20px;
+	transition-property: color, background;
 	transition-duration: 0.5s;
 }
 .viewer li:hover {
-	border-color: black;
+	background: #474747;
 }
 .viewer li.selected {
+	background: #717171;
 	color: white;
 }
 
 .viewer div#indexer {
+	bottom: 0;
 	color: white;
+	position: absolute;
+	right: 0;
+	text-align: center;
 }
 
 .viewer div#indexer span {
+	background: transparent;
 	border-color: transparent;
 	border-style: solid;
 	border-width: 1px;
@@ -35,5 +46,28 @@
 	border-color: black;
 }
 .viewer div#indexer span.selected {
-	
+	background: #717171;
+	color: white;
+}
+
+.viewer table#hint {
+	background: transparent;
+	border-color: #717171;
+	border-style: solid;
+	border-radius: 1px;
+	border-width: 1px;
+	font-size: 100%;
+	font-weight: lighter;
+	position: absolute;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+	z-index: 200;
+}
+
+.viewer table#hint.show {
+	opacity: 1.0;
+}
+
+.viewer table#hint.hide {
+	opacity: 0.0;
 }

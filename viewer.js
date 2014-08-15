@@ -193,7 +193,7 @@
 			this.maps = $("<div>未能加载天地图</div>");
 			this.canvas = $("<canvas>浏览器不受支持</canvas>");
 			this.indexer = $("<div id='indexer'></div>")
-			this.hint = $("<div></div>");
+			this.hint = $("<table id='hint' class='hide'></table>");
 			this.exchange = $("<div></div>");
 
 			// prepare framework
@@ -229,15 +229,7 @@
 								);
 								li.click(
 									function () {
-										// change others background
-										$(this).siblings("li").css({
-											"background": options.background
-										});
 										$(this).siblings("li").removeClass("selected");
-										// change background
-										$(this).css({
-											"background": options.foreground
-										});
 										$(this).addClass("selected");
 										// update current status
 										window.viewer.current.section = $(this).index();
@@ -262,14 +254,8 @@
 															if (window.viewer.mapenlarged) {
 																window.viewer.mapreduce.call(window.viewer.map);
 															}
-															$(this).siblings().css({
-																"background": "transparent",
-																"color": options.foreground
-															});
-															$(this).css({
-																"background": options.foreground,
-																"color": options.background
-															});
+															$(this).siblings("span").removeClass("selected");
+															$(this).addClass("selected");
 															window.viewer.current.index = parseInt($(this).text()) - 1;
 															setTimeout("window.viewer.loadimg()", 500);
 															$(this)[0].showhint();
@@ -282,10 +268,10 @@
 														else {
 															var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
 															window.viewer.hint.html(
-																"<p>最近环号：" + ring.Number + "</p>"
-																+ "<p>里程：" + ring.Mileage + "</p>"
-																+ (ring.Warning ? "<p style='color:red'>距离超过50米</p>" : "")
-																+ "<p>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</p>"
+																"<tr><td align='right'>最近环号</td><td align='left'>" + ring.Number + "</td></tr>"
+																+ "<tr><td align='right'>里&nbsp;&nbsp;程</td><td align='left'>" + ring.Mileage + "</td></tr>"
+																+ (ring.Warning ? "<tr style='color:red'><td align='right'>距&nbsp;&nbsp;离</td><td align='left'>超过50米</td></tr>" : "")
+																+ "<tr><td align='right'>拍摄日期</td><td align='left'>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</td></tr>"
 															);
 														}
 														window.viewer.hint.offset({
@@ -381,13 +367,7 @@
 				"background": options.background,
 				"cursor": "default",
 				"position": "absolute",
-				"width": "200px",
 				"z-index": "200"
-			});
-			this.list.css({
-				"margin": "0",
-				"padding-left": "20px",
-				"padding-top": "10px"
 			});
 			this.list.prepend("<span style='font-size: 200%; background: " + options.linecolor + "; color: " + options.background + "'>" + options.line + "</span>");
 
@@ -464,12 +444,7 @@
 
 			// prepare indexer
 			this.indexer.css({
-				"bottom": "0",
-				"height": "45px",
 				"left": "230px",
-				"position": "absolute",
-				"right": "0",
-				"text-align": "center"
 			});
 			this.indexer.mouseout(
 				function () {
@@ -482,13 +457,7 @@
 
 			// prepare hint
 			this.hint.css({
-				"background": options.background,
-				"border": "thin solid " + options.foreground,
-				"opacity": 0,
-				"position": "absolute",
 				"text-align": "center",
-				"transition": "all 0.5s",
-				"z-index": 200
 			});
 
 			// prepare exchange button
