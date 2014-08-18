@@ -64,15 +64,15 @@
 				}
 				// show position on map
 				if (this.map) {
-					var pos = new TLngLat(this.current.info[this.current.index].lng, this.current.info[this.current.index].lat);
+					var pos = this.current.info[this.current.index];
 					if (typeof this.marker == "undefined") {
-						this.marker = new TMarker(pos);
-						this.map.addOverLay(this.marker);
-						this.map.panTo(pos);
+						this.marker = L.marker(pos);
+						this.marker.addTo(this.map);
+						this.map.setView(pos);
 					}
 					else {
-						this.marker.setLngLat(pos);
-						this.map.panTo(pos);
+						this.marker.setLatLng(pos);
+						this.map.setView(pos);
 					}
 				}
 			},
@@ -82,50 +82,46 @@
 				}
 
 				if (!window.viewer.mapenlarged) {
-					window.viewer.mapenlarge.call(this);
+					window.viewer.maps.removeClass('normal');
+					window.viewer.maps.addClass('large');
+					window.viewer.canvas.removeClass('large');
+					window.viewer.canvas.addClass('normal');
+					window.viewer.menu.slideUp();
+					window.viewer.mapenlarged = true;
 				}
 				else {
-					window.viewer.mapreduce.call(this);
+					//window.viewer.mapreduce.call(this);
+					window.viewer.maps.removeClass('large');
+					window.viewer.maps.addClass('normal');
+					window.viewer.canvas.removeClass('normal');
+					window.viewer.canvas.addClass('large');
+					window.viewer.menu.slideDown();
+					window.viewer.mapenlarged = false;
 				}
+				window.viewer.maps.onResize();
+				window.viewer.canvasresize();
 			},
 			"setmapviewport": function () {
 				if (typeof window.viewer.map == "undefined") {
 					return;
 				}
-				var view = [
-					new TLngLat(
-						window.viewer.lineinfo[window.viewer.current.section].lng, 
-						window.viewer.lineinfo[window.viewer.current.section].lat
-					),
-					new TLngLat(
-						window.viewer.lineinfo[window.viewer.current.section + 1].lng, 
-						window.viewer.lineinfo[window.viewer.current.section + 1].lat
-					)
-				];
-				window.viewer.map.setViewport(view);
+				var view = L.latLngBounds([
+					window.viewer.lineinfo[window.viewer.current.section],
+					window.viewer.lineinfo[window.viewer.current.section + 1]
+				]);
+				window.viewer.map.fitBounds(view);
 			},
 			"mapenlarge": function () {
-				window.viewer.listcontainer.fadeTo("fast", 0.5);
-				window.viewer.maps.css({
-					"height": window.viewer.framework.height() - window.viewer.indexer.height(),
-					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
-				});
-				window.viewer.canvas.css({
-					"height": window.viewer.listcontainer.width(),
-					"width": window.viewer.listcontainer.width()
-				});
 				window.viewer.mapenlarged = true;
 
-				this.removeOverLay(window.viewer.marker);
+				this.removeLayer(window.viewer.marker);
 				for (var i = 0; i < window.viewer.current.info.length; i++) {
-					var pos = new TLngLat(window.viewer.current.info[i].lng, window.viewer.current.info[i].lat);
-					var marker = new TLabel({
-						text: "<span>" + (i + 1) + "</span>",
-						offset: new TPixel(0, 0),
-						position: pos
-					});
-					marker.setTitle(i + 1);
-					TEvent.addListener(
+					var pos = window.viewer.current.info[i];
+					var marker = L.marker(pos, {
+						icon: new L.Icon.Default(),
+						title: i + 1
+					}).addTo(this);
+/*					TEvent.addListener(
 						marker, 
 						"mouseover",
 						function () {
@@ -149,32 +145,16 @@
 							window.viewer.indexer.children().eq(i).click();
 						}
 					)
-					this.addOverLay(marker);
-				}
-				setTimeout("window.viewer.map.checkResize()", 500);
-				setTimeout(window.viewer.setmapviewport, 500);
+*/				}
 			},
 			"mapreduce": function () {
-				window.viewer.listcontainer.fadeTo("fast", 1.0);
-				window.viewer.maps.css({
-					"height": window.viewer.listcontainer.width(),
-					"width": window.viewer.listcontainer.width()
-				});
-				window.viewer.canvas.css({
-					"height": window.viewer.framework.height() - window.viewer.indexer.height(),
-					"width": window.viewer.framework.width() - window.viewer.listcontainer.width()
-				});
 				window.viewer.mapenlarged = false;
-				this.clearOverLays();
-				this.addOverLay(window.viewer.marker);
-				setTimeout("window.viewer.map.checkResize()", 500);
-				setTimeout(window.viewer.setmapviewport, 500);
+//				this.clearOverLays();
+//				this.addOverLay(window.viewer.marker);
 			},
 			"canvasresize": function () {
-				var w = window.viewer.framework.width() - window.viewer.listcontainer.width();
-				var h = window.viewer.framework.height() - window.viewer.indexer.height()
-				window.viewer.canvas.width(w);
-				window.viewer.canvas.height(h);
+				var w = window.viewer.canvas.width();
+				var h = window.viewer.canvas.height();
 				window.viewer.canvas[0].width = w;
 				window.viewer.canvas[0].height = h;
 			}
@@ -188,13 +168,12 @@
 
 		(function () {
 			this.framework = $("<div class='viewer'></div>");
-			this.listcontainer = $("<div></div>")
-			this.list = $("<ul></ul>");
-			this.maps = $("<div>未能加载天地图</div>");
-			this.canvas = $("<canvas>浏览器不受支持</canvas>");
+			this.menu = $("<div id='menu'></div>")
+			this.maps = $("<div id='map' class='large'>未能加载地图</div>");
+			this.canvas = $("<canvas class='normal'>浏览器不受支持</canvas>");
 			this.indexer = $("<div id='indexer'></div>")
 			this.hint = $("<table id='hint' class='hide'></table>");
-			this.exchange = $("<div></div>");
+			this.exchange = $("<div id='switch'></div>");
 
 			// prepare framework
 			this.framework.width(options.width);
@@ -206,7 +185,7 @@
 				"position": "relative"
 			});
 			this.framework.append(
-				this.listcontainer.append(this.list),
+				this.menu,
 				this.maps,
 				this.canvas,
 				this.indexer,
@@ -220,76 +199,8 @@
 						"image/" + (options.line - 12) + "/lineinfo.json",
 						function (data) {
 							window.viewer.lineinfo = data;
-							for (var i = 0; i < data.length - 1; i++) {
-								var li = $("<li>" 
-									+ data[i].name
-									+ " - " 
-									+ data[i + 1].name
-									+ "</li>"
-								);
-								li.click(
-									function () {
-										$(this).siblings("li").removeClass("selected");
-										$(this).addClass("selected");
-										// update current status
-										window.viewer.current.section = $(this).index();
-										window.viewer.current.index = 0;
-										// get section information
-										$.getJSON(
-											"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
-											function (data) {
-												window.viewer.current.info = data;
-												window.viewer.indexer.empty();
-												for (var i = 0; i < data.length; i++) {
-													var b = $("<span></span>");
-													b.width(30);
-													b.text(i + 1);
-													b.mouseover(
-														function () {
-															$(this)[0].showhint();
-														}
-													);
-													b.click(
-														function () {
-															if (window.viewer.mapenlarged) {
-																window.viewer.mapreduce.call(window.viewer.map);
-															}
-															$(this).siblings("span").removeClass("selected");
-															$(this).addClass("selected");
-															window.viewer.current.index = parseInt($(this).text()) - 1;
-															setTimeout("window.viewer.loadimg()", 500);
-															$(this)[0].showhint();
-														}
-													);
-													b[0].showhint = function () {
-														if (!window.viewer.ringnumbers) {
-															window.viewer.hint.html("<p>无环号信息</p>");
-														}
-														else {
-															var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
-															window.viewer.hint.html(
-																"<tr><td align='right'>最近环号</td><td align='left'>" + ring.Number + "</td></tr>"
-																+ "<tr><td align='right'>里&nbsp;&nbsp;程</td><td align='left'>" + ring.Mileage + "</td></tr>"
-																+ (ring.Warning ? "<tr style='color:red'><td align='right'>距&nbsp;&nbsp;离</td><td align='left'>超过50米</td></tr>" : "")
-																+ "<tr><td align='right'>拍摄日期</td><td align='left'>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</td></tr>"
-															);
-														}
-														window.viewer.hint.offset({
-															"top": $(this).offset().top - window.viewer.hint.height(),
-															"left": $(this).offset().left - window.viewer.hint.width() / 2
-														});	
-														window.viewer.hint.css("opacity", "1.0");
-													};
-													window.viewer.indexer.append(b);
-												}
-												window.viewer.indexer.children().first().click();
-											}
-										)
-										window.viewer.setmapviewport();
-									}
-								);
-								window.viewer.list.append(li);
-							}
+							window.viewer.menu.setLineInfo(data);
+							window.viewer.maps.setLineInfo(data);
 						}
 					);
 					// get ring numbers
@@ -299,8 +210,6 @@
 							window.viewer.ringnumbers = data;
 						}
 					);
-					// resize
-					window.viewer.canvasresize();
 				}
 			);
 			this.framework.mouseup(
@@ -363,51 +272,79 @@
 			);
 
 			// prepare list
-			this.listcontainer.css({
-				"background": options.background,
-				"cursor": "default",
-				"position": "absolute",
-				"z-index": "200"
+			this.menu.zxcviewerMenu({
+				color: options.linecolor,
+				title: options.line
 			});
-			this.list.prepend("<span style='font-size: 200%; background: " + options.linecolor + "; color: " + options.background + "'>" + options.line + "</span>");
+			this.menu.sectionClick = function (index) {
+				// update current status
+				window.viewer.current.section = index;
+				window.viewer.current.index = 0;
+				// get section information
+				$.getJSON(
+					"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
+					function (data) {
+						window.viewer.current.info = data;
+						window.viewer.indexer.empty();
+						for (var i = 0; i < data.length; i++) {
+							var b = $("<span></span>");
+							b.width(30);
+							b.text(i + 1);
+							b.mouseover(
+								function () {
+									$(this)[0].showhint();
+								}
+							);
+							b.click(
+								function () {
+									if (window.viewer.mapenlarged) {
+										window.viewer.mapreduce.call();
+									}
+									$(this).siblings("span").removeClass("selected");
+									$(this).addClass("selected");
+									window.viewer.current.index = parseInt($(this).text()) - 1;
+									setTimeout("window.viewer.loadimg()", 500);
+									$(this)[0].showhint();
+								}
+							);
+							b[0].showhint = function () {
+								if (!window.viewer.ringnumbers) {
+									window.viewer.hint.html("<p>无环号信息</p>");
+								}
+								else {
+									var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
+									window.viewer.hint.html(
+										"<tr><td align='right'>最近环号</td><td align='left'>" + ring.Number + "</td></tr>"
+										+ "<tr><td align='right'>里&nbsp;&nbsp;程</td><td align='left'>" + ring.Mileage + "</td></tr>"
+										+ (ring.Warning ? "<tr style='color:red'><td align='right'>距&nbsp;&nbsp;离</td><td align='left'>超过50米</td></tr>" : "")
+										+ "<tr><td align='right'>拍摄日期</td><td align='left'>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</td></tr>"
+									);
+								}
+								window.viewer.hint.offset({
+									"top": $(this).offset().top - window.viewer.hint.height(),
+									"left": $(this).offset().left - window.viewer.hint.width() / 2
+								});	
+								window.viewer.hint.css("opacity", "1.0");
+							};
+							window.viewer.indexer.append(b);
+						}
+						window.viewer.indexer.children().first().click();
+					}
+				)
+//				window.viewer.setmapviewport();
+			}
 
 			// prepare maps
-			this.maps.height(this.list.width());
-			this.maps.css({
-				"bottom": "45px",
-				"height": "200px",
-				"position": "absolute",
-				"text-align": "center",
-				"transition": "all 0.5s",
-				"width": "200px"
-			});
 			this.maps.ready(
 				function () {
-					// initialize Tianditu Map
-					if (typeof TMap == "undefined") {
-						return;
+					window.viewer.maps.zxcviewerMaps();
+					window.viewer.maps.sectionSelected = function (index) {
+						window.viewer.menu.onClick(index);
 					}
-					if (!(window.viewer.map = new TMap(window.viewer.maps[0]))) {
-						return;
-					}
-					var mShanghai = new TLngLat(121.48, 31.22);
-					window.viewer.map.centerAndZoom(mShanghai, 11);
-					window.viewer.map.enableHandleMouseScroll();
-					window.viewer.map.disableDoubleClickZoom();
-					TEvent.addListener(window.viewer.map, "dblclick", window.viewer.mapdoubleclick);
-					// add map type
-					window.viewer.mapTypeControl = new TMapTypeControl({mapTypes: [TMAP_NORMAL_MAP, TMAP_HYBRID_MAP]});
-					window.viewer.map.addControl(window.viewer.mapTypeControl);
 				}
 			);
 
 			// prepare canvas
-			this.canvas.css({
-				"position": "absolute",
-				"right": "0",
-				"transition": "all 0.5s",
-				"top": "0"
-			});
 			this.canvas.mousedown(
 				function (e) {
 					if (window.viewer.mapenlarged) {
@@ -455,43 +392,13 @@
 				}
 			);
 
-			// prepare hint
-			this.hint.css({
-				"text-align": "center",
-			});
-
 			// prepare exchange button
-			this.exchange.css({
-				"border": "thin solid " + options.foreground,
-				"cursor": "pointer",
-				"height": "30px",
-				"opacity": "0.7",
-				"position": "absolute",
-				"right": "10px",
-				"top": "10px",
-				"width": "30px",
-				"z-index": "200"
-			});
 			this.exchange.append(
 				"<img src='image/exchange.png' style='width: 30px; height: 30px'>"
 			);
-			this.exchange.hover(
-				function () {
-					$(this).fadeTo("fast", 1.0);
-				},
-				function () {
-					$(this).fadeTo("fast", 0.7);
-				}
-			);
 			this.exchange.click(
 				function () {
-					window.viewer.mapdoubleclick.call(window.viewer.map);
-				}
-			);
-
-			$(window).resize(
-				function () {
-					window.viewer.canvasresize();
+					window.viewer.mapdoubleclick.call();
 				}
 			);
 
