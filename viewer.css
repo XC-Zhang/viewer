@@ -53,7 +53,7 @@
 	right: 0;
 	transition-property: width, height;
 	transition-duration: 0.5s;
-	top: 0
+	top: 0;
 }
 
 .viewer canvas.normal {
@@ -61,7 +61,7 @@
 	width: 20%
 }
 
-.viewer canvas.large {
+.viewer canvas.large{
 	height: 100%;
 	width: 80%
 }

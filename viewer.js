@@ -58,7 +58,7 @@
 							&& section == window.viewer.current.section 
 						) {
 							window.viewer.current.image = this;
-							window.viewer.drawimg();
+							window.viewer.canvas.setImage(this);
 						}
 					};
 				}
@@ -99,7 +99,7 @@
 					window.viewer.mapenlarged = false;
 				}
 				window.viewer.maps.onResize();
-				window.viewer.canvasresize();
+				window.viewer.framework.onResize();
 			},
 			"setmapviewport": function () {
 				if (typeof window.viewer.map == "undefined") {
@@ -152,12 +152,6 @@
 //				this.clearOverLays();
 //				this.addOverLay(window.viewer.marker);
 			},
-			"canvasresize": function () {
-				var w = window.viewer.canvas.width();
-				var h = window.viewer.canvas.height();
-				window.viewer.canvas[0].width = w;
-				window.viewer.canvas[0].height = h;
-			}
 		};
 
 		var options = {
@@ -170,7 +164,6 @@
 			this.framework = $("<div class='viewer'></div>");
 			this.menu = $("<div id='menu'></div>")
 			this.maps = $("<div id='map' class='large'>未能加载地图</div>");
-			this.canvas = $("<canvas class='normal'>浏览器不受支持</canvas>");
 			this.indexer = $("<div id='indexer'></div>")
 			this.hint = $("<table id='hint' class='hide'></table>");
 			this.exchange = $("<div id='switch'></div>");
@@ -194,6 +187,8 @@
 			);
 			this.framework.ready(
 				function () {
+					window.viewer.canvas = $("canvas");
+					window.viewer.canvas.addClass("normal");
 					// get lines and sections
 					$.getJSON(
 						"image/" + (options.line - 12) + "/lineinfo.json",
@@ -210,28 +205,6 @@
 							window.viewer.ringnumbers = data;
 						}
 					);
-				}
-			);
-			this.framework.mouseup(
-				function () {
-					if (!window.viewer.current.image) {
-						return;
-					}
-					if (window.viewer.mapenlarged) {
-						return;
-					}
-					window.viewer.canvas.css("cursor", "default");						
-					window.viewer.canvas.unbind("mousemove", window.viewer.canvas.mousemovehandler);
-					var mHeight = window.viewer.canvas.height();
-					var mWidth = window.viewer.current.image.width * mHeight / window.viewer.current.image.height;
-					if (window.viewer.draw.offset.x + mWidth < 0) {
-						window.viewer.draw.offset.x += mWidth;
-						return;
-					}
-					if (window.viewer.draw.offset.x > mWidth) {
-						window.viewer.draw.offset.x-= mWidth;
-						return;
-					}
 				}
 			);
 			$(document).keyup(
@@ -345,39 +318,8 @@
 			);
 
 			// prepare canvas
-			this.canvas.mousedown(
-				function (e) {
-					if (window.viewer.mapenlarged) {
-						return;
-					}
-					window.viewer.draw.position.x = e.clientX;
-					window.viewer.draw.position.y = e.clientY;
-					window.viewer.draw.prevoffset.x = window.viewer.draw.offset.x;
-					window.viewer.draw.prevoffset.y = window.viewer.draw.offset.y;
-					window.viewer.canvas.css("cursor", "pointer");
-					window.viewer.canvas.mousemove(window.viewer.canvas.mousemovehandler);
-				}
-			);
-			this.canvas.mousemovehandler = function (e) {
-				if (!window.viewer.current.image) {
-					return;
-				}
-				window.viewer.draw.offset.x = e.clientX - window.viewer.draw.position.x + window.viewer.draw.prevoffset.x;
-				window.viewer.drawimg();
-			};
-			this.canvas.dblclick(
-				function () {
-					if (window.viewer.current.section == -1) {
-						return;
-					}
-					if (window.viewer.mapenlarged) {
-						window.viewer.mapreduce.call(window.viewer.map);
-					}
-					else {
-						window.viewer.mapenlarge.call(window.viewer.map);
-					}
-				}
-			);
+			this.framework.zxcviewerCanvas();
+			this.framework.onResize();
 
 			// prepare indexer
 			this.indexer.css({
