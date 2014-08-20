@@ -50,6 +50,8 @@
 
 		var setImageDrawSize = function () {
 			if (!image) return;
+			if (imageDrawSize.h != 0)
+				imageDrawPosition.x = imageDrawPosition.x * canvasElement.height / imageDrawSize.h;
 			imageDrawSize.h = canvasElement.height;
 			imageDrawSize.w = image.width * canvasElement.height / image.height;
 		}

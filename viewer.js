@@ -120,7 +120,6 @@
 			this.menu = $("<div id='menu'></div>")
 			this.maps = $("<div id='map' class='large'>未能加载地图</div>");
 			this.indexer = $("<div id='indexer'></div>")
-			this.hint = $("<table id='hint' class='hide'></table>");
 			this.exchange = $("<div id='switch'></div>");
 
 			// prepare framework
@@ -135,9 +134,7 @@
 			this.framework.append(
 				this.menu,
 				this.maps,
-				this.canvas,
 				this.indexer,
-				this.hint,
 				this.exchange
 			);
 			this.framework.ready(
@@ -165,10 +162,6 @@
 			$(document).keyup(
 				function (e) {
 					switch (e.which) {
-					case 32:
-						// SPACE pressed
-						window.viewer.mapdoubleclick.call(window.viewer.map);
-						break;
 					case 38:
 						// arrow key UP pressed
 						if (window.viewer.current.index != window.viewer.current.info.length - 1) {
@@ -207,60 +200,14 @@
 			this.menu.sectionClick = function (index) {
 				// update current status
 				window.viewer.current.section = index;
-				window.viewer.current.index = 0;
 				// update maps
 				window.viewer.maps.showSection(index);
-				// show image
-				window.viewer.loadimg();
 				// get section information
 				$.getJSON(
 					"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
 					function (data) {
 						window.viewer.current.info = data;
-						window.viewer.indexer.empty();
-						for (var i = 0; i < data.length; i++) {
-							var b = $("<span></span>");
-							b.width(30);
-							b.text(i + 1);
-							b.mouseover(
-								function () {
-									$(this)[0].showhint();
-								}
-							);
-							b.click(
-								function () {
-									if (window.viewer.mapenlarged) {
-										window.viewer.mapreduce.call();
-									}
-									$(this).siblings("span").removeClass("selected");
-									$(this).addClass("selected");
-									window.viewer.current.index = parseInt($(this).text()) - 1;
-									setTimeout("window.viewer.loadimg()", 500);
-									$(this)[0].showhint();
-								}
-							);
-							b[0].showhint = function () {
-								if (!window.viewer.ringnumbers) {
-									window.viewer.hint.html("<p>无环号信息</p>");
-								}
-								else {
-									var ring = window.viewer.ringnumbers[window.viewer.current.section][parseInt($(this).text()) - 1];
-									window.viewer.hint.html(
-										"<tr><td align='right'>最近环号</td><td align='left'>" + ring.Number + "</td></tr>"
-										+ "<tr><td align='right'>里&nbsp;&nbsp;程</td><td align='left'>" + ring.Mileage + "</td></tr>"
-										+ (ring.Warning ? "<tr style='color:red'><td align='right'>距&nbsp;&nbsp;离</td><td align='left'>超过50米</td></tr>" : "")
-										+ "<tr><td align='right'>拍摄日期</td><td align='left'>" + window.viewer.current.info[parseInt($(this).text()) - 1].date + "</td></tr>"
-									);
-								}
-								window.viewer.hint.offset({
-									"top": $(this).offset().top - window.viewer.hint.height(),
-									"left": $(this).offset().left - window.viewer.hint.width() / 2
-								});	
-								window.viewer.hint.css("opacity", "1.0");
-							};
-							window.viewer.indexer.append(b);
-						}
-						window.viewer.indexer.children().first().click();
+						window.viewer.indexer.showSection(window.viewer.ringnumbers[index], data);
 					}
 				)
 			}
@@ -277,20 +224,13 @@
 
 			// prepare canvas
 			this.framework.zxcviewerCanvas();
-			this.framework.onResize();
 
 			// prepare indexer
-			this.indexer.css({
-				"left": "230px",
-			});
-			this.indexer.mouseout(
-				function () {
-					if ($(this).children().length == 0) {
-						return;
-					};
-					$(this).children().eq(window.viewer.current.index)[0].showhint();
-				}
-			);
+			this.indexer.zxcviewerIndexer();
+			this.indexer.siteSelected = function (index) {
+				window.viewer.current.index = index;
+				window.viewer.loadimg();
+			};
 
 			// prepare exchange button
 			this.exchange.append(
