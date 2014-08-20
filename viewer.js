@@ -6,41 +6,7 @@
 			"current": {
 				"section": -1,
 				"index": 0,
-				"image": null,
 				"info": null
-			},
-			"draw": {
-				"position": {
-					"x": 0,
-					"y": 0
-				},
-				"prevoffset": {
-					"x": 0,
-					"y": 0
-				},
-				"offset": {
-					"x": 0,
-					"y": 0
-				}
-			},
-			"drawimg": function () {
-				var mCanvas = this.canvas[0].getContext("2d");
-				var mImage = this.current.image;
-				if (!mImage) {
-					return;
-				}
-				var mHeight = this.canvas.height();
-				var mWidth = mImage.width * mHeight / mImage.height;
-				var x = this.draw.offset.x;
-				mCanvas.drawImage(mImage, x, 0, mWidth, mHeight);
-				if (x > 0) {
-					mCanvas.drawImage(mImage, x - mWidth, 0, mWidth, mHeight);
-					return;
-				}
-				if (mWidth + x < this.canvas.width()) {
-					mCanvas.drawImage(mImage, mWidth + x, 0, mWidth, mHeight);
-					return;
-				}
 			},
 			"loadimg": function () {
 				for (var i = 0; i < 2; i++) {
@@ -57,7 +23,6 @@
 							index == window.viewer.current.index 
 							&& section == window.viewer.current.section 
 						) {
-							window.viewer.current.image = this;
 							window.viewer.canvas.setImage(this);
 						}
 					};
@@ -253,6 +218,8 @@
 				// update current status
 				window.viewer.current.section = index;
 				window.viewer.current.index = 0;
+				// update maps
+				window.viewer.maps.showSection(index);
 				// get section information
 				$.getJSON(
 					"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
@@ -304,7 +271,7 @@
 						window.viewer.indexer.children().first().click();
 					}
 				)
-//				window.viewer.setmapviewport();
+				window.viewer.setmapviewport();
 			}
 
 			// prepare maps

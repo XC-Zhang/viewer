@@ -15,6 +15,9 @@
 		el.changeSize = function () {
 
 		}
+		el.showSection = function (index) {
+			showSection(index);
+		}
 
 		var map = L.map(
 			el.get(0),
@@ -87,6 +90,13 @@
 				polylines[i].on("click", polylineClick);
 			}
 			map.fitBounds(L.latLngBounds(lineInfo));
+		}
+		var showSection = function (index) {
+			if (typeof lineInfo == "undefined") return;
+			map.fitBounds(L.latLngBounds([
+				lineInfo[index], 
+				lineInfo[index + 1]
+			]));
 		}
 		var polylineClick = function (e) {
 			if (el.sectionSelected) 
