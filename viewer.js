@@ -63,8 +63,8 @@
 					window.viewer.menu.slideDown();
 					window.viewer.mapenlarged = false;
 				}
-				window.viewer.maps.onResize();
-				window.viewer.framework.onResize();
+				setTimeout(window.viewer.maps.onResize, 500);
+				setTimeout(window.viewer.framework.onResize, 500);
 			},
 			"mapenlarge": function () {
 				window.viewer.mapenlarged = true;
