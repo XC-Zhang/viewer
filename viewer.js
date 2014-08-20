@@ -23,7 +23,7 @@
 							index == window.viewer.current.index 
 							&& section == window.viewer.current.section 
 						) {
-							window.viewer.canvas.setImage(this);
+							window.viewer.framework.setImage(this);
 						}
 					};
 				}
