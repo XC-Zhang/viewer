@@ -66,16 +66,6 @@
 				window.viewer.maps.onResize();
 				window.viewer.framework.onResize();
 			},
-			"setmapviewport": function () {
-				if (typeof window.viewer.map == "undefined") {
-					return;
-				}
-				var view = L.latLngBounds([
-					window.viewer.lineinfo[window.viewer.current.section],
-					window.viewer.lineinfo[window.viewer.current.section + 1]
-				]);
-				window.viewer.map.fitBounds(view);
-			},
 			"mapenlarge": function () {
 				window.viewer.mapenlarged = true;
 
@@ -220,6 +210,8 @@
 				window.viewer.current.index = 0;
 				// update maps
 				window.viewer.maps.showSection(index);
+				// show image
+				window.viewer.loadimg();
 				// get section information
 				$.getJSON(
 					"image/" + (options.line - 12) + "/" + window.viewer.current.section + "/data.json",
@@ -271,7 +263,6 @@
 						window.viewer.indexer.children().first().click();
 					}
 				)
-				window.viewer.setmapviewport();
 			}
 
 			// prepare maps
