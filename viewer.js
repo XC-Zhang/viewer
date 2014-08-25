@@ -2,7 +2,7 @@
 	function viewer(el, params) {
 		// create global object
 		this.viewer = {
-			"mapenlarged": false,
+			"mapenlarged": true,
 			"current": {
 				"section": -1,
 				"index": 0,
@@ -51,7 +51,6 @@
 					window.viewer.maps.addClass('large');
 					window.viewer.canvas.removeClass('large');
 					window.viewer.canvas.addClass('normal');
-					window.viewer.menu.slideUp();
 					window.viewer.mapenlarged = true;
 				}
 				else {
@@ -59,7 +58,6 @@
 					window.viewer.maps.addClass('normal');
 					window.viewer.canvas.removeClass('normal');
 					window.viewer.canvas.addClass('large');
-					window.viewer.menu.slideDown();
 					window.viewer.mapenlarged = false;
 				}
 				setTimeout(window.viewer.maps.onResize, 500);
