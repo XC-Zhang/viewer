@@ -31,6 +31,7 @@
 			lists.slideToggle();
 		}
 		var elementClick = function (e) {
+			$(this).parent().slideUp();
 			$(this).siblings().removeClass("selected");
 			$(this).addClass("selected");
 			if (el.sectionClick)

@@ -55,7 +55,6 @@
 					window.viewer.mapenlarged = true;
 				}
 				else {
-					//window.viewer.mapreduce.call(this);
 					window.viewer.maps.removeClass('large');
 					window.viewer.maps.addClass('normal');
 					window.viewer.canvas.removeClass('normal');
@@ -76,36 +75,10 @@
 						icon: new L.Icon.Default(),
 						title: i + 1
 					}).addTo(this);
-/*					TEvent.addListener(
-						marker, 
-						"mouseover",
-						function () {
-							var i = this.getTitle() - 1;
-							window.viewer.indexer.children().eq(i).mouseenter();
-						}
-					);
-					TEvent.addListener(
-						marker,
-						"mouseout",
-						function () {
-							var i = this.getTitle() - 1;
-							window.viewer.indexer.children().eq(i).mouseleave();
-						}
-					)
-					TEvent.addListener(
-						marker,
-						"click",
-						function () {
-							var i = this.getTitle() - 1;
-							window.viewer.indexer.children().eq(i).click();
-						}
-					)
-*/				}
+				}
 			},
 			"mapreduce": function () {
 				window.viewer.mapenlarged = false;
-//				this.clearOverLays();
-//				this.addOverLay(window.viewer.marker);
 			},
 		};
 
@@ -148,6 +121,7 @@
 							window.viewer.lineinfo = data;
 							window.viewer.menu.setLineInfo(data);
 							window.viewer.maps.setLineInfo(data);
+							window.viewer.menu.onClick(0);
 						}
 					);
 					// get ring numbers
