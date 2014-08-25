@@ -62,22 +62,7 @@
 				}
 				setTimeout(window.viewer.maps.onResize, 500);
 				setTimeout(window.viewer.framework.onResize, 500);
-			},
-			"mapenlarge": function () {
-				window.viewer.mapenlarged = true;
-
-				this.removeLayer(window.viewer.marker);
-				for (var i = 0; i < window.viewer.current.info.length; i++) {
-					var pos = window.viewer.current.info[i];
-					var marker = L.marker(pos, {
-						icon: new L.Icon.Default(),
-						title: i + 1
-					}).addTo(this);
-				}
-			},
-			"mapreduce": function () {
-				window.viewer.mapenlarged = false;
-			},
+			}
 		};
 
 		var options = {

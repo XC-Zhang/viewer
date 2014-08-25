@@ -10,12 +10,11 @@
 		el.sectionSelected = null;
 		// Methods
 		el.onResize = function () {
-			map.fire('resize');
-		}
-		el.changeSize = function () {
-
+			map.invalidateSize(true);
+			setTimeout(showSection, 500, currentIndex);
 		}
 		el.showSection = function (index) {
+			currentIndex = index;
 			showSection(index);
 		}
 
@@ -78,6 +77,7 @@
 
 		var lineInfo = undefined;
 		var polylines = undefined;
+		var currentIndex = -1;
 		var showLine = function () {
 			if (typeof lineInfo == "undefined") return;
 			polylines = new Array(lineInfo.length);
