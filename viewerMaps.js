@@ -148,8 +148,6 @@
 		}
 		var iconClick = function (e) {
 			var index = markers.indexOf(e.target);
-			$(".divIcon").eq(index).addClass("selected");
-			$(".divIcon").not(":eq(" + index + ")").removeClass("selected");
 			if (el.siteSelected)
 				el.siteSelected(index);
 		}

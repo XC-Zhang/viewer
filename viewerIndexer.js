@@ -35,7 +35,7 @@
 			hintpop.removeClass("show");
 			hintpop.addClass("hide");
 		}
-		el.onSiteSelect = function (index) {
+		el.showSite = function (index) {
 			for (var i = 0; i < spans.length; i++) {
 				if (i == index)
 					spans[i].addClass("selected");
@@ -46,10 +46,7 @@
 		}
 
 		var spanClick = function (e) {
-			$(this).siblings("span").removeClass("selected");
-			$(this).addClass("selected");
 			var index = $(this).text() - 1;
-			showHint(index);
 			if (el.siteSelected)
 				el.siteSelected(index);
 		}

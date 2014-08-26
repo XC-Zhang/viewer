@@ -153,10 +153,7 @@
 						window.viewer.current.info = data;
 						window.viewer.indexer.showSection(window.viewer.ringnumbers[index], data);
 						window.viewer.maps.showSection(index, data);
-						window.viewer.indexer.onSiteSelect(0);
-						window.viewer.maps.showSite(0);
-				window.viewer.current.index = index;
-				window.viewer.loadimg();
+						window.viewer.indexer.siteSelected(0);
 					}
 				)
 			}
@@ -169,7 +166,8 @@
 						window.viewer.menu.onClick(index);
 					}
 					window.viewer.maps.siteSelected = function (index) {
-						window.viewer.indexer.onSiteSelect(index);
+						window.viewer.maps.showSite(index);
+						window.viewer.indexer.showSite(index);
 					}
 				}
 			);
@@ -182,6 +180,7 @@
 			this.indexer.siteSelected = function (index) {
 				window.viewer.current.index = index;
 				window.viewer.loadimg();
+				window.viewer.indexer.showSite(index);
 				window.viewer.maps.showSite(index);
 			};
 
