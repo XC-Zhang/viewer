@@ -74,9 +74,9 @@
 		(function () {
 			this.framework = $("<div class='viewer'></div>");
 			this.menu = $("<div id='menu'></div>")
-			this.maps = $("<div id='map' class='large'>未能加载地图</div>");
+			this.maps = $("<div id='map' class='large'></div>");
 			this.indexer = $("<div id='indexer'></div>")
-			this.exchange = $("<div id='switch'></div>");
+			this.switch = $("<div id='switch'></div>");
 
 			// prepare framework
 			this.framework.width(options.width);
@@ -91,7 +91,7 @@
 				this.menu,
 				this.maps,
 				this.indexer,
-				this.exchange
+				this.switch
 			);
 			this.framework.ready(
 				function () {
@@ -190,12 +190,9 @@
 			};
 
 			// prepare exchange button
-			this.exchange.append(
-				"<img src='image/exchange.png' style='width: 30px; height: 30px'>"
-			);
-			this.exchange.click(
+			this.switch.click(
 				function () {
-					window.viewer.mapdoubleclick.call();
+					window.viewer.mapdoubleclick();
 				}
 			);
 
