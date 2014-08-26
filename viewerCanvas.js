@@ -71,7 +71,7 @@
 				touchmove: touchMove,
 				touchend: touchEnd
 			});
-			imageDrawPosition.x = imageDrawPosition.x + e.originalEvent.touches[0].clientX - mouseDownPosition.x;
+			imageDrawPosition.x = imageDrawPosition.x + e.changedTouches[0].clientX - mouseDownPosition.x;
 			drawImage(imageDrawPosition);
 		}
 
