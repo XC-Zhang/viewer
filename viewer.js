@@ -155,6 +155,8 @@
 						window.viewer.maps.showSection(index, data);
 						window.viewer.indexer.onSiteSelect(0);
 						window.viewer.maps.showSite(0);
+				window.viewer.current.index = index;
+				window.viewer.loadimg();
 					}
 				)
 			}
