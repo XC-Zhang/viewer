@@ -166,8 +166,7 @@
 						window.viewer.menu.onClick(index);
 					}
 					window.viewer.maps.siteSelected = function (index) {
-						window.viewer.maps.showSite(index);
-						window.viewer.indexer.showSite(index);
+						window.viewer.indexer.siteSelected(index);
 					}
 				}
 			);
