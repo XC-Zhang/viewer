@@ -13,9 +13,9 @@
 			map.invalidateSize(true);
 			setTimeout(showSection, 500, currentIndex);
 		}
-		el.showSection = function (index) {
+		el.showSection = function (index, data) {
 			currentIndex = index;
-			showSection(index);
+			showSection(index, data);
 		}
 
 		var map = L.map(
@@ -78,6 +78,8 @@
 		var lineInfo = undefined;
 		var polylines = undefined;
 		var currentIndex = -1;
+		var markers = new Array();
+		var icon = L.divIcon();
 		var showLine = function () {
 			if (typeof lineInfo == "undefined") return;
 			polylines = new Array(lineInfo.length);
@@ -91,12 +93,48 @@
 			}
 			map.fitBounds(L.latLngBounds(lineInfo));
 		}
-		var showSection = function (index) {
+		var showSection = function (index, data) {
 			if (typeof lineInfo == "undefined") return;
 			map.fitBounds(L.latLngBounds([
 				lineInfo[index], 
 				lineInfo[index + 1]
 			]));
+			if (typeof data == "undefined") return;
+			var j = 0;
+			if (data.length > markers.length) {
+				for (var i = 0; i < markers.length; i++) {
+					data[i].lat = data[i].lat ? data[i].lat : 0.0;
+					data[i].lng = data[i].lng ? data[i].lng : 0.0;
+					markers[i].setLatLng(data[i]).setOpacity(1.0);
+				}
+				for (var i = markers.length; i < data.length; i++) {
+					data[i].lat = data[i].lat ? data[i].lat : 0.0;
+					data[i].lng = data[i].lng ? data[i].lng : 0.0;
+					markers.push(
+						L.marker(
+							data[i], 
+							{
+								icon: L.divIcon({
+									iconSize: [18, 18],
+									iconAnchor: [-9, -9],
+									className: "divIcon",
+									html: (i + 1)
+								}), 
+								riseOnHover: true,
+								title: (i + 1) + ""
+							}
+						).addTo(map)
+					);
+				}
+			} else {
+				for (var i = 0; i < data.length; i++) {
+					data[i].lat = data[i].lat ? data[i].lat : 0.0;
+					data[i].lng = data[i].lng ? data[i].lng : 0.0;
+					markers[i].setLatLng(data[i]).setOpacity(1.0);
+				}
+				for (var i = data.length; i < markers.length; i++)
+					markers[i].setOpacity(0.0);
+			}
 		}
 		var polylineClick = function (e) {
 			if (el.sectionSelected) 

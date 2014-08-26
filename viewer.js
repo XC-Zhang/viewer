@@ -165,6 +165,7 @@
 					function (data) {
 						window.viewer.current.info = data;
 						window.viewer.indexer.showSection(window.viewer.ringnumbers[index], data);
+						window.viewer.maps.showSection(index, data);
 					}
 				)
 			}
