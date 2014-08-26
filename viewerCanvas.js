@@ -48,6 +48,27 @@
 			drawImage(imageDrawPosition);
 		}
 
+		var touchStart = function (e) {
+			if (!image) return;
+			mouseDownPosition.x = e.clientX;
+			mouseDownPosition.y = e.clientY;
+			canvas.bind({
+				touchmove: touchMove,
+				touchend: touchEnd
+			});
+		}
+		var touchMove = function (e) {
+			mouseMove(e);
+		}
+		var touchEnd = function (e) {
+			canvas.unbind({
+				touchmove: touchMove,
+				touchend: touchEnd
+			});
+			imageDrawPosition.x = imageDrawPosition.x + e.clientX - mouseDownPosition.x;
+			drawImage(imageDrawPosition);
+		}
+
 		var setImageDrawSize = function () {
 			if (!image) return;
 			if (imageDrawSize.h != 0)
@@ -83,6 +104,7 @@
 		}
 
 		canvas.mousedown(mouseDown);
+		canvas.bind("touchstart", touchStart);
 		canvas.dblclick(doubleClick);
 
 		el.append(canvas);
