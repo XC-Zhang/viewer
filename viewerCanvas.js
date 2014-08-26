@@ -64,7 +64,7 @@
 				x: imageDrawPosition.x + e.originalEvent.touches[0].clientX - mouseDownPosition.x,
 				y: 0
 			};
-			e.stopPropagation();
+			e.stopImmediatePropagation();
 			drawImage(tempPosition);
 		}
 		var touchEnd = function (e) {
