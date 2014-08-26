@@ -52,7 +52,7 @@
 			if (e.originalEvent.touches.length != 1) return;
 			if (!image) return;
 			mouseDownPosition.x = e.originalEvent.touches[0].clientX;
-			mouseDownPosition.y = e.originalEvent.touches[1].clientY;
+			mouseDownPosition.y = e.originalEvent.touches[0].clientY;
 			canvas.bind({
 				touchmove: touchMove,
 				touchend: touchEnd
