@@ -18,6 +18,10 @@
 			currentIndex = index;
 			showSection(index, data);
 		}
+		el.showSite = function (index) {
+			$(".divIcon").eq(index).addClass("selected");
+			$(".divIcon").not(":eq(" + index + ")").removeClass("selected");			
+		}
 
 		var map = L.map(
 			el.get(0),
@@ -143,8 +147,11 @@
 				el.sectionSelected(polylines.indexOf(e.target));
 		}
 		var iconClick = function (e) {
+			var index = markers.indexOf(e.target);
+			$(".divIcon").eq(index).addClass("selected");
+			$(".divIcon").not(":eq(" + index + ")").removeClass("selected");
 			if (el.siteSelected)
-				el.siteSelected(markers.indexOf(e.target));
+				el.siteSelected(index);
 		}
 
 	}

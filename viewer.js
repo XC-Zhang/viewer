@@ -154,6 +154,7 @@
 						window.viewer.indexer.showSection(window.viewer.ringnumbers[index], data);
 						window.viewer.maps.showSection(index, data);
 						window.viewer.indexer.onSiteSelect(0);
+						window.viewer.maps.showSite(0);
 					}
 				)
 			}
@@ -179,6 +180,7 @@
 			this.indexer.siteSelected = function (index) {
 				window.viewer.current.index = index;
 				window.viewer.loadimg();
+				window.viewer.maps.showSite(index);
 			};
 
 			// prepare exchange button

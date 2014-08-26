@@ -36,7 +36,13 @@
 			hintpop.addClass("hide");
 		}
 		el.onSiteSelect = function (index) {
-			spans[index].click();
+			for (var i = 0; i < spans.length; i++) {
+				if (i == index)
+					spans[i].addClass("selected");
+				else
+					spans[i].removeClass("selected");
+			}
+			showHint(index);
 		}
 
 		var spanClick = function (e) {

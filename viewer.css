@@ -137,4 +137,10 @@
 	border-radius: 50%;
 	color: white;
 	text-align: center;
+	transition-property: background, color;
+	transition-duration: 0.5s;
+}
+.viewer div#map .divIcon.selected {
+	background: yellow;
+	color: black;
 }
