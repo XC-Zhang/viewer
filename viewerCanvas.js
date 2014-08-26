@@ -49,23 +49,29 @@
 		}
 
 		var touchStart = function (e) {
+			if (e.originalEvent.touches.length != 1) return;
 			if (!image) return;
-			mouseDownPosition.x = e.clientX;
-			mouseDownPosition.y = e.clientY;
+			mouseDownPosition.x = e.originalEvent.touches[0].clientX;
+			mouseDownPosition.y = e.originalEvent.touches[1].clientY;
 			canvas.bind({
 				touchmove: touchMove,
 				touchend: touchEnd
 			});
 		}
 		var touchMove = function (e) {
-			mouseMove(e);
+			if (!image) return;
+			var tempPosition = {
+				x: imageDrawPosition.x + e.originalEvent.touches[0].clientX - mouseDownPosition.x,
+				y: 0
+			};
+			drawImage(tempPosition);
 		}
 		var touchEnd = function (e) {
 			canvas.unbind({
 				touchmove: touchMove,
 				touchend: touchEnd
 			});
-			imageDrawPosition.x = imageDrawPosition.x + e.clientX - mouseDownPosition.x;
+			imageDrawPosition.x = imageDrawPosition.x + e.originalEvent.touches[0].clientX - mouseDownPosition.x;
 			drawImage(imageDrawPosition);
 		}
 
