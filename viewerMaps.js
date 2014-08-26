@@ -8,6 +8,7 @@
 		}
 		// Events
 		el.sectionSelected = null;
+		el.siteSelected = null;
 		// Methods
 		el.onResize = function () {
 			map.invalidateSize(true);
@@ -125,6 +126,7 @@
 							}
 						).addTo(map)
 					);
+					markers[i].on("click", iconClick);
 				}
 			} else {
 				for (var i = 0; i < data.length; i++) {
@@ -139,6 +141,10 @@
 		var polylineClick = function (e) {
 			if (el.sectionSelected) 
 				el.sectionSelected(polylines.indexOf(e.target));
+		}
+		var iconClick = function (e) {
+			if (el.siteSelected)
+				el.siteSelected(markers.indexOf(e.target));
 		}
 
 	}

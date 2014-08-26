@@ -27,19 +27,6 @@
 						}
 					};
 				}
-				// show position on map
-				if (this.map) {
-					var pos = this.current.info[this.current.index];
-					if (typeof this.marker == "undefined") {
-						this.marker = L.marker(pos);
-						this.marker.addTo(this.map);
-						this.map.setView(pos);
-					}
-					else {
-						this.marker.setLatLng(pos);
-						this.map.setView(pos);
-					}
-				}
 			},
 			"mapdoubleclick": function (pixel) {
 				if (window.viewer.current.section == -1) {
@@ -176,6 +163,9 @@
 					window.viewer.maps.zxcviewerMaps();
 					window.viewer.maps.sectionSelected = function (index) {
 						window.viewer.menu.onClick(index);
+					}
+					window.viewer.maps.siteSelected = function (index) {
+						window.viewer.indexer.onSiteSelect(index);
 					}
 				}
 			);

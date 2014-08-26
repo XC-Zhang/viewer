@@ -35,6 +35,9 @@
 			hintpop.removeClass("show");
 			hintpop.addClass("hide");
 		}
+		el.onSiteSelect = function (index) {
+			spans[index].click();
+		}
 
 		var spanClick = function (e) {
 			$(this).siblings("span").removeClass("selected");
@@ -56,9 +59,11 @@
 				);
 			else
 				hintpop.html("<tr><td>无环号信息</td></tr>");
+			var left = spans[index].position().left + spans[index].width() / 2 - hintpop.width() / 2;
+			if (left < 0) left = 0;
 			hintpop.css({
 				"top": spans[index].position().top - hintpop.height() + "px",
-				"left": spans[index].position().left + spans[index].width() / 2 - hintpop.width() / 2 + "px"
+				"left":  left + "px"
 			});
 		}
 
