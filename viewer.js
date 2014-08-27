@@ -9,23 +9,31 @@
 				"info": null
 			},
 			"loadimg": function () {
-				for (var i = 0; i < 2; i++) {
-					var img = new Image();
-					img.src = "image/" 
-						+ (options.line - 12) + "/" 
-						+ this.current.section + "/" 
-						+ ((this.current.index + 1) > 9 ? (this.current.index + 1) : "0" + (this.current.index + 1)) + "_" 
-						+ i + ".jpg";
-					img.onload = function () {
+				var img1 = new Image();
+				img1.src = "http://line12-images.qiniudn.com/image/" 
+					+ (options.line - 0) + "/" 
+					+ this.current.section + "/" 
+					+ ((this.current.index + 1) > 9 ? (this.current.index + 1) : "0" + (this.current.index + 1)) + "_" 
+					+ "0.jpg";
+				img1.onload = function () {
+					var index = parseInt(this.src.substr(this.src.length - 8, 2)) - 1;
+					var section = parseInt(this.src.substr(this.src.length - 10, 1));
+					if (index != window.viewer.current.index || section != window.viewer.current.section) 
+						return;
+					window.viewer.framework.setImage(this);
+					var img2 = new Image();
+					img2.src = "http://line12-images.qiniudn.com/image/" 
+						+ (options.line - 0) + "/" 
+						+ window.viewer.current.section + "/" 
+						+ ((window.viewer.current.index + 1) > 9 ? (window.viewer.current.index + 1) : "0" + (window.viewer.current.index + 1)) + "_" 
+						+ "1.jpg";
+					img2.onload = function () {
 						var index = parseInt(this.src.substr(this.src.length - 8, 2)) - 1;
 						var section = parseInt(this.src.substr(this.src.length - 10, 1));
-						if (
-							index == window.viewer.current.index 
-							&& section == window.viewer.current.section 
-						) {
-							window.viewer.framework.setImage(this);
-						}
-					};
+						if (index != window.viewer.current.index || section != window.viewer.current.section) 
+							return;
+						window.viewer.framework.setImage(this);
+					}
 				}
 			},
 			"mapdoubleclick": function (pixel) {
