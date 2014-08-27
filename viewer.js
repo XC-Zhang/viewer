@@ -72,6 +72,10 @@
 			this.indexer = $("<div id='indexer'></div>")
 			this.switch = $("<div id='switch'></div>");
 
+			// check if using mobile
+			if (isMobile())
+				this.framework.addClass("mobile");
+
 			// prepare framework
 			this.framework.height(options.height);
 			this.framework.css({

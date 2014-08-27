@@ -1,0 +1,39 @@
+.viewer.mobile div#menu div {
+	font-size: 300%;
+}
+
+.viewer.mobile div#map.normal {
+	z-index: -1;
+}
+.viewer.mobile div#map.large {
+	width: 100%;
+}
+
+.viewer.mobile canvas.normal {
+	z-index: -1;
+}
+.viewer.mobile canvas.large {
+	width: 100%;
+}
+
+.viewer.mobile div#indexer div#spanContainer span {
+	padding: 5px 0px;
+	width: 50px;
+}
+.viewer.mobile div#indexer div#spanContainer span.selected {
+	width: 70px;
+}
+.viewer.mobile div#indexer div#spanContainer::-webkit-scrollbar {
+	height: 5px;
+}
+.viewer div#indexer div#spanContainer::-webkit-scrollbar-thumb {
+	background: #717171;
+	border-radius: 5px;
+}
+
+.viewer.mobile div#switch {
+	height: 44px;
+	right: 12px;
+	top: 70px;
+	width: 44px;
+}
