@@ -39,7 +39,7 @@
 }
 
 .viewer div#map.normal {
-	height: 50%;
+	height: 100%;
 	width: 20%;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .viewer canvas.normal {
-	height: 20%;
+	height: 100%;
 	width: 20%
 }
 
@@ -76,7 +76,32 @@
 	z-index: 200;
 }
 
-.viewer div#indexer span {
+.viewer div#indexer div#spanContainer {
+	bottom: 0;
+	left: 0;
+	overflow-x: auto;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	white-space: nowrap;
+	scrollbar-base-color: #2F2F2F; /* Scrollbar Style for IE */
+}
+/* Scrollbar Style for Webkit */
+.viewer div#indexer div#spanContainer::-webkit-scrollbar {
+	height: 10px;
+}
+.viewer div#indexer div#spanContainer::-webkit-scrollbar-track {
+	background: rgba(47, 47, 47, 0.9);
+}
+.viewer div#indexer div#spanContainer::-webkit-scrollbar-thumb {
+	background: #474747;
+	border-radius: 10px;
+}
+.viewer div#indexer div#spanContainer::-webkit-scrollbar-thumb:hover {
+	background: #717171;
+}
+
+.viewer div#indexer div#spanContainer span {
 	background: rgba(47, 47, 47, 0.9);
 	color: white;
 	cursor: pointer;
@@ -88,10 +113,10 @@
 	transition-duration: 0.5s;
 	width: 30px;
 }
-.viewer div#indexer span:hover {
+.viewer div#indexer div#spanContainer span:hover {
 	background: #474747;
 }
-.viewer div#indexer span.selected {
+.viewer div#indexer div#spanContainer span.selected {
 	background: #717171;
 	width: 50px;
 }

@@ -2,6 +2,7 @@
 	
 	function viewerIndexer(el, params) {
 		var hintpop = $("<table></table>");
+		var spanContainer = $("<div></div>")
 		var spans = new Array();
 		var ringNumbers = null;
 		var infomation;
@@ -15,18 +16,18 @@
 			information = info;
 			if (info.length > spans.length) {
 				for (var i = 0; i < spans.length; i++) {
-					spans[i].appendTo(el);
+					spans[i].appendTo(spanContainer);
 					spans[i].removeClass("selected");
 				}
 				for (var i = spans.length; i < info.length; i++) {
 					spans.push($("<span></span>"));
 					spans[i].text(i + 1);
 					spans[i].click(spanClick);
-					spans[i].appendTo(el);
+					spans[i].appendTo(spanContainer);
 				}
 			} else {
 				for (var i = 0; i < info.length; i++) {
-					spans[i].appendTo(el);
+					spans[i].appendTo(spanContainer);
 					spans[i].removeClass("selected");
 				}
 				for (var i = info.length; i < spans.length; i++)
@@ -64,15 +65,17 @@
 				hintpop.html("<tr><td>无环号信息</td></tr>");
 			var left = spans[index].position().left + spans[index].width() / 2 - hintpop.width() / 2;
 			if (left < 0) left = 0;
+			if (left + hintpop.width() + 2 > el.position().left + el.width()) left = el.width() - hintpop.width() - 2;
 			hintpop.css({
-				"top": spans[index].position().top - hintpop.height() + "px",
+				"top": spanContainer.position().top - hintpop.height() + "px",
 				"left":  left + "px"
 			});
 		}
 
 		hintpop.addClass("hide");
+		spanContainer.attr("id", "spanContainer");
 
-		el.append(hintpop);
+		el.append(hintpop, spanContainer);
 	}
 
 	// jQuery Plugin Initialisation

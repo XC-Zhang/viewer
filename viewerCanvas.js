@@ -81,6 +81,8 @@
 				imageDrawPosition.x = imageDrawPosition.x * canvasElement.height / imageDrawSize.h;
 			imageDrawSize.h = canvasElement.height;
 			imageDrawSize.w = image.width * canvasElement.height / image.height;
+			canvasElement.width = canvas.width();
+			canvasElement.height = canvas.height();
 		}
 		var drawImage = function (position) {
 			if (!image) return;
@@ -103,8 +105,6 @@
 
 		}
 		var resize = function () {
-			canvasElement.width = canvas.width();
-			canvasElement.height = canvas.height();
 			setImageDrawSize();
 			drawImage(imageDrawPosition);
 		}
