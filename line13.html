@@ -34,7 +34,7 @@
 		<header>13号线地面街景游览平台</header>
 		<div id="container"></div>
 		<script type="text/javascript">
-			$("#container").height($(window).height() - $("#container").offset().top - 8);
+			$("#container").height($(window).height() - $("header").innerHeight());
 			$("#container").zxcviewer({
 				background: "#DDDDDD",
 				foreground: "#0F0F77",

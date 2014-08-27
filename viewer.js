@@ -62,7 +62,6 @@
 
 		var options = {
 			"height" : el.height(),
-			"width": el.width(),
 		};
 		$.extend(options, params);
 
@@ -74,7 +73,6 @@
 			this.switch = $("<div id='switch'></div>");
 
 			// prepare framework
-			this.framework.width(options.width);
 			this.framework.height(options.height);
 			this.framework.css({
 				"background": options.background,

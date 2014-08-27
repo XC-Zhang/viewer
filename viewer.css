@@ -49,6 +49,7 @@
 }
 
 .viewer canvas {
+	cursor: e-resize;
 	position: absolute;
 	right: 0;
 	transition-property: width, height;
