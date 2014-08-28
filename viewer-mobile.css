@@ -32,8 +32,11 @@
 }
 
 .viewer.mobile div#switch {
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+	box-shadow: none;
 	height: 44px;
-	right: 12px;
 	top: 70px;
 	width: 44px;
 }
