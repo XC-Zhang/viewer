@@ -56,10 +56,10 @@
 			hintpop.addClass("show");
 			if (ringNumbers)
 				hintpop.html(
-					"<tr><td align='right'>最近环号</td><td align='left'>" + ringNumbers[index].Number + "</td></tr>" +
-					"<tr><td align='right'>里&nbsp;&nbsp;&nbsp;&nbsp;程</td><td align='left'>" + ringNumbers[index].Mileage + "</td></tr>" +
-					(ringNumbers[index].Warning ? "<tr style='color: red'><td align='right'>距&nbsp;&nbsp;&nbsp;&nbsp;离</td><td align='left'>超过50米</td></tr>" : "") +
-					"<tr><td align='right'>拍摄日期</td><td align='left'>" + information[index].date + "</td></tr>"
+					"<tr><td>最近环号</td><td>" + ringNumbers[index].Number + "</td></tr>" +
+					"<tr><td>最近里程</td><td>" + ringNumbers[index].Mileage + "</td></tr>" +
+					(ringNumbers[index].Warning ? "<tr style='color: #FF9D9D'><td>距&nbsp;&nbsp;&nbsp;&nbsp;离</td><td>超过50米</td></tr>" : "") +
+					"<tr><td>拍摄日期</td><td>" + information[index].date.replace(/\//g, "-") + "</td></tr>"
 				);
 			else
 				hintpop.html("<tr><td>无环号信息</td></tr>");
