@@ -78,6 +78,7 @@
 	left: 0;
 	position: absolute;
 	right: 0;
+	z-index: 200;
 }
 
 .viewer div#indexer div#spanContainer {
@@ -89,7 +90,6 @@
 	text-align: center;
 	white-space: nowrap;
 	scrollbar-base-color: #2F2F2F; /* Scrollbar Style for IE */
-	z-index: 200;
 }
 /* Scrollbar Style for Webkit */
 .viewer div#indexer div#spanContainer::-webkit-scrollbar {
