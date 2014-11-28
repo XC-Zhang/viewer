@@ -15,7 +15,6 @@
 			setTimeout(showSection, 500, currentIndex);
 		}
 		el.showSection = function (index, data) {
-			currentIndex = index;
 			showSection(index, data);
 		}
 		el.showSite = function (index) {
@@ -87,23 +86,17 @@
 		var icon = L.divIcon();
 		var showLine = function () {
 			if (typeof lineInfo == "undefined") return;
-			polylines = new Array(lineInfo.length);
-			for (var i = 0; i < lineInfo.length - 1; i++) {
-				polylines[i] = L.polyline(
-					[ lineInfo[i], lineInfo[i + 1] ],
-					{ color: "red", opacity: 0.8 }
-				);
-				polylines[i].addTo(map);
-				polylines[i].on("click", polylineClick);
-			}
 			map.fitBounds(L.latLngBounds(lineInfo));
-		}
+		};
 		var showSection = function (index, data) {
 			if (typeof lineInfo == "undefined") return;
-			map.fitBounds(L.latLngBounds([
-				lineInfo[index], 
-				lineInfo[index + 1]
-			]));
+			if (index !== currentIndex) {
+				map.fitBounds(L.latLngBounds([
+					lineInfo[index], 
+					lineInfo[index + 1]
+				]));
+				currentIndex = index;
+			}
 			if (typeof data == "undefined") return;
 			var j = 0;
 			if (data.length > markers.length) {
@@ -141,16 +134,16 @@
 				for (var i = data.length; i < markers.length; i++)
 					markers[i].setOpacity(0.0);
 			}
-		}
+		};
 		var polylineClick = function (e) {
 			if (el.sectionSelected) 
 				el.sectionSelected(polylines.indexOf(e.target));
-		}
+		};
 		var iconClick = function (e) {
 			var index = markers.indexOf(e.target);
 			if (el.siteSelected)
 				el.siteSelected(index);
-		}
+		};
 
 	}
 
@@ -158,5 +151,5 @@
 	$.fn.zxcviewerMaps = function (params) {
 		viewerMaps(this, params);
 		return this;
-	}
+	};
 })(jQuery);

@@ -50,9 +50,6 @@
 }
 
 .viewer canvas {
-	border-left-color: white;
-	border-left-style: solid;
-	border-left-width: 2px;
 	cursor: e-resize;
 	position: absolute;
 	right: 0;
@@ -187,4 +184,5 @@
 .viewer div#map .divIcon.selected {
 	background: #4BC971;
 	box-shadow: 0px 0px 5px 5px #31A354;
+	z-index: 700 !important;
 }
