@@ -1,0 +1,13 @@
+body {
+	font-family: "Microsoft Yahei";
+	margin: 0;
+}
+header {
+	background: #157873;
+	color: white;
+	font-size: 200%;
+	font-weight: bold;
+	letter-spacing: 10px;
+	padding: 10px;
+	text-align: center;
+}
