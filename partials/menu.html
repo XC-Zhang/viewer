@@ -1,4 +1,4 @@
 <div>
-	<div ng-repeat-start="station in line">{{station.name}}</div>
-	<div ng-repeat-end ng-if="!$last">|</div>
+	<div ng-repeat-start="station in line" ng-class="{ 'selected': $index === current || $index === current + 1 }">{{station.name}}</div>
+	<div ng-repeat-end ng-class="{ 'selected': current === $index }" ng-if="!$last" ng-click="onclick($index)"  class="divider">|</div>
 </div>

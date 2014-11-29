@@ -11,3 +11,27 @@ header {
 	padding: 10px;
 	text-align: center;
 }
+menu {
+	background: #333333;
+	color: white;
+	letter-spacing: 2px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 100px;
+}
+menu div {
+	cursor: default;
+	padding: 5px 0;
+	transition-duration: 0.5s;
+	transition-property: background;
+}
+menu div.selected {
+	background: #666666;
+}
+menu div.divider {
+	cursor: pointer;
+}
+menu div.divider:hover {
+	background: #666666;
+}
