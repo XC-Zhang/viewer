@@ -36,3 +36,13 @@ menu div.selected {
 menu div.divider {
 	cursor: pointer;
 }
+indexer {
+	background: #157873;
+	border-right-color: #157873;
+	border-right-style: solid;
+	border-right-width: 1px;
+	color: white;
+	display: block;
+	text-align: center;
+	width: 100px;
+}

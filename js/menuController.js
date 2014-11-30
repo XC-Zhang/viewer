@@ -6,9 +6,9 @@ angular.module('Viewer')
 		templateUrl: 'partials/menu.html',
 		controller: function ($scope) {
 			$scope.line = $scope.$root.line;
-			$scope.current = $scope.$root.current.section;
+			$scope.current = $scope.$root.current;
 			$scope.onclick = function (index) {
-				$scope.current = index;
+				$scope.$root.current.section = index;
 			}
 		}
 	};
