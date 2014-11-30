@@ -1,6 +1,8 @@
 body {
 	font-family: "Microsoft Yahei";
+	height: 100%;
 	margin: 0;
+	width: 100%;
 }
 header {
 	background: #157873;
@@ -12,8 +14,10 @@ header {
 	text-align: center;
 }
 menu {
-	background: #333333;
-	color: white;
+	border-color: #157873;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-width: 1px;
 	letter-spacing: 2px;
 	margin: 0;
 	padding: 0;
@@ -21,17 +25,14 @@ menu {
 	width: 100px;
 }
 menu div {
+	color: #666666;
 	cursor: default;
 	padding: 5px 0;
-	transition-duration: 0.5s;
-	transition-property: background;
 }
 menu div.selected {
-	background: #666666;
+	background: #157873;
+	color: white;
 }
 menu div.divider {
 	cursor: pointer;
-}
-menu div.divider:hover {
-	background: #666666;
 }
