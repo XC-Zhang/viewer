@@ -4,16 +4,21 @@ body {
 	margin: 0;
 	width: 100%;
 }
+div#control {
+	position: absolute;
+	z-index: 1;
+}
 header {
 	background: #157873;
 	color: white;
-	font-size: 200%;
+	display: inline-block;
+	font-size: 24px;
 	font-weight: bold;
-	letter-spacing: 10px;
+	letter-spacing: 5px;
 	padding: 10px;
-	text-align: center;
 }
 menu {
+	background: white;
 	border-color: #157873;
 	border-right-style: solid;
 	border-width: 1px;
@@ -81,4 +86,24 @@ indexer span.expanded {
 }
 indexer span.expanded:hover {
 	background: #45A8A3;
+}
+map {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.divIcon {
+	background: #157873;
+	border-color: white;
+	border-style: solid;
+	border-width: thin;
+	border-radius: 50%;
+	color: white;
+	text-align: center;
+}
+.divIcon.selected {
+	border-color: black;
+	z-index: 1001 !important;
 }

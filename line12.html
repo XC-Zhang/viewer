@@ -11,10 +11,14 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript" src="js/menuController.js"></script>
 		<script type="text/javascript" src="js/indexerController.js"></script>
+		<script type="text/javascript" src="js/mapController.js"></script>
 	</head>
 	<body ng-app="Viewer">
-		<header>12号线地面街景游览平台</header>
-		<menu></menu>
-		<indexer ng-click="expand()"></indexer>
+		<div id="control">
+			<header>12号线地面街景游览平台</header>
+			<menu></menu>
+			<indexer ng-click="expand()"></indexer>
+		</div>
+		<map id="map"></map>
 	</body>
 </html>

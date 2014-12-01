@@ -1,13 +1,16 @@
 angular.module('Viewer', [])
 
 .run(function ($http, $rootScope) {
+	$rootScope.line = undefined;
 	$rootScope.current = {
 		line: 12,
-		section: 0,
+		section: -2,
 		site: 0,
 		information: undefined
 	};
 	$rootScope.$watch('current.section', function (newValue) {
+		if (newValue < 0)
+			return;
 		$rootScope.current.site = 0;
 		$http
 			.get('image/' + ($rootScope.current.line - 12) + '/' + newValue + '/data.json')

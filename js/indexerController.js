@@ -7,6 +7,8 @@ angular.module('Viewer')
 		controller: function ($scope) {
 			$scope.current = $scope.$root.current;
 			$scope.expand = function () {
+				if ($scope.current.section < 0)
+					return;
 				$scope.expanded = !$scope.expanded;
 			};
 			$scope.siteSelected = function (index) {
