@@ -16,7 +16,6 @@ header {
 menu {
 	border-color: #157873;
 	border-right-style: solid;
-	border-bottom-style: solid;
 	border-width: 1px;
 	letter-spacing: 2px;
 	margin: 0;
@@ -38,11 +37,48 @@ menu div.divider {
 }
 indexer {
 	background: #157873;
-	border-right-color: #157873;
-	border-right-style: solid;
-	border-right-width: 1px;
-	color: white;
-	display: block;
+	border-color: #157873;
+	border-style: solid;
+	border-left-style: none;
+	border-width: 1px;
+	cursor: pointer;
+	display: inline-block;
+	min-width: 100px;
+	overflow: hidden;
 	text-align: center;
-	width: 100px;
+}
+indexer span {
+	background: white;
+	display: inline-block;
+	opacity: 0;
+	padding: 10px 0px;
+	text-align: center;
+	transition-property: width, opacity;
+	transition-duration: 0.5s;
+	width: 0;
+}
+indexer span#total {
+	background: #157873;
+	color: white;
+	opacity: 1;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 40px;
+}
+indexer span#total.expanded {
+	background: white;
+	color: black;
+}
+indexer span.selected {
+	background: #157873;
+	color: white;
+	opacity: 1;
+	width: 25px;
+}
+indexer span.expanded {
+	opacity: 1;
+	width: 25px;
+}
+indexer span.expanded:hover {
+	background: #45A8A3;
 }

@@ -8,6 +8,7 @@ angular.module('Viewer', [])
 		information: undefined
 	};
 	$rootScope.$watch('current.section', function (newValue) {
+		$rootScope.current.site = 0;
 		$http
 			.get('image/' + ($rootScope.current.line - 12) + '/' + newValue + '/data.json')
 			.success(function (data) {

@@ -1,2 +1,2 @@
-<span ng-repeat="site in current.information" ng-show="$index === current.site">{{$index + 1}}</span>
-<span>of {{current.information.length}}</span>
+<span ng-repeat="site in current.information" ng-class="{ 'selected': $index === current.site, 'expanded': expanded}" ng-click="siteSelected($index)">{{$index + 1}}</span>
+<span id="total" ng-class="{'expanded': expanded}">of {{current.information.length}}</span>
