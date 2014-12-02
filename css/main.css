@@ -11,7 +11,7 @@ div#control {
 header {
 	background: #157873;
 	color: white;
-	display: inline-block;
+	cursor: default;
 	font-size: 24px;
 	font-weight: bold;
 	letter-spacing: 5px;
@@ -83,6 +83,19 @@ indexer span.selected {
 indexer span.expanded {
 	opacity: 1;
 	width: 25px;
+}
+toggle {
+	color: #157873;
+	display: block;
+}
+toggle div {
+	border-style: solid;
+	border-width: 1px;
+	background: white;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	width: 100px;
 }
 map {
 	border-color: #157873;
