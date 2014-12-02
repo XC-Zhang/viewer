@@ -72,13 +72,13 @@ angular.module('Viewer')
 				map.fitBounds(L.latLngBounds(newValue));
 			});
 
+			$scope.$root.$watch('current.section', function (newValue) {
+				$scope.$root.focus = 'map';
+			});
+
 			$scope.$root.$watch('current.information', function (newValue) {
 				if (!newValue)
 					return;
-				map.fitBounds(L.latLngBounds([
-					$scope.$root.line[$scope.$root.current.section], 
-					$scope.$root.line[$scope.$root.current.section + 1]
-				]));
 				if (markers.length !== 0) {
 					for (var i = 0; i < markers.length; i++)
 						map.removeLayer(markers[i]);
@@ -109,14 +109,27 @@ angular.module('Viewer')
 						});
 					});
 				}
+				setTimeout(function () {
+					map.fitBounds(L.latLngBounds([
+						$scope.$root.line[$scope.$root.current.section], 
+						$scope.$root.line[$scope.$root.current.section + 1]
+					]));
+				}, 500);
 			});
 
 			$scope.$root.$watch('current.site', function (newValue, oldValue) {
 				if (newValue >= 0 && markers[newValue]) {
 					markers[newValue].setZIndexOffset(1000);
+					$scope.$root.focus = 'canvas';
 				}
 				if (oldValue >= 0 && markers[oldValue])
 					markers[oldValue].setZIndexOffset(0);
+			});
+
+			$scope.$root.$watch('focus', function () {
+				setTimeout(function () {
+					map.invalidateSize(true);
+				}, 250);
 			});
 		}
 	};

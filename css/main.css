@@ -84,15 +84,23 @@ indexer span.expanded {
 	opacity: 1;
 	width: 25px;
 }
-indexer span.expanded:hover {
-	background: #45A8A3;
-}
 map {
-	height: 100%;
+	border-color: #157873;
+	border-style: solid;
+	border-width: thin;
+	bottom: 0;
+	height: auto;
 	left: 0;
 	position: absolute;
+	right: 0;
 	top: 0;
-	width: 100%;
+	width: auto;
+}
+map.small {
+	bottom: auto;
+	height: 400px;
+	left: auto;
+	width: 400px;
 }
 .divIcon {
 	background: #157873;

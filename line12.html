@@ -9,16 +9,18 @@
 		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://cdn.staticfile.org/leaflet/0.7.3/leaflet.js"></script>
 		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/headController.js"></script>
 		<script type="text/javascript" src="js/menuController.js"></script>
 		<script type="text/javascript" src="js/indexerController.js"></script>
 		<script type="text/javascript" src="js/mapController.js"></script>
 	</head>
 	<body ng-app="Viewer">
 		<div id="control">
-			<header>12号线地面街景游览平台</header>
+			<header></header>
 			<menu></menu>
 			<indexer ng-click="expand()"></indexer>
 		</div>
-		<map id="map"></map>
+		<map id="map" ng-class="{ 'small': focus !== 'map' }"></map>
+		<canvas id="p"></canvas>
 	</body>
 </html>
