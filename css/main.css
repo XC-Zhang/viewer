@@ -6,7 +6,7 @@ body {
 }
 div#control {
 	position: absolute;
-	z-index: 1;
+	z-index: 3;
 }
 header {
 	background: #157873;
@@ -95,6 +95,7 @@ map {
 	right: 0;
 	top: 0;
 	width: auto;
+	z-index: 2;
 }
 map.small {
 	bottom: auto;
@@ -114,4 +115,10 @@ map.small {
 .divIcon.selected {
 	border-color: black;
 	z-index: 1001 !important;
+}
+canvas {
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
 }

@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="js/menuController.js"></script>
 		<script type="text/javascript" src="js/indexerController.js"></script>
 		<script type="text/javascript" src="js/mapController.js"></script>
+		<script type="text/javascript" src="js/canvasController.js"></script>
 	</head>
 	<body ng-app="Viewer">
 		<div id="control">
@@ -21,6 +22,6 @@
 			<indexer ng-click="expand()"></indexer>
 		</div>
 		<map id="map" ng-class="{ 'small': focus !== 'map' }"></map>
-		<canvas id="p"></canvas>
+		<canvas id="pano"></canvas>
 	</body>
 </html>
