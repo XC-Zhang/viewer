@@ -3,7 +3,7 @@ angular.module('Viewer')
 .directive('header', [function () {
 	return {
 		restrict: 'E',
-		templateUrl: '/partials/head.html',
+		templateUrl: 'partials/head.html',
 		controller: function ($scope) {
 			$scope.switchable = false;
 			$scope.$root.$watch('current.site', function (newValue) {

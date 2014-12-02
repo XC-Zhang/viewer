@@ -3,7 +3,7 @@ angular.module('Viewer')
 .directive('indexer', [function () {
 	return {
 		restrict: 'E',
-		templateUrl: '/partials/indexer.html',
+		templateUrl: 'partials/indexer.html',
 		controller: function ($scope) {
 			$scope.expand = function () {
 				if ($scope.$root.current.section < 0)

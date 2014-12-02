@@ -28,10 +28,10 @@ angular.module("Viewer")
 			};
 
 			var reloadImage = function () {
-				if ($scope.$root.current.section < 0)
+				if ($scope.$root.current.section < 0 || $scope.$root.current.site < 0)
 					return;
 				var img1 = new Image();
-				img1.src = "http://line" + $scope.$root.current.line + "-images.qiniudn.com/image/" 
+				img1.src = "http://line12-images.qiniudn.com/image/" 
 					+ ($scope.$root.current.line - 0) + "/" 
 					+ $scope.$root.current.section + "/" 
 					+ (($scope.$root.current.site + 1) > 9 ? ($scope.$root.current.site + 1) : "0" + ($scope.$root.current.site + 1)) + "_" 
@@ -39,12 +39,12 @@ angular.module("Viewer")
 				img1.onload = function () {
 					var index = parseInt(this.src.substr(this.src.length - 8, 2)) - 1;
 					var section = parseInt(this.src.substr(this.src.length - 10, 1));
-					var line = parseInt(this.src.substr(11, 2));
+					var line = parseInt(this.src.substr(this.src.length - 13, 2));
 					if (index != $scope.$root.current.site || section != $scope.$root.current.section || line != $scope.$root.current.line) 
 						return;
 					setImage(this);
 					var img2 = new Image();
-					img2.src = "http://line" + $scope.$root.current.line + "-images.qiniudn.com/image/" 
+					img2.src = "http://line12-images.qiniudn.com/image/" 
 						+ ($scope.$root.current.line - 0) + "/" 
 						+ $scope.$root.current.section + "/" 
 						+ (($scope.$root.current.site + 1) > 9 ? ($scope.$root.current.site + 1) : "0" + ($scope.$root.current.site + 1)) + "_" 
@@ -52,7 +52,7 @@ angular.module("Viewer")
 					img2.onload = function () {
 						var index = parseInt(this.src.substr(this.src.length - 8, 2)) - 1;
 						var section = parseInt(this.src.substr(this.src.length - 10, 1));
-						var line = parseInt(this.src.substr(11, 2));
+						var line = parseInt(this.src.substr(this.src.length - 13, 2));
 						if (index != $scope.$root.current.site || section != $scope.$root.current.section || line != $scope.$root.current.line) 
 							return;
 						setImage(this);

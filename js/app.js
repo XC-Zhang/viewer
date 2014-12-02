@@ -1,28 +1,4 @@
-angular.module('Viewer', ['ui.router'])
-
-.config(['$locationProvider', '$urlRouterProvider', '$stateProvider', function ($locationProvider, $urlRouterProvider, $stateProvider) {
-	$urlRouterProvider.otherwise('/line/12');
-	$urlRouterProvider.when('/line', ['$state', function ($state) {
-		$state.go('line');
-	}]);
-	$stateProvider
-		.state('line', {
-			abstract: true,
-			url: '/line',
-			template: '<ui-view></ui-view>',
-			controller: function ($state) {
-				$state.go('line.detail', { lineId: 12 });
-			}
-		})
-		.state('line.detail', {
-			url: '/{lineId}',
-			templateUrl: '/partials/home.html',
-			controller: function ($scope, $stateParams) {
-				$scope.$root.current.line = $stateParams.lineId;
-			}
-		})
-	$locationProvider.html5Mode(true);
-}])
+angular.module('Viewer', [])
 
 .run(function ($http, $rootScope) {
 	$rootScope.line = undefined;
@@ -37,7 +13,7 @@ angular.module('Viewer', ['ui.router'])
 		if (newValue < 0)
 			return;
 		$http
-			.get('/image/' + ($rootScope.current.line - 12) + '/lineinfo.json')
+			.get('image/' + ($rootScope.current.line - 12) + '/lineinfo.json')
 			.success(function (data) {
 				$rootScope.line = data;
 			})
@@ -50,7 +26,7 @@ angular.module('Viewer', ['ui.router'])
 			return;
 		$rootScope.current.site = -1;
 		$http
-			.get('/image/' + ($rootScope.current.line - 12) + '/' + newValue + '/data.json')
+			.get('image/' + ($rootScope.current.line - 12) + '/' + newValue + '/data.json')
 			.success(function (data) {
 				$rootScope.current.information = data;
 			});

@@ -1,48 +1,31 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" >
 		<title>13号线地面街景游览平台</title>
-		<link rel="stylesheet" type="text/css" href="viewer.css">
-		<link rel="stylesheet" type="text/css" href="viewer-mobile.css">
 		<link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/leaflet/0.7.3/leaflet.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0-beta.13/angular.min.js"></script>
+		<script type="text/javascript" src="lib/angular-route.min.js"></script>
 		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://cdn.staticfile.org/leaflet/0.7.3/leaflet.js"></script>
-		<script type="text/javascript" src="viewer.js"></script>
-		<script type="text/javascript" src="viewerMenu.js"></script>
-		<script type="text/javascript" src="viewerMaps.js"></script>
-		<script type="text/javascript" src="viewerCanvas.js"></script>
-		<script type="text/javascript" src="viewerIndexer.js"></script>
-		<script type="text/javascript" src="mobileChecking.js"></script>
-		<style type="text/css">
-			body {
-				background: #DDDDDD;
-				font-family: "Microsoft Yahei";
-				margin: 0;
-			}
-			header {
-				background: #157873;
-				color: white;
-				font-family: "Microsoft Yahei";
-				font-size: 200%;
-				font-weight: bold;
-				letter-spacing: 10px;
-				padding: 10px;
-				text-align: center;
-			}
-		</style>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/headController.js"></script>
+		<script type="text/javascript" src="js/menuController.js"></script>
+		<script type="text/javascript" src="js/indexerController.js"></script>
+		<script type="text/javascript" src="js/mapController.js"></script>
+		<script type="text/javascript" src="js/canvasController.js"></script>
 	</head>
-	<body>
-		<header>13号线地面街景游览平台</header>
-		<div id="container"></div>
-		<script type="text/javascript">
-			$("#container").height($(window).height() - $("header").innerHeight());
-			$("#container").zxcviewer({
-				background: "#DDDDDD",
-				foreground: "#0F0F77",
-				line: 13,
-				linecolor: "#EC91CC"
-			});
-		</script>
+	<body ng-app="Viewer">
+		<div id="control">
+			<header></header>
+			<menu></menu>
+			<indexer ng-click="expand()"></indexer>
+		</div>
+		<map id="map" ng-class="{ 'small': focus !== 'map' }"></map>
+		<canvas id="pano"></canvas>
 	</body>
+	<script type="text/javascript">
+		angular.module('Viewer').run(function ($rootScope) { $rootScope.current.line = 13; });
+	</script>
 </html>
