@@ -120,6 +120,7 @@ angular.module('Viewer')
 			$scope.$root.$watch('current.site', function (newValue, oldValue) {
 				if (newValue >= 0 && markers[newValue]) {
 					markers[newValue].setZIndexOffset(1000);
+					map.panTo(markers[newValue].getLatLng());
 					$scope.$root.focus = 'canvas';
 				}
 				if (oldValue >= 0 && markers[oldValue])

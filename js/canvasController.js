@@ -28,6 +28,8 @@ angular.module("Viewer")
 			};
 
 			var reloadImage = function () {
+				if ($scope.$root.current.section < 0)
+					return;
 				var img1 = new Image();
 				img1.src = "http://line" + $scope.$root.current.line + "-images.qiniudn.com/image/" 
 					+ ($scope.$root.current.line - 0) + "/" 

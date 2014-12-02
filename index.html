@@ -1,74 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<title>12（13）号线地面街景游览平台</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<style type="text/css">
-			body {
-				background: #DDDDDD;
-				font-family: "Microsoft Yahei";
-				margin: 0;
-			}
-			header {
-				background: #157873;
-				color: white;
-				font-size: 200%;
-				font-weight: bold;
-				letter-spacing: 10px;
-				padding: 10px;
-				text-align: center;
-			}
-			ul {
-				font-size: 700%;
-				font-family: serif;
-				list-style-type: none;
-				padding: 0;
-				text-align: center;
-			}
-			li {
-				display: table-cell;
-				text-align: center;
-			}
-			a {
-				text-decoration: none;
-			}
-			div {
-				border-radius: 1%;
-				border-style: solid;
-				color: #DDDDDD;
-				display: table-cell;
-				height: 200px;
-				transition-duration: 0.5s;
-				transition-property: background, color;
-				width: 200px;	
-				vertical-align: middle;
-			}
-			div:hover {
-				color: #0F0F77;
-			}
-			div#line12 {
-				background: #007A61;
-				border-color: #007A61;
-			}
-			div#line13 {
-				background: #EC91CC;
-				border-color: #EC91CC;
-			}
-		</style>
+		<meta charset="utf-8" >
+		<title>地铁沿线地面街景游览平台</title>
+		<link rel="stylesheet" type="text/css" href="http://cdn.staticfile.org/leaflet/0.7.3/leaflet.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type="text/javascript" src="http://cdn.staticfile.org/angular.js/1.3.0-beta.13/angular.js"></script>
+		<script type="text/javascript" src="lib/angular-route.js"></script>
+		<script type="text/javascript" src="http://cdn.staticfile.org/angular-ui-router/0.2.11/angular-ui-router.min.js"></script>
+		<script type="text/javascript" src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://cdn.staticfile.org/leaflet/0.7.3/leaflet.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/headController.js"></script>
+		<script type="text/javascript" src="js/menuController.js"></script>
+		<script type="text/javascript" src="js/indexerController.js"></script>
+		<script type="text/javascript" src="js/mapController.js"></script>
+		<script type="text/javascript" src="js/canvasController.js"></script>
 	</head>
-	<body>
-		<header>12（13）号线地面街景游览平台</header>
-		<ul>
-			<li><a href="line12.html"><div id="line12">12</div></a></li>
-			<li><a href="line13.html"><div id="line13">13</div></a></li>
-		</ul>
-		<script type="text/javascript">
-			var li = document.getElementsByTagName("li");
-			var header = document.getElementsByTagName("header");
-			for (var i = 0; i < li.length; i++) {
-				li[i].style.padding = "0 0 0 " + ((header[0].clientWidth - li.length * li[i].clientWidth) / 3) + "px";
-			}
-		</script>
+	<body ng-app="Viewer" ui-view>
 	</body>
 </html>
