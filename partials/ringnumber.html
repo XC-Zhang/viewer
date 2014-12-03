@@ -1,0 +1,17 @@
+<table ng-show="current.information && !expanded">
+	<tr>
+		<td>最近环号</td>
+		<td>{{ringNumber}}</td>
+	</tr>
+	<tr>
+		<td>最近里程</td>
+		<td>{{mileage}}</td>
+	</tr>
+	<tr ng-show="warning">
+		<td column-span="2">距离超过50米</td>
+	</tr>
+	<tr>
+		<td>拍摄日期</td>
+		<td>{{date}}</td>
+	</tr>
+</table>

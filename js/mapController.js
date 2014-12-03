@@ -106,6 +106,7 @@ angular.module('Viewer')
 						var index = markers.indexOf(e.target);
 						$scope.$apply(function () {
 							$scope.$root.current.site = index;
+							$scope.$root.focus = 'canvas';
 						});
 					});
 				}

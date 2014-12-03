@@ -9,6 +9,7 @@ angular.module('Viewer', [])
 		information: undefined
 	};
 	$rootScope.focus = 'map';
+	$rootScope.expanded = false;
 	$rootScope.$watch('current.line', function (newValue) {
 		if (newValue < 0)
 			return;
