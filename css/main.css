@@ -61,34 +61,16 @@ indexer {
 indexer span {
 	background: white;
 	display: inline-block;
-	opacity: 0;
-	padding: 10px 0px;
-	text-align: center;
-	transition-property: width, opacity;
-	transition-duration: 0.5s;
-	width: 0;
-}
-indexer span#total {
-	background: #157873;
-	color: white;
 	opacity: 1;
-	padding-left: 5px;
-	padding-right: 5px;
-	width: 40px;
-}
-indexer span#total.expanded {
-	background: white;
-	color: black;
+	padding: 10px;
+	text-align: center;
+	transition-property: opacity;
+	transition-duration: 0.5s;
 }
 indexer span.selected {
 	background: #157873;
 	color: white;
 	opacity: 1;
-	width: 25px;
-}
-indexer span.expanded {
-	opacity: 1;
-	width: 25px;
 }
 ringnumber {
 	background: #157873;
