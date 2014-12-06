@@ -2,6 +2,7 @@ angular.module('Viewer', [])
 
 .run(function ($http, $rootScope) {
 	$rootScope.line = undefined;
+	$rootScope.ringNumbers = undefined;
 	$rootScope.current = {
 		line: -1,
 		section: -2,
@@ -21,6 +22,14 @@ angular.module('Viewer', [])
 			.error(function () {
 				console.log("error retrieving line information");
 			});
+		$http
+			.get('image/' + ($rootScope.current.line - 12) + '/ringnumbers.json')
+			.success(function (data) {
+				$rootScope.ringNumbers = data;
+			})
+			.error(function () {
+				console.log("error retrieving ringnumbers");
+			})
 	});
 	$rootScope.$watch('current.section', function (newValue) {
 		if (newValue < 0 || $rootScope.current.line < 0)

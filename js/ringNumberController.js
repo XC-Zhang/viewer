@@ -6,9 +6,9 @@ angular.module('Viewer')
 		templateUrl: 'partials/ringnumber.html',
 		controller: function ($scope) {
 			var refresh = function (obj) {
-				$scope.ringNumber = obj.Number;
-				$scope.mileage = obj.Mileage;
-				$scope.warning = obj.Warning;
+				$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number;
+				$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage;
+				$scope.warning = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Warning;
 				$scope.date = obj.date.replace(/\//g, '-');
 			};
 			$scope.warning = false;
