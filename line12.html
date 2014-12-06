@@ -13,6 +13,7 @@
 		<script type="text/javascript" src="js/headController.js"></script>
 		<script type="text/javascript" src="js/menuController.js"></script>
 		<script type="text/javascript" src="js/indexerController.js"></script>
+		<script type="text/javascript" src="js/ringNumberController.js"></script>
 		<script type="text/javascript" src="js/toggleController.js"></script>
 		<script type="text/javascript" src="js/mapController.js"></script>
 		<script type="text/javascript" src="js/canvasController.js"></script>
@@ -21,13 +22,16 @@
 		<div id="control">
 			<header></header>
 			<menu></menu>
-			<indexer ng-click="expand()"></indexer>
 			<toggle></toggle>
+		</div>
+		<div id="footer">
+			<ringnumber></ringnumber>
+			<indexer ng-click="expand()"></indexer>
 		</div>
 		<map id="map" ng-class="{ 'small': focus !== 'map' }"></map>
 		<canvas id="pano"></canvas>
+		<script type="text/javascript">
+			angular.module('Viewer').run(function ($rootScope) { $rootScope.current.line = 12; });
+		</script>
 	</body>
-	<script type="text/javascript">
-		angular.module('Viewer').run(function ($rootScope) { $rootScope.current.line = 12; });
-	</script>
 </html>

@@ -4,12 +4,7 @@ angular.module('Viewer')
 	return {
 		restrict: 'E',
 		templateUrl: 'partials/indexer.html',
-		controller: function ($scope) {
-			$scope.expand = function () {
-				if ($scope.$root.current.section < 0)
-					return;
-				$scope.expanded = !$scope.expanded;
-			};
+		controller: function ($scope, $timeout) {
 			$scope.siteSelected = function (index) {
 				if (index === $scope.$root.current.site)
 					return;

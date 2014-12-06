@@ -20,6 +20,7 @@ header {
 menu {
 	background: white;
 	border-color: #157873;
+	border-bottom-style: solid;
 	border-right-style: solid;
 	border-width: 1px;
 	letter-spacing: 2px;
@@ -40,6 +41,11 @@ menu div.selected {
 menu div.divider {
 	cursor: pointer;
 }
+div#footer {
+	bottom: 0;
+	position: absolute;
+	z-index: 4;
+}
 indexer {
 	background: #157873;
 	border-color: #157873;
@@ -47,7 +53,7 @@ indexer {
 	border-left-style: none;
 	border-width: 1px;
 	cursor: pointer;
-	display: inline-block;
+	display: block;
 	min-width: 100px;
 	overflow: hidden;
 	text-align: center;
@@ -55,41 +61,33 @@ indexer {
 indexer span {
 	background: white;
 	display: inline-block;
-	opacity: 0;
-	padding: 10px 0px;
-	text-align: center;
-	transition-property: width, opacity;
-	transition-duration: 0.5s;
-	width: 0;
-}
-indexer span#total {
-	background: #157873;
-	color: white;
 	opacity: 1;
-	padding-left: 5px;
-	padding-right: 5px;
-	width: 40px;
-}
-indexer span#total.expanded {
-	background: white;
-	color: black;
+	padding: 10px;
+	text-align: center;
+	transition-property: opacity;
+	transition-duration: 0.5s;
 }
 indexer span.selected {
 	background: #157873;
 	color: white;
 	opacity: 1;
-	width: 25px;
 }
-indexer span.expanded {
-	opacity: 1;
-	width: 25px;
+ringnumber {
+	background: #157873;
+	color: white;
+	display: inline-block;
+	font-size: 14px;
+}
+ringnumber td {
+	padding: 5px;
 }
 toggle {
 	color: #157873;
 	display: block;
 }
 toggle div {
-	border-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
 	border-width: 1px;
 	background: white;
 	cursor: pointer;
