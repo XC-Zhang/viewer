@@ -15,7 +15,7 @@ angular.module("Viewer")
                 })
         ])
         .then(function (data) {
-            L.control.addOverlay(L.geoJson(null, {
+        	var layerGroup = L.geoJson(null, {
                 style: function (feature) {
                     return {
                         color: feature.properties.Color,
@@ -37,7 +37,8 @@ angular.module("Viewer")
                     if (feature.geometry.type === "Point" && feature.properties.Name)
                         layer.bindPopup(feature.properties.Name);
                 }
-            }).addData(data[0]).addData(data[1]).addTo(map), "线路图");
+            }).addData(data[0]).addData(data[1]);
+            return layerGroup;
         });
 }])
 
