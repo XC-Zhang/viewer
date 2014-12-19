@@ -64,9 +64,11 @@ map {
 }
 map.small {
 	bottom: auto;
-	height: 400px;
+	height: 25%;
 	left: auto;
-	width: 400px;
+	max-height: 400px;
+	max-width: 400px;
+	width: 25%;
 }
 .divIcon {
 	background: #157873;
