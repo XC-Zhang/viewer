@@ -3,7 +3,7 @@ angular.module('Viewer')
 .directive('map', [function () {
 	return {
 		restrict: 'E',
-		controller: function ($scope) {
+		controller: function ($scope, metroLines) {
 			var markers = [];
 			var map = L.map(
 				'map',
@@ -60,11 +60,15 @@ angular.module('Viewer')
 					}
 				)
 			]);
-			L.control.layers({
+			var layerControl = L.control.layers({
 				"天地图": layerGroup1,
-				"天地图影像": layerGroup2
+				"天地图影像": layerGroup2,
 			}).addTo(map);
 			layerGroup1.addTo(map);
+
+			metroLines.then(function (layer) {
+				layerControl.addBaseLayer(layer, "线路图");
+			});
 
 			$scope.$root.$watch('line', function (newValue) {
 				if (!newValue) 
