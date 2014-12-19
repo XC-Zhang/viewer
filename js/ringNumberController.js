@@ -4,7 +4,7 @@ angular.module('Viewer')
 	return {
 		restrict: 'E',
 		templateUrl: 'partials/ringnumber.html',
-		controller: function ($scope) {
+		controller: function ($scope, $mdToast) {
 			var refresh = function (obj) {
 				$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number;
 				$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage;

@@ -10,7 +10,10 @@ angular.module('Viewer')
 					return;
 				$scope.$root.current.site = index;
 			};
-			$scope.rating = 3;
+			$scope.$root.$watch('current.information', function (newValue) {
+				if (!newValue)
+					return;
+			});
 		}
 	};
 }])

@@ -1,4 +1,4 @@
-<table ng-show="current.information && current.site >= 0">
+<table>
 	<tr>
 		<td>最近环号</td>
 		<td>{{ringNumber}}</td>
@@ -8,7 +8,7 @@
 		<td>{{mileage}}</td>
 	</tr>
 	<tr ng-show="warning">
-		<td column-span="2">距离超过50米</td>
+		<td column-span="2" style="color:red; text-align:right;">距离超过50米</td>
 	</tr>
 	<tr>
 		<td>拍摄日期</td>

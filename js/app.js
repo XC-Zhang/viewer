@@ -1,6 +1,6 @@
 angular.module('Viewer', ['ngMaterial'])
 
-.run(function ($http, $rootScope, $mdBottomSheet) {
+.run(function ($http, $rootScope, $mdBottomSheet, $mdToast) {
 	$rootScope.line = undefined;
 	$rootScope.ringNumbers = undefined;
 	$rootScope.current = {

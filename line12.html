@@ -30,13 +30,13 @@
 		<section layout="row" flex>
 			<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$media('gt-md')" layout="column">
 				<md-content menu class="menu"></md-content>
+				<div flex></div>
+				<ringnumber></ringnumber>
 			</md-sidenav>
 			<md-content layout="column" layout-fill>
-				<!-- <div id="footer"> -->
-					<!-- <ringnumber></ringnumber> -->
-				<!-- </div> -->
-				<!-- <map id="map" ng-class="{ 'small': focus !== 'map' }"></map> -->
-				<!-- <canvas id="pano"></canvas> -->
+				<map id="map" ng-class="{ 'small': focus !== 'map' }" flex></map>
+				<canvas id="pano"></canvas>
+				<div flex></div>
 				<indexer></indexer>
 			</md-content>
 		</section>
