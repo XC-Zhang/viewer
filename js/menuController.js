@@ -2,7 +2,7 @@ angular.module('Viewer')
 
 .directive('menu', [function () {
 	return {
-		restrict: 'E',
+		restrict: 'A',
 		templateUrl: 'partials/menu.html',
 		controller: function ($scope) {
 			$scope.onclick = function (index) {

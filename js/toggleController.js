@@ -2,7 +2,7 @@ angular.module('Viewer')
 
 .directive('toggle', [function () {
 	return {
-		restrict: 'E',
+		restrict: 'EA',
 		templateUrl: 'partials/toggle.html',
 		controller: function ($scope) {
 			$scope.switchable = false;

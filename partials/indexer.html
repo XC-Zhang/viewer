@@ -1,1 +1,3 @@
-<span ng-repeat="site in current.information" ng-class="{ 'selected': $index === current.site}" ng-click="siteSelected($index)">{{$index + 1}}</span>
+<md-slider md-discrete ng-model="current.site" step="1" min="-1" max="current.site.length" aria-label="current.site" flex></md-slider>
+<div>{{current.site}}</div>
+<!-- <span ng-repeat="site in current.information" ng-class="{ 'selected': $index === current.site}" ng-click="siteSelected($index)">{{$index + 1}}</span> -->
