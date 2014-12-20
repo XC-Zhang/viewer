@@ -104,10 +104,10 @@ angular.module("Viewer")
 			};
 
 			var touchStart = function (e) {
-				if (e.originalEvent.touches.length != 1) return;
+				if (e.touches.length != 1) return;
 				if (!image) return;
-				mouseDownPosition.x = e.originalEvent.touches[0].clientX;
-				mouseDownPosition.y = e.originalEvent.touches[0].clientY;
+				mouseDownPosition.x = e.touches[0].clientX;
+				mouseDownPosition.y = e.touches[0].clientY;
 				pano.addEventListener('touchmove', touchMove);
 				pano.addEventListener('touchend', touchEnd);
 			};
@@ -115,7 +115,7 @@ angular.module("Viewer")
 			var touchMove = function (e) {
 				if (!image) return;
 				var tempPosition = {
-					x: imageDrawPosition.x + e.originalEvent.touches[0].clientX - mouseDownPosition.x,
+					x: imageDrawPosition.x + e.touches[0].clientX - mouseDownPosition.x,
 					y: 0
 				};
 				drawImage(tempPosition);
@@ -124,7 +124,7 @@ angular.module("Viewer")
 			var touchEnd = function (e) {
 				pano.removeEventListener('touchmove', touchMove);
 				pano.removeEventListener('touchend', touchEnd);
-				imageDrawPosition.x = imageDrawPosition.x + e.originalEvent.changedTouches[0].clientX - mouseDownPosition.x;
+				imageDrawPosition.x = imageDrawPosition.x + e.changedTouches[0].clientX - mouseDownPosition.x;
 				drawImage(imageDrawPosition);
 			};
 
