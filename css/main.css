@@ -52,6 +52,9 @@ toggle div {
 	cursor: pointer;
 	text-align: center;
 }
+toggle .md-button {
+	width: 100%;
+}
 map {
 	bottom: 0;
 	height: auto;

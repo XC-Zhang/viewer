@@ -104,7 +104,6 @@ angular.module("Viewer")
 			};
 
 			var touchStart = function (e) {
-				if (e.touches.length != 1) return;
 				if (!image) return;
 				mouseDownPosition.x = e.touches[0].clientX;
 				mouseDownPosition.y = e.touches[0].clientY;
