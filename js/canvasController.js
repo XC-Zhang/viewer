@@ -7,6 +7,7 @@ angular.module("Viewer")
 			var pano = document.getElementById('pano');
 			pano.width = pano.clientWidth;
 			pano.height = pano.clientHeight;
+			var hammer = new Hammer(pano);
 			var canvas = pano.getContext('2d');
 			var image = null;
 			var mouseDownPosition = { x: 0, y: 0 };
@@ -77,58 +78,18 @@ angular.module("Viewer")
 				}
 			};
 
-			var mouseDown = function (e) {
-				if (!image) return;
-				mouseDownPosition.x = e.clientX;
-				mouseDownPosition.y = e.clientY;
-				pano.addEventListener('mousemove', mouseMove);
-				pano.addEventListener('mouseup', mouseUpAndMouseLeave);
-				pano.addEventListener('mouseleave', mouseUpAndMouseLeave);
-			};
-
-			var mouseMove = function (e) {
+			hammer.on('panmove', function (e) {
 				if (!image) return;
 				var tempPosition = {
-					x: imageDrawPosition.x + e.clientX - mouseDownPosition.x,
+					x: imageDrawPosition.x + e.deltaX,
 					y: 0
 				};
-				drawImage(tempPosition);
-			};
+				drawImage(tempPosition);	
+			});
 
-			var mouseUpAndMouseLeave = function (e) {
-				pano.removeEventListener('mousemove', mouseMove);
-				pano.removeEventListener('mouseup', mouseUpAndMouseLeave);
-				pano.removeEventListener('mouseleave', mouseUpAndMouseLeave);
-				imageDrawPosition.x = imageDrawPosition.x + e.clientX - mouseDownPosition.x;
-				drawImage(imageDrawPosition);
-			};
-
-			var touchStart = function (e) {
-				if (!image) return;
-				mouseDownPosition.x = e.touches[0].clientX;
-				mouseDownPosition.y = e.touches[0].clientY;
-				pano.addEventListener('touchmove', touchMove);
-				pano.addEventListener('touchend', touchEnd);
-			};
-
-			var touchMove = function (e) {
-				if (!image) return;
-				var tempPosition = {
-					x: imageDrawPosition.x + e.touches[0].clientX - mouseDownPosition.x,
-					y: 0
-				};
-				drawImage(tempPosition);
-			};
-
-			var touchEnd = function (e) {
-				pano.removeEventListener('touchmove', touchMove);
-				pano.removeEventListener('touchend', touchEnd);
-				imageDrawPosition.x = imageDrawPosition.x + e.changedTouches[0].clientX - mouseDownPosition.x;
-				drawImage(imageDrawPosition);
-			};
-
-			pano.addEventListener('mousedown', mouseDown);
-			pano.addEventListener('touchstart', touchStart);
+			hammer.on('panend', function (e) {
+				imageDrawPosition.x = imageDrawPosition.x + e.deltaX;
+			});
 
 			$scope.$root.$watch('current.line', function (newValue) {
 				if (newValue < 0)
