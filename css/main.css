@@ -10,6 +10,9 @@ md-sidenav {
 	border-right-color: #03a9f4;
 	width: 180px;
 }
+md-toolbar .md-button {
+	padding-bottom: 0;
+}
 .menu {
 	cursor: default;
 	overflow: auto;
