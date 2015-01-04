@@ -6,9 +6,16 @@ angular.module('Viewer')
 		templateUrl: 'partials/ringnumber.html',
 		controller: function ($scope, $mdToast) {
 			var refresh = function (obj) {
-				$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number;
-				$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage;
-				$scope.warning = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Warning;
+				if ($scope.$root.ringNumbers) {
+					$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number | "无";
+					$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage | "无";
+					$scope.warning = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Warning | false;
+				}
+				else {
+					$scope.ringNumber = "无";
+					$scope.mileage = "无";
+					$scope.warning = false;					
+				}
 				$scope.date = obj.date.replace(/\//g, '-');
 			};
 			$scope.warning = false;
