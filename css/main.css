@@ -8,6 +8,7 @@ md-sidenav {
 	border-right-style: solid;
 	border-right-width: 1px;
 	border-right-color: #03a9f4;
+	position: static;
 	width: 180px;
 }
 md-toolbar .md-button {
