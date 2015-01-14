@@ -1,6 +1,6 @@
 angular.module('Viewer', ['ngMaterial'])
 
-.run(function ($http, $rootScope, $mdBottomSheet, $mdToast) {
+.run(function ($http, $rootScope, $mdBottomSheet, $mdToast, $mdDialog) {
 	$rootScope.line = undefined;
 	$rootScope.ringNumbers = undefined;
 	$rootScope.current = {
@@ -41,6 +41,13 @@ angular.module('Viewer', ['ngMaterial'])
 				$rootScope.current.information = data;
 			});
 	});
+	$mdDialog.show(
+		$mdDialog.alert()
+			.title('提示')
+			.content('在手机上按左上角的菜单键可切换区间')
+			.ariaLabel('在手机上按左上角的菜单键可切换区间')
+			.ok('好')
+	);
 })
 
 ;
