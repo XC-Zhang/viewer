@@ -96,3 +96,38 @@ canvas {
 	width: 100%;
 	z-index: 1;
 }
+@keyframes colorloop {
+	from {
+		color: white;
+	}
+	to {
+		color: red;
+	}
+}
+@-moz-keyframes colorloop {
+	from {
+		color: white;
+	}
+	to {
+		color: red;
+	}
+}
+@-webkit-keyframes colorloop {
+	from {
+		color: white;
+	}
+	to {
+		color: #03a9f4;
+	}
+}
+svg {
+	animation-name: colorloop;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	-moz-animation-name: colorloop;
+	-moz-animation-duration: 1s;
+	-moz-animation-iteration-count: infinite;
+	-webkit-animation-name: colorloop;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: infinite;
+}
