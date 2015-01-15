@@ -7,9 +7,9 @@ angular.module('Viewer')
 		controller: function ($scope, $mdToast) {
 			var refresh = function (obj) {
 				if ($scope.$root.ringNumbers) {
-					$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number | "无";
-					$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage | "无";
-					$scope.warning = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Warning | false;
+					$scope.ringNumber = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Number || "无";
+					$scope.mileage = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Mileage || "无";
+					$scope.warning = $scope.$root.ringNumbers[$scope.$root.current.section][$scope.$root.current.site].Warning || false;
 				}
 				else {
 					$scope.ringNumber = "无";
