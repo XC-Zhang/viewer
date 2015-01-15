@@ -41,7 +41,7 @@ angular.module('Viewer', ['ngMaterial'])
 				$rootScope.current.information = data;
 			});
 	});
-	if ($window.width < 960)
+	if ($window.innerWidth < 960)
 		$mdDialog.show(
 			$mdDialog.alert()
 				.title('提示')
