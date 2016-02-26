@@ -63,7 +63,7 @@ angular.module('Viewer')
 			var layerControl = L.control.layers({
 				"天地图": layerGroup1,
 				"天地图影像": layerGroup2,
-			}).addTo(map);
+			});
 			layerGroup1.addTo(map);
 
 			metroLines.then(function (layer) {
@@ -132,7 +132,12 @@ angular.module('Viewer')
 					markers[oldValue].setZIndexOffset(0);
 			});
 
-			$scope.$root.$watch('focus', function () {
+			$scope.$root.$watch('focus', function (newValue) {
+                if (newValue === 'canvas') {
+                    map.addControl(layerControl);
+                } else {
+                    map.removeControl(layerControl);
+                }
 				setTimeout(function () {
 					map.invalidateSize(true);
 				}, 250);
