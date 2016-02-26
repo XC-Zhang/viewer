@@ -134,9 +134,9 @@ angular.module('Viewer')
 
 			$scope.$root.$watch('focus', function (newValue) {
                 if (newValue === 'canvas') {
-                    map.addControl(layerControl);
-                } else {
                     map.removeControl(layerControl);
+                } else {
+                    map.addControl(layerControl);
                 }
 				setTimeout(function () {
 					map.invalidateSize(true);
