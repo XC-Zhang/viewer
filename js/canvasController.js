@@ -32,7 +32,7 @@ angular.module("Viewer")
 				if ($scope.$root.current.section < 0 || $scope.$root.current.site < 0)
 					return;
 				var img1 = new Image();
-				img1.src = "http://7i7im8.com1.z0.glb.clouddn.com/image/" 
+				img1.src = "http://pano.ce-safe.com/image/" 
 					+ ($scope.$root.current.line - 0) + "/" 
 					+ $scope.$root.current.section + "/" 
 					+ (($scope.$root.current.site + 1) > 9 ? ($scope.$root.current.site + 1) : "0" + ($scope.$root.current.site + 1)) + "_" 
@@ -45,7 +45,7 @@ angular.module("Viewer")
 						return;
 					setImage(this);
 					var img2 = new Image();
-					img2.src = "http://7i7im8.com1.z0.glb.clouddn.com/image/" 
+					img2.src = "http://pano.ce-safe.com/image/" 
 						+ ($scope.$root.current.line - 0) + "/" 
 						+ $scope.$root.current.section + "/" 
 						+ (($scope.$root.current.site + 1) > 9 ? ($scope.$root.current.site + 1) : "0" + ($scope.$root.current.site + 1)) + "_" 
