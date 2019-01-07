@@ -2,3 +2,4 @@
 *.db
 web.config
 node_modules
+public/dist
